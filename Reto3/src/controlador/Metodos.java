@@ -2,7 +2,6 @@ package controlador;
 
 public class Metodos {
 
-	
 	public void bienvSleep() {
 		
 		try {

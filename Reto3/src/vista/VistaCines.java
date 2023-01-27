@@ -14,6 +14,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VistaCines extends JFrame {
 
@@ -67,9 +70,6 @@ public class VistaCines extends JFrame {
 				panelCines.setVisible(true);
 			}
 		});
-		labelBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		labelBienvenido.setBounds(159, 163, 248, 61);
-		contentPane.add(labelBienvenido);
 		
 		panelCines = new JPanel();
 		panelCines.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -77,5 +77,20 @@ public class VistaCines extends JFrame {
 		panelCines.setBounds(0, 0, 571, 404);
 		contentPane.add(panelCines);
 		panelCines.setLayout(null);
+		
+		JButton btnFinalizar = new JButton("Finalizar");
+		btnFinalizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnFinalizar.setBounds(243, 352, 89, 23);
+		panelCines.add(btnFinalizar);
+		labelBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		labelBienvenido.setBounds(159, 163, 248, 61);
+		contentPane.add(labelBienvenido);
+		panelCines.setVisible(false);
+		
+		
 	}
 }
