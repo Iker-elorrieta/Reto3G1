@@ -3,12 +3,12 @@ package modelo;
 import java.util.Objects;
 
 public class Cliente {
-	String dni;
-	String nombre;
-	String apellido_1;
-	String apellido_2;
-	char  sexo;
-	String contraseña;
+	private String dni;
+	private String nombre;
+	private String apellido_1;
+	private String apellido_2;
+	private char  sexo;
+	private String contraseña;
 	
 	public String getDni() {
 		return dni;

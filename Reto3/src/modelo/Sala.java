@@ -1,11 +1,11 @@
 package modelo;
 
 public class Sala {
-	String nomSala;
-	String cdSala; 
-	Pelicula pelicula;
-	String fecha; 
-	String hora; 
+	private String nomSala;
+	private String cdSala; 
+	private Pelicula[] peliculas;
+	private String fecha; 
+	private String hora; 
 	
 	public String getNomSala() {
 		return nomSala;
@@ -19,11 +19,11 @@ public class Sala {
 	public void setCdSala(String cdSala) {
 		this.cdSala = cdSala;
 	}
-	public Pelicula getPelicula() {
-		return pelicula;
+	public Pelicula[] getPelicula() {
+		return peliculas;
 	}
-	public void setPelicula(Pelicula pelicula) {
-		this.pelicula = pelicula;
+	public void setPeliculas(Pelicula[] pelicula) {
+		this.peliculas = pelicula;
 	}
 	public String getFecha() {
 		return fecha;
