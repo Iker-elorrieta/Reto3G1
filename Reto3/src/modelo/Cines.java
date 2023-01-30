@@ -1,7 +1,34 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Cines {
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(cod_cine);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cines other = (Cines) obj;
+		return Objects.equals(cod_cine, other.cod_cine);
+	}
+	@Override
+	public String toString() {
+		
+		String id_salas = "";
+		for (int i=0;i < salas.length;i++) {
+			id_salas+=salas[i].getCdSala()+", ";
+		}
+		
+		return  cod_cine + "#" + nombre_cine + "#" + id_salas+"@";
+	}
 	public String getCod_cine() {
 		return cod_cine;
 	}
