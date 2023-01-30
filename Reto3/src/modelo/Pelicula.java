@@ -48,12 +48,6 @@ public class Pelicula {
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(cdPel, duración, género, nombre, precio);
-	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -65,6 +59,11 @@ public class Pelicula {
 			return false;
 		Pelicula other = (Pelicula) obj;
 		return Objects.equals(cdPel, other.cdPel);
+	}
+
+	@Override
+	public String toString() {
+		return  cdPel+ "#" +nombre+ "#" +duración+ "#" +género+ "#" +precio+ "@";
 	}
 	
 

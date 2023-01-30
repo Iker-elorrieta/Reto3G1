@@ -47,10 +47,7 @@ public class Cliente {
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(apellido_1, apellido_2, contraseña, dni, nombre, sexo);
-	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -62,5 +59,11 @@ public class Cliente {
 		Cliente other = (Cliente) obj;
 		return Objects.equals(dni, other.dni);
 	}
+	
+	@Override
+	public String toString() {
+		return dni + "•" + nombre + "•" + apellido_1 + "•"+ apellido_2 + "•" + sexo + "•" + contraseña + "∇";
+	}
+	
 
 }

@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Sala {
 	String nomSala;
 	String cdSala; 
@@ -36,6 +38,19 @@ public class Sala {
 	}
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sala other = (Sala) obj;
+		return Objects.equals(cdSala, other.cdSala) && Objects.equals(fecha, other.fecha)
+				&& Objects.equals(hora, other.hora) && Objects.equals(nomSala, other.nomSala);
 	}
 
 }
