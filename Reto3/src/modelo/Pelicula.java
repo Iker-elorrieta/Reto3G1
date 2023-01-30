@@ -65,6 +65,7 @@ public class Pelicula {
 	public String toString() {
 		return  cdPel+ "#" +nombre+ "#" +duración+ "#" +género+ "#" +precio+ "@";
 	}
+
 	
 
 }

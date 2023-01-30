@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class Entrada {
 	String cdEntrada;
@@ -19,6 +20,8 @@ public class Entrada {
 	public Date getFecha() {
 		return fecha;
 	}
+	
+	
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
@@ -46,5 +49,20 @@ public class Entrada {
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Entrada other = (Entrada) obj;
+		return Objects.equals(cdEntrada, other.cdEntrada);
+	}
+	@Override
+	public String toString() {
+		return cdEntrada + "#" + fecha + "#" + película + "#" + horarios + "#" + sala + "#" + precio + "@";
+	}
+	
 }
