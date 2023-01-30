@@ -3,11 +3,11 @@ package modelo;
 import java.util.Objects;
 
 public class Pelicula {
-	float precio;
-	String cdPel;
-	String nombre;
-	float duración;
-	String género; 
+	private float precio;
+	private String cdPel;
+	private String nombre;
+	private float duración;
+	private String género; 
 	
 	public String getCdPel() {
 		return cdPel;

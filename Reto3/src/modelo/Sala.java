@@ -27,8 +27,10 @@ public class Sala {
 	public Pelicula[] getPelicula() {
 		return peliculas;
 	}
+
 	public void setPelicula(Pelicula[] peliculas) {
 		this.peliculas = peliculas;
+
 	}
 	public Date[] getFecha() {
 		return fechas;

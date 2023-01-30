@@ -8,7 +8,7 @@ public class Cliente {
 	String apellido_1;
 	String apellido_2;
 	char  sexo;
-	String contraseña;
+	String contrasena;
 	
 	public String getDni() {
 		return dni;
@@ -41,11 +41,11 @@ public class Cliente {
 	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 	
 	@Override
@@ -62,7 +62,7 @@ public class Cliente {
 	
 	@Override
 	public String toString() {
-		return dni + "•" + nombre + "•" + apellido_1 + "•"+ apellido_2 + "•" + sexo + "•" + contraseña + "∇";
+		return dni + "•" + nombre + "•" + apellido_1 + "•"+ apellido_2 + "•" + sexo + "•" + contrasena + "∇";
 	}
 	
 
