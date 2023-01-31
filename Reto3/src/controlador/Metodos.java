@@ -6,13 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import modelo.Cine;
+import modelo.Cines;
 
 public class Metodos {
 	
-	final String sConexion="jdbc:mysql://localhost:3306/cines";
-	final String user = "root";
-	final String contra="";
+	final String sConexion="jdbc:mysql://10.5.14.202:3306/cines";
+	final String user = "cliente";
+	final String contra="Contraseña33#";
+	
+	
 	
 	public void bienvSleep() {
 		
@@ -24,24 +26,26 @@ public class Metodos {
 		
 	}
 
-	public Cine[] cuantosCines() {
+	public Cines[] cuantosCines() {
 		// TODO Auto-generated method stub
-		Cine[] cines= new Cine[0];
+		Cines[] cines= new Cines[0];
 		
 		
 		try {
-			
+			//DriverManager.registerDriver(new com.mysql.jdbc.Driver()); 
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
 			ResultSet registro = comando.executeQuery("SELECT * FROM cines;");
 			
 			while (registro.next() == true) {
-				Cine cine = new Cine();
+				Cines cine = new Cines();
+				cine.setCod_cine(registro.getString("cod_cine"));
+				System.out.println(registro.getString("cod_cine"));
 				
+				cine.setNombre_cine(registro.getString("nombre_cine"));
+				System.out.println(registro.getString("nombre_cine"));
 				
-				
-				
-				Cine[] arrayNuevo = new Cine[cines.length+1];
+				Cines[] arrayNuevo = new Cines[cines.length+1];
 				for(int i =0;i<cines.length;i++)
 				{
 					arrayNuevo[i]=cines[i];
@@ -49,7 +53,8 @@ public class Metodos {
 				arrayNuevo[cines.length] = cine;
 				cines = arrayNuevo;
 			}
-		} catch (SQLException e) {
+			conexion.close();
+			} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

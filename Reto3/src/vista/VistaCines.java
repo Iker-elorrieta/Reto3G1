@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controlador.Metodos;
-import modelo.Cine;
+import modelo.Cines;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -18,6 +18,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class VistaCines extends JFrame {
 
@@ -28,8 +29,8 @@ public class VistaCines extends JFrame {
 	private JPanel contentPane;
 	JPanel panelCines;
 	Metodos metodos = new Metodos();
-	private Cine[] cines=null;
-	VistaSalas salas;
+	private Cines[] cines =null;
+	VistaPeliculas salas;
 	int i=0;
 	/**
 	 * Launch the application.
@@ -66,15 +67,23 @@ public class VistaCines extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel labelBienvenido = new JLabel("Bienvenido");
+		labelBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
 		labelBienvenido.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cines = metodos.cuantosCines();
-				metodos.bienvSleep();
 				botonesCine(cines.length);
+				panelCines.updateUI();
+				metodos.bienvSleep();
 				panelCines.setVisible(true);
+				labelBienvenido.setVisible(false);
+				
+				
 			}
 		});
+		labelBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		labelBienvenido.setBounds(0, 0, 584, 461);
+		contentPane.add(labelBienvenido);
 		
 		panelCines = new JPanel();
 		panelCines.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -91,9 +100,6 @@ public class VistaCines extends JFrame {
 		});
 		btnFinalizar.setBounds(225, 404, 126, 46);
 		panelCines.add(btnFinalizar);
-		labelBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		labelBienvenido.setBounds(159, 163, 248, 61);
-		contentPane.add(labelBienvenido);
 		panelCines.setVisible(false);
 		
 		
@@ -111,26 +117,21 @@ public class VistaCines extends JFrame {
 					aSalas(cines[Integer.valueOf(btncine.getToolTipText())]);
 				}
 			});
-
 			if (i%2==0) {
 				btncine.setBounds(50, y1, 200, 70);
 			}
 			else {
 				btncine.setBounds(350, y1, 200, 70);
 				y1+=100;
-				
 			}
 			panelCines.add(btncine);
-			btncine.setEnabled(false);
+			btncine.setEnabled(true);
 		}
-		
-		
-		
 	}
 	
 	
-	public void aSalas(Cine cine) {
-		salas = new VistaSalas(cine);
+	public void aSalas(Cines cine) {
+		salas = new VistaPeliculas(cine);
 		salas.setVisible(true);
 	}
 	
