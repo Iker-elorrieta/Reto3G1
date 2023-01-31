@@ -6,8 +6,8 @@ public class Pelicula {
 	private float precio;
 	private String cdPel;
 	private String nombre;
-	private float duración;
-	private String género; 
+	private float duracion;
+	private String genero; 
 	
 	public String getCdPel() {
 		return cdPel;
@@ -25,20 +25,20 @@ public class Pelicula {
 		this.nombre = nombre;
 	}
 
-	public float getDuración() {
-		return duración;
+	public float getDuracion() {
+		return duracion;
 	}
 
-	public void setDuración(float duración) {
-		this.duración = duración;
+	public void setDuracion(float duración) {
+		this.duracion = duración;
 	}
 
-	public String getGénero() {
-		return género;
+	public String getGenero() {
+		return genero;
 	}
 
-	public void setGénero(String género) {
-		this.género = género;
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 
 	public float getPrecio() {
@@ -63,7 +63,7 @@ public class Pelicula {
 
 	@Override
 	public String toString() {
-		return  cdPel+ "#" +nombre+ "#" +duración+ "#" +género+ "#" +precio+ "@";
+		return  cdPel+ "#" +nombre+ "#" +duracion+ "#" +genero+ "#" +precio+ "@";
 	}
 
 	
