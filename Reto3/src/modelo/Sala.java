@@ -1,14 +1,13 @@
 package modelo;
 
-import java.sql.Date;
 import java.util.Arrays;
 import java.util.Objects;
 
 public class Sala {
 	String nomSala;
 	String cdSala; 
-	Pelicula[] peliculas;
-	Date[] fechas; 
+	Sesion[] sesiones;
+	
 
 	
 	public String getNomSala() {
@@ -24,23 +23,11 @@ public class Sala {
 	public void setCdSala(String cdSala) {
 		this.cdSala = cdSala;
 	}
-	public Pelicula[] getPelicula() {
-		return peliculas;
-	}
 
-	public void setPelicula(Pelicula[] peliculas) {
-		this.peliculas = peliculas;
-
-	}
-	public Date[] getFecha() {
-		return fechas;
-	}
-	public void setFecha(Date[] fechas) {
-		this.fechas = fechas;
-	}
+	
 	@Override
 	public String toString() {
-		return  cdSala+ "#" + nomSala + "#" + Arrays.toString(peliculas)+ "#" + Arrays.toString(fechas) + "@";
+		return  cdSala+ "#" + nomSala + "#" + Arrays.toString(sesiones)+ "@";
 	}
 	
 	@Override
