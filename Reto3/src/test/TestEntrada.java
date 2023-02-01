@@ -12,18 +12,19 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import modelo.Cliente;
+import modelo.Entrada;
 import modelo.Hora;
 import modelo.Pelicula;
 import modelo.Sala;
 import modelo.Sesion;
 
 
-class TestSala {
+class TestEntrada {
 	
 	 static Sesion sesion = new Sesion();
 	 static Sesion[] sesiones = {sesion};
-		Sala sala1 =new Sala();
-			Sala sala2= new Sala(); 
+		Entrada entrada1 = new Entrada();
+		Entrada entrada2 = new Entrada();
 		static String resul = "CE-S01#Sala 1#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#12:25@]@";
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception {
@@ -54,11 +55,11 @@ class TestSala {
 	@Test
 	void testToString() {
 		
-		sala1.setCdSala("CE-S01");
-		sala1.setNomSala("Sala 1");
-		sala1.setSesiones(sesiones);
+		entrada1.setCdEntrada("CETCK001");
+		entrada1.setSesiones(sesiones);
+		entrada1.setPrecio(23);
 	
-		assertEquals(resul,sala1.toString());
+		assertEquals(resul,entrada1.toString());
 		
 	
 		
@@ -68,9 +69,9 @@ class TestSala {
 		
 	
 	
-		sala2.setCdSala(sala1.getCdSala());
-		sala2.setNomSala(sala1.getNomSala());
-		sala2.setSesiones(sala1.getSesiones());
+		entrada2.setCdEntrada(entrada1.getCdEntrada());
+		entrada2.setSesiones(entrada1.getSesiones());
+		entrada2.setPrecio(entrada1.getPrecio());
 		
 		
 		
@@ -79,20 +80,19 @@ class TestSala {
 	@Test
 	void testEquals() {
 		
-		sala2.equals(sala1);
-		sala1.equals(resul);
-	sala2.setCdSala("CE-S02");
-	sala1.equals(sala2);
+		entrada2.equals(entrada1);
+		entrada1.equals(resul);
+		entrada2.setCdEntrada("CETCK002");
+		entrada1.equals(entrada2);
 	
-	sala1.equals(resul);
+		entrada1.equals(resul);
 	resul=null;
-	sala1.equals(resul);
-	sala2=sala1;
-	sala1.equals(sala2);
+	entrada1.equals(resul);
+	entrada2=entrada1;
+	entrada1.equals(entrada2);
 	
 	
 	}
 		
 		
 	}
-	

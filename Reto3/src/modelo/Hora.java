@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.Objects;
-
 public class Hora {
 	private int horas;
 	private int mins;
@@ -17,10 +15,7 @@ public class Hora {
 	public void setMins(int mins) {
 		this.mins = mins;
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(horas, mins);
-	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
