@@ -42,7 +42,7 @@ public class VistaPeliculas extends JFrame {
 		
 		for (int i=0;i < cuantasSalas;i++) {
 			
-			JButton btnsala = new JButton("");
+			JButton btnsala = new JButton(cine.getSalas()[i].getNomSala());
 			btnsala.setToolTipText(String.valueOf(i));
 			btnsala.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
