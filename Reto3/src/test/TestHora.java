@@ -37,11 +37,15 @@ String resul="12:30";
 		
 		hora2.equals(hora1);
 		hora1.equals(resul);
-		
-		resul=null;
-		hora1.equals(resul);
-		hora2=hora1;
+		hora2.setHoras(12);
+		hora2.setMins(24);
 		hora1.equals(hora2);
+	
+		hora1.equals(resul);
+	resul=null;
+	hora1.equals(resul);
+	hora2=hora1;
+	hora1.equals(hora2);
 		
 	
 	

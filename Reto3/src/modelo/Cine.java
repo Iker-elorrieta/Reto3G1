@@ -9,10 +9,7 @@ public class Cine {
 	private Sala[] salas;
 	
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(cdCine);
-	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

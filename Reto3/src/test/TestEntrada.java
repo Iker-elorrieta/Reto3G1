@@ -23,7 +23,7 @@ class TestEntrada {
 	 static Sesion[] sesiones = {sesion};
 		Entrada entrada1 = new Entrada();
 		Entrada entrada2 = new Entrada();
-		 String resul = "CE-S01#Sala 1#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#12:25@]@";
+		 String resul = "CETCK001#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#12:25@]#23.0@";
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception {
 			

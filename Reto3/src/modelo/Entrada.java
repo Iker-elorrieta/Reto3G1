@@ -1,9 +1,15 @@
 package modelo;
 
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Entrada {
+	@Override
+	public String toString() {
+		return cdEntrada + "#" + Arrays.toString(sesiones) + "#" + precio
+				+ "@";
+	}
 	String cdEntrada;
 	Sesion[] sesiones;
 	float precio;

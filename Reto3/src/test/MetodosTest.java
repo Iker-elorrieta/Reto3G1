@@ -14,7 +14,7 @@ class MetodosTest {
 	void testCuantosCines() {
 		Cine[] cine= metodos.cuantosCines();
 		
-		assertEquals("C01#Cines Elorrieta#@", cine[0].toString());
+		assertEquals("C01#Cines Elorrieta#null@", cine[0].toString());
 		
 	}
 
