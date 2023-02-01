@@ -23,6 +23,13 @@ public class Sala {
 	public void setCdSala(String cdSala) {
 		this.cdSala = cdSala;
 	}
+	
+	public Sesion[] getSesiones() {
+		return sesiones;
+	}
+	public void setSesiones(Sesion[] sesiones) {
+		this.sesiones = sesiones;
+	}
 
 	
 	@Override

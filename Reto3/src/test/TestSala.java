@@ -24,7 +24,7 @@ class TestSala {
 	 static Sesion[] sesiones = {sesion};
 		Sala sala1 =new Sala();
 			Sala sala2= new Sala(); 
-		String resul = "CE-S01#Sala 1#"+sesiones;
+		static String resul = "CE-S01#Sala 1#"+sesiones;
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception {
 			
