@@ -86,10 +86,10 @@ class TestEntrada {
 		entrada1.equals(entrada2);
 	
 		entrada1.equals(resul);
-	resul=null;
-	entrada1.equals(resul);
-	entrada2=entrada1;
-	entrada1.equals(entrada2);
+		resul=null;
+		entrada1.equals(resul);
+		entrada2=entrada1;
+		entrada1.equals(entrada2);
 	
 	
 	}

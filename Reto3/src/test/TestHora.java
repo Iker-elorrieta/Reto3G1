@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import modelo.Hora;
-import modelo.Pelicula;
 
 class TestHora {
 String resul="12:30";

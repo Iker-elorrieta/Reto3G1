@@ -11,7 +11,6 @@ import java.util.Date;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import modelo.Cliente;
 import modelo.Hora;
 import modelo.Pelicula;
 import modelo.Sala;
