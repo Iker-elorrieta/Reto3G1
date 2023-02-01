@@ -1,4 +1,4 @@
-package test;
+	package test;
 
 
 
@@ -11,22 +11,32 @@ import java.util.Date;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import modelo.Entrada;
+import modelo.Cine;
 import modelo.Hora;
 import modelo.Pelicula;
+import modelo.Sala;
 import modelo.Sesion;
 
 
-class TestEntrada {
+class TestCine {
 	
-	 static Sesion sesion = new Sesion();
-	 static Sesion[] sesiones = {sesion};
-		Entrada entrada1 = new Entrada();
-		Entrada entrada2 = new Entrada();
-		 String resul = "CE-S01#Sala 1#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#12:25@]@";
+	static Sesion sesion = new Sesion();
+	static Sesion[] sesiones = {sesion}; 
+	  static Sala sala = new Sala();
+	   static Sala[] salas = {sala};
+
+	 
+		Cine cine1 =new Cine();
+			Cine cine2= new Cine(); 
+		static String resul = "C01#Elorrieta#[CE-S01#Sala 1#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#12:25@]@]@";
 		@BeforeAll
-		static void setUpBeforeClass() throws Exception {
+		static void setUpBeforeClass() throws Exception { 
 			
+	
+			sala.setCdSala("CE-S01");
+			sala.setNomSala("Sala 1");
+			sala.setSesiones(sesiones);
+	
 			Pelicula pelicula =new Pelicula();
 			pelicula.setCdPel("Ac001");
 			pelicula.setNombre("Terminator");
@@ -47,17 +57,18 @@ class TestEntrada {
 			sesion.setFecha(fecha);
 			sesion.setHora(hora);
 			
-	
+		
+			
 		
 		}
 	@Test
 	void testToString() {
+		cine1.setCod_cine("C01");
+		cine1.setNombre_cine("Elorrieta");
+		cine1.setSalas(salas);
 		
-		entrada1.setCdEntrada("CETCK001");
-		entrada1.setSesiones(sesiones);
-		entrada1.setPrecio(23);
 	
-		assertEquals(resul,entrada1.toString());
+		assertEquals(resul,cine1.toString());
 		
 	
 		
@@ -67,9 +78,9 @@ class TestEntrada {
 		
 	
 	
-		entrada2.setCdEntrada(entrada1.getCdEntrada());
-		entrada2.setSesiones(entrada1.getSesiones());
-		entrada2.setPrecio(entrada1.getPrecio());
+		cine2.setCod_cine(cine1.getCod_cine());
+		cine2.setNombre_cine(cine1.getNombre_cine());
+		cine2.setSalas(cine1.getSalas());
 		
 		
 		
@@ -78,19 +89,20 @@ class TestEntrada {
 	@Test
 	void testEquals() {
 		
-		entrada2.equals(entrada1);
-		entrada1.equals(resul);
-		entrada2.setCdEntrada("CETCK002");
-		entrada1.equals(entrada2);
+		cine2.equals(cine1);
+		cine1.equals(resul);
+		cine2.setCod_cine("C02");
+		cine1.equals(cine2);
 	
-		entrada1.equals(resul);
-		resul=null;
-		entrada1.equals(resul);
-		entrada2=entrada1;
-		entrada1.equals(entrada2);
+		cine1.equals(resul);
+	resul=null;
+	cine1.equals(resul);
+	cine2=cine1;
+	cine1.equals(cine2);
 	
 	
 	}
 		
 		
 	}
+	

@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Cine {
@@ -26,14 +27,7 @@ public class Cine {
 	@Override
 	public String toString() {
 		
-		String cdSalas = "";
-		if (salas != null) {
-			for (int i=0;i < salas.length;i++) {
-				cdSalas+=salas[i].getCdSala()+", ";
-			}
-		}
-		
-		return  cdCine + "#" + nombre + "#" + cdSalas+"@";
+		return  cdCine + "#" + nombre + "#" + Arrays.toString(salas)+"@";
 	}
 	public String getCod_cine() {
 		return cdCine;
