@@ -15,6 +15,19 @@ public class Entrada {
 		this.cdEntrada = cdEntrada;
 	}
 	
+	public Sesion[] getSesiones() {
+		return sesiones;
+	}
+	public void setSesiones(Sesion[] sesiones) {
+		this.sesiones = sesiones;
+	}
+	
+	public float getPrecio() {
+		return precio;
+	}
+	public void setPrecio(float precio) {
+		this.precio = precio;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -1,5 +1,7 @@
 package modelo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +13,9 @@ public class Sesion {
 	
 	@Override
 	public String toString() {
-		return  idSesion + "#" + pelicula + "#" + fecha + "#" + hora + "@";
+		
+		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");   
+		return  idSesion + "#" + pelicula + "#" + dt.format(fecha) + "#" + hora + "@";
 	}
 	
 	@Override
