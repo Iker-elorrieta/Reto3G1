@@ -20,12 +20,14 @@ import modelo.Sesion;
 
 class TestSala {
 	
-	
+	 static Sesion sesion = new Sesion();
+	 static Sesion[] sesiones = {sesion};
 		Sala sala1 =new Sala();
-			Sala sala2= new Sala();
+			Sala sala2= new Sala(); 
+		String resul = "CE-S01#Sala 1#"+sesiones;
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception {
-			Sesion sesion = new Sesion();
+			
 			Pelicula pelicula =new Pelicula();
 			Date fecha = null;
 			Calendar cal = Calendar.getInstance();
@@ -40,7 +42,7 @@ class TestSala {
 			sesion.setPelicula(pelicula);
 			sesion.setFecha(fecha);
 			sesion.setHora(hora);
-			Sesion[] sesiones = {sesion};
+			
 	
 		
 		}
@@ -49,7 +51,7 @@ class TestSala {
 		
 		sala1.setCdSala("CE-S01");
 		sala1.setNomSala("Sala 1");
-		
+		sala1.setSesiones(sesiones);
 	
 		assertEquals(resul,sala1.toString());
 		
