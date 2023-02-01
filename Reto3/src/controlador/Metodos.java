@@ -16,15 +16,7 @@ public class Metodos {
 	
 	
 	
-	public void bienvSleep() {
-		
-		try {
-			Thread.sleep(3000);
-		} catch (Exception f) {
-			f.printStackTrace();
-		}
-		
-	}
+	
 
 	public Cine[] cuantosCines() {
 		// TODO Auto-generated method stub
@@ -40,10 +32,8 @@ public class Metodos {
 			while (registro.next() == true) {
 				Cine cine = new Cine();
 				cine.setCod_cine(registro.getString("cod_cine"));
-				System.out.println(registro.getString("cod_cine"));
-				
 				cine.setNombre_cine(registro.getString("nombre_cine"));
-				System.out.println(registro.getString("nombre_cine"));
+				
 				
 				Cine[] arrayNuevo = new Cine[cines.length+1];
 				for(int i =0;i<cines.length;i++)

@@ -54,15 +54,7 @@ public class VistaCines extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 500);
 		contentPane = new JPanel();
-		contentPane.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				metodos.bienvSleep();
-				panelCines.setVisible(true);
-			}
-		});
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -71,14 +63,8 @@ public class VistaCines extends JFrame {
 		labelBienvenido.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cines = metodos.cuantosCines();
-				botonesCine(cines.length);
-				panelCines.updateUI();
-				metodos.bienvSleep();
-				panelCines.setVisible(true);
 				labelBienvenido.setVisible(false);
-				
-				
+				actuador();
 			}
 		});
 		labelBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 50));
@@ -133,6 +119,21 @@ public class VistaCines extends JFrame {
 	public void aSalas(Cine cine) {
 		salas = new VistaPeliculas(cine);
 		salas.setVisible(true);
+	}
+	
+	public void actuador() {
+		
+		cines = metodos.cuantosCines();
+		botonesCine(cines.length);
+		panelCines.updateUI();
+		
+		try {
+			Thread.sleep(3000);
+		} catch (Exception f) {
+			f.printStackTrace();
+		}
+		
+		panelCines.setVisible(true);
 	}
 	
 }

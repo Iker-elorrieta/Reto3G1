@@ -27,8 +27,10 @@ public class Cine {
 	public String toString() {
 		
 		String cdSalas = "";
-		for (int i=0;i < salas.length;i++) {
-			cdSalas+=salas[i].getCdSala()+", ";
+		if (salas != null) {
+			for (int i=0;i < salas.length;i++) {
+				cdSalas+=salas[i].getCdSala()+", ";
+			}
 		}
 		
 		return  cdCine + "#" + nombre + "#" + cdSalas+"@";
