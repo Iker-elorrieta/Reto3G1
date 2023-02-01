@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import modelo.Cines;
+import modelo.Cine;
 
 public class Metodos {
 	
@@ -26,9 +26,9 @@ public class Metodos {
 		
 	}
 
-	public Cines[] cuantosCines() {
+	public Cine[] cuantosCines() {
 		// TODO Auto-generated method stub
-		Cines[] cines= new Cines[0];
+		Cine[] cines= new Cine[0];
 		
 		
 		try {
@@ -38,14 +38,14 @@ public class Metodos {
 			ResultSet registro = comando.executeQuery("SELECT * FROM cines;");
 			
 			while (registro.next() == true) {
-				Cines cine = new Cines();
+				Cine cine = new Cine();
 				cine.setCod_cine(registro.getString("cod_cine"));
 				System.out.println(registro.getString("cod_cine"));
 				
 				cine.setNombre_cine(registro.getString("nombre_cine"));
 				System.out.println(registro.getString("nombre_cine"));
 				
-				Cines[] arrayNuevo = new Cines[cines.length+1];
+				Cine[] arrayNuevo = new Cine[cines.length+1];
 				for(int i =0;i<cines.length;i++)
 				{
 					arrayNuevo[i]=cines[i];

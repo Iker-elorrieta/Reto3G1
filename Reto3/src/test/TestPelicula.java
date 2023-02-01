@@ -1,6 +1,6 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -41,17 +41,17 @@ String resul="A1#Pepe#120.0#Comedia#5.0@";
 	@Test
 	void testEquals() {
 		
-	
+	pelicula2.equals(pelicula1);
+	pelicula1.equals(resul);
+	pelicula2.setCdPel("A4");
+	pelicula1.equals(pelicula2);
 	
 		resul=null;
 	pelicula1.equals(resul);
 	pelicula2=pelicula1;
 	pelicula1.equals(pelicula2);
 	
-	pelicula2.equals(pelicula1);
-	pelicula1.equals(resul);
-	pelicula2.setCdPel("A4");
-	pelicula1.equals(pelicula2);
+	
 		
 		
 		

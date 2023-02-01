@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controlador.Metodos;
-import modelo.Cines;
+import modelo.Cine;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -29,7 +29,7 @@ public class VistaCines extends JFrame {
 	private JPanel contentPane;
 	JPanel panelCines;
 	Metodos metodos = new Metodos();
-	private Cines[] cines =null;
+	private Cine[] cines =null;
 	VistaPeliculas salas;
 	int i=0;
 	/**
@@ -130,7 +130,7 @@ public class VistaCines extends JFrame {
 	}
 	
 	
-	public void aSalas(Cines cine) {
+	public void aSalas(Cine cine) {
 		salas = new VistaPeliculas(cine);
 		salas.setVisible(true);
 	}

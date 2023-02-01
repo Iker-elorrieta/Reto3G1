@@ -37,8 +37,15 @@ public class Sesion {
 	public void setPelicula(Pelicula pelicula) {
 		this.pelicula = pelicula;
 	}
+	
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 	public Date getFecha() {
 		return fecha;
+	}
+	public void setHora(Hora hora) {
+		this.hora = hora;
 	}
 	public Hora getHora() {
 		return hora;

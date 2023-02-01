@@ -1,6 +1,5 @@
 package vista;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import modelo.Cines;
+import modelo.Cine;
 
 public class VistaPeliculas extends JFrame {
 
@@ -18,7 +17,7 @@ public class VistaPeliculas extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Cines cine;
+	private Cine cine;
 	/**
 	 * Launch the application.
 	 */
@@ -27,7 +26,7 @@ public class VistaPeliculas extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VistaPeliculas(Cines cineEscojido) {
+	public VistaPeliculas(Cine cineEscojido) {
 		cine = cineEscojido;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
