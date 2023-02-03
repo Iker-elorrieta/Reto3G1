@@ -35,6 +35,7 @@ public class VistaLogin extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_4;
 	private JPasswordField passwordField;
+	private JPasswordField passwordField_1;
 	/**
 	 * Launch the application.
 	 */
@@ -126,8 +127,8 @@ public class VistaLogin extends JFrame {
 		panelRegistrarse.add(textField_4);
 		textField_4.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"H", "M"}));
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"H", "M"}));
 		comboBox.setBounds(169, 157, 64, 22);
 		panelRegistrarse.add(comboBox);
 		
@@ -136,28 +137,45 @@ public class VistaLogin extends JFrame {
 		panelRegistrarse.add(passwordField);
 		
 		JLabel lblNewLabel = new JLabel("DNI:");
-		lblNewLabel.setBounds(95, 30, 64, 14);
+		lblNewLabel.setBounds(132, 30, 64, 14);
 		panelRegistrarse.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setBounds(95, 61, 64, 14);
+		lblNewLabel_1.setBounds(115, 61, 64, 14);
 		panelRegistrarse.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Apellido 1:");
-		lblNewLabel_2.setBounds(95, 92, 64, 14);
+		lblNewLabel_2.setBounds(105, 92, 64, 14);
 		panelRegistrarse.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Apellido 2:");
-		lblNewLabel_3.setBounds(95, 123, 64, 14);
+		lblNewLabel_3.setBounds(105, 123, 64, 14);
 		panelRegistrarse.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Genero:");
-		lblNewLabel_4.setBounds(95, 161, 64, 14);
+		lblNewLabel_4.setBounds(115, 161, 64, 14);
 		panelRegistrarse.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Contraseña:");
 		lblNewLabel_5.setBounds(95, 193, 74, 14);
 		panelRegistrarse.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_5_1 = new JLabel("Validar Contraseña:");
+		lblNewLabel_5_1.setBounds(60, 224, 109, 14);
+		panelRegistrarse.add(lblNewLabel_5_1);
+		
+		passwordField_1 = new JPasswordField();
+		passwordField_1.setBounds(169, 221, 149, 20);
+		panelRegistrarse.add(passwordField_1);
+		
+		JButton registrarseBtn = new JButton("Registrarse");
+		registrarseBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		registrarseBtn.setBounds(174, 277, 119, 40);
+		panelRegistrarse.add(registrarseBtn);
 		
 		
 	}
