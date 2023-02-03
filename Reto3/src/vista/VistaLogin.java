@@ -30,12 +30,12 @@ public class VistaLogin extends JFrame  implements ActionListener{
 	Cliente[] usuarios;
 	private JPasswordField jPassw;
 	private JTextField jUser;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_4;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
+	private JTextField nombre_reg;
+	private JTextField apell1_reg;
+	private JTextField apell2_reg;
+	private JTextField dni_reg;
+	private JPasswordField pass_reg;
+	private JPasswordField passval_reg;
 	/**
 	 * Launch the application.
 	 */
@@ -109,34 +109,34 @@ public class VistaLogin extends JFrame  implements ActionListener{
 		tabbedPane.addTab("Registrarse", null, panelRegistrarse, null);
 		panelRegistrarse.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(169, 58, 149, 20);
-		panelRegistrarse.add(textField);
-		textField.setColumns(10);
+		nombre_reg = new JTextField();
+		nombre_reg.setBounds(169, 58, 149, 20);
+		panelRegistrarse.add(nombre_reg);
+		nombre_reg.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(169, 89, 149, 20);
-		panelRegistrarse.add(textField_1);
-		textField_1.setColumns(10);
+		apell1_reg = new JTextField();
+		apell1_reg.setBounds(169, 89, 149, 20);
+		panelRegistrarse.add(apell1_reg);
+		apell1_reg.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(169, 120, 149, 20);
-		panelRegistrarse.add(textField_2);
-		textField_2.setColumns(10);
+		apell2_reg = new JTextField();
+		apell2_reg.setBounds(169, 120, 149, 20);
+		panelRegistrarse.add(apell2_reg);
+		apell2_reg.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(169, 27, 149, 20);
-		panelRegistrarse.add(textField_4);
-		textField_4.setColumns(10);
+		dni_reg = new JTextField();
+		dni_reg.setBounds(169, 27, 149, 20);
+		panelRegistrarse.add(dni_reg);
+		dni_reg.setColumns(10);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"H", "M"}));
 		comboBox.setBounds(169, 157, 64, 22);
 		panelRegistrarse.add(comboBox);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(169, 190, 149, 20);
-		panelRegistrarse.add(passwordField);
+		pass_reg = new JPasswordField();
+		pass_reg.setBounds(169, 190, 149, 20);
+		panelRegistrarse.add(pass_reg);
 		
 		JLabel lblNewLabel = new JLabel("DNI:");
 		lblNewLabel.setBounds(132, 30, 64, 14);
@@ -166,9 +166,9 @@ public class VistaLogin extends JFrame  implements ActionListener{
 		lblNewLabel_5_1.setBounds(60, 224, 109, 14);
 		panelRegistrarse.add(lblNewLabel_5_1);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(169, 221, 149, 20);
-		panelRegistrarse.add(passwordField_1);
+		passval_reg = new JPasswordField();
+		passval_reg.setBounds(169, 221, 149, 20);
+		panelRegistrarse.add(passval_reg);
 		
 		JButton registrarseBtn = new JButton("Registrarse");
 		registrarseBtn.addActionListener(new ActionListener() {
