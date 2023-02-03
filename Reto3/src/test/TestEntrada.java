@@ -5,11 +5,11 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.sql.Time;
+
 import java.util.Calendar;
 import java.util.Date;
 
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.Test;
 
 import modelo.Entrada;
@@ -19,14 +19,14 @@ import modelo.Sesion;
 
 class TestEntrada {
 	
-	 static Sesion sesion = new Sesion();
-	 static Sesion[] sesiones = {sesion};
+	  Sesion sesion = new Sesion();
+	  Sesion[] sesiones = {sesion};
 		Entrada entrada1 = new Entrada();
 		Entrada entrada2 = new Entrada();
-		 String resul = "CETCK001#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:00@]#23.0@";
-		@BeforeAll
-		static void setUpBeforeClass() throws Exception {
-			
+		 String resul = "CETCK001#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:56@]#23.0@";
+		
+	@Test
+	void testToString() {	
 			Pelicula pelicula =new Pelicula();
 			pelicula.setCdPel("Ac001");
 			pelicula.setNombre("Terminator");
@@ -38,6 +38,8 @@ class TestEntrada {
 			cal.set(Calendar.DAY_OF_MONTH, 20);
 			cal.set(Calendar.MONTH, 0);
 			cal.set(Calendar.YEAR, 2023);
+			cal.set(Calendar.HOUR, 9);
+			cal.set(Calendar.MINUTE, 56);
 			fecha = cal.getTime();
 			
 		
@@ -47,11 +49,6 @@ class TestEntrada {
 			sesion.setFecha(fecha);
 			
 			
-	
-		
-		}
-	@Test
-	void testToString() {
 		
 		entrada1.setCdEntrada("CETCK001");
 		entrada1.setSesiones(sesiones);

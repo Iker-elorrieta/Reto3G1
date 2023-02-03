@@ -5,11 +5,10 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.sql.Time;
+
 import java.util.Calendar;
 import java.util.Date;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
@@ -21,11 +20,11 @@ class TestSesion {
 	 Date fecha = null;
 	 Pelicula pelicula =new Pelicula();
 	 Calendar cal = Calendar.getInstance();
-	 Time hora = new Time(0);
+	
 	  Sesion sesion1 = new Sesion();
 	  Sesion sesion2 = new Sesion();
 	
-		 String resul = "CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:00@";
+		 String resul = "CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:56@";
 		
 	@Test
 	void testToString() {	pelicula.setCdPel("Ac001");
@@ -37,6 +36,8 @@ class TestSesion {
 			cal.set(Calendar.DAY_OF_MONTH, 20);
 			cal.set(Calendar.MONTH, 0);
 			cal.set(Calendar.YEAR, 2023);
+			cal.set(Calendar.HOUR, 9);
+			cal.set(Calendar.MINUTE, 56);
 			fecha = cal.getTime();
 		
 		sesion1.setIdSesion("CES01001");
