@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
 import modelo.Cine;
 import modelo.Cliente;
@@ -138,12 +139,14 @@ public class Metodos {
 		
 		for (int cont = 0; cont < cines.length; cont++) {
 			for (int i = 0; i < cines[cont].getSalas().length; i++) {
+				
+			}
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
 			ResultSet registro = comando.executeQuery("SELECT * FROM peliculas where duracion<=tiempo");
-
-			while (registro[i] == true) {
+			Random rd = new Random();
+			while (registro[rd] == true) {
 				Sesion sesion = new Sesion();
 				Pelicula peli = new Pelicula();
 				peli.setCdPel(registro.getString("cod_pelicula"));
