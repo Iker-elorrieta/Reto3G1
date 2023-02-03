@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.Metodos;
 import modelo.Cine;
+import modelo.Cliente;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -29,7 +30,9 @@ public class VistaCines extends JFrame {
 	private JPanel contentPane;
 	JPanel panelCines;
 	Metodos metodos = new Metodos();
-	private Cine[] cines = null;
+	private Cine[] cines;
+	Cliente[] users;
+	VistaLogin login;
 	VistaPeliculas salas;
 	int i = 0;
 
@@ -84,6 +87,8 @@ public class VistaCines extends JFrame {
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				login = new VistaLogin(users);
+				login.setVisible(true);
 			}
 		});
 		btnFinalizar.setBounds(225, 404, 126, 46);
@@ -121,9 +126,10 @@ public class VistaCines extends JFrame {
 	}
 
 	public void actuador() {
-
+		
 		cines = metodos.cuantosCines();
 		cines = metodos.cuantasSalas(cines);
+		users =metodos.usuariosArray();
 		botonesCine(cines.length);
 		panelCines.updateUI();
 		
