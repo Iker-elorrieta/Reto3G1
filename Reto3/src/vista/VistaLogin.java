@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class VistaLogin extends JFrame {
+public class VistaLogin extends JFrame  implements ActionListener{
 
 	/**
 	 * 
@@ -47,8 +47,8 @@ public class VistaLogin extends JFrame {
 	 */
 	public VistaLogin(Cliente[] users) {
 		usuarios=users;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 578, 416);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 684, 426);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -93,11 +93,13 @@ public class VistaLogin extends JFrame {
 				String pass = String.valueOf(jPassw.getPassword());
 				if(metodo.validarUsers(usuarios, dni, pass)) {
 					//manda a ticket
-					
+					labelIncorrecto.setForeground(Color.GREEN);
+					labelIncorrecto.setText("Todo bien.");
 				}
-				else
+				else {
+					labelIncorrecto.setForeground(Color.RED);
 					labelIncorrecto.setText("DNI o Contraseña inorrectos.");
-				
+				}
 			}
 		});
 		validarBtn.setBounds(31, 195, 146, 23);
@@ -177,6 +179,18 @@ public class VistaLogin extends JFrame {
 		registrarseBtn.setBounds(174, 277, 119, 40);
 		panelRegistrarse.add(registrarseBtn);
 		
+		JButton atras = new JButton("Atras");
+		atras.addActionListener(this);
+		atras.setBounds(569, 275, 89, 57);
+		contentPane.add(atras);
 		
+		
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		this.dispose();
 	}
 }
