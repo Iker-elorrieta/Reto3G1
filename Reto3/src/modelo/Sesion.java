@@ -1,5 +1,6 @@
 package modelo;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,13 +10,13 @@ public class Sesion {
 	String idSesion;
 	Pelicula pelicula;
 	Date fecha;
-	Hora hora;
+	Time hora;
 	
 	@Override
 	public String toString() {
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");   
-		return  idSesion + "#" + pelicula + "#" + dt.format(fecha) + "#" + hora + "@";
+		return  idSesion + "#" + pelicula + "#" + dt.format(fecha) + "#" + sdf.format(hora) + "@";
 	}
 	
 	@Override
@@ -48,10 +49,10 @@ public class Sesion {
 	public Date getFecha() {
 		return fecha;
 	}
-	public void setHora(Hora hora) {
+	public void setHora(Time hora) {
 		this.hora = hora;
 	}
-	public Hora getHora() {
+	public Time getHora() {
 		return hora;
 	}
 	

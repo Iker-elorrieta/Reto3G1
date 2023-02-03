@@ -5,15 +5,15 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import modelo.Hora;
+
 import modelo.Pelicula;
-import modelo.Sala;
 import modelo.Sesion;
 
 
@@ -21,11 +21,11 @@ class TestSesion {
 	static Date fecha = null;
 	static Pelicula pelicula =new Pelicula();
 	static Calendar cal = Calendar.getInstance();
-	static Hora hora = new Hora();
+	static Time hora = new Time(0);
 	  Sesion sesion1 = new Sesion();
 	  Sesion sesion2 = new Sesion();
 	
-		 String resul = "CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#12:25@";
+		 String resul = "CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:00@";
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception {
 			
@@ -41,8 +41,8 @@ class TestSesion {
 			cal.set(Calendar.YEAR, 2023);
 			fecha = cal.getTime();
 			
-			hora.setHoras(12);
-			hora.setMins(25);
+			hora.setTime(28800000);
+			
 			
 			
 	

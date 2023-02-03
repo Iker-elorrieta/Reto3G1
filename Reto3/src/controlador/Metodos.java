@@ -13,10 +13,6 @@ public class Metodos {
 	final String sConexion="jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra="Contraseña33#";
-	
-	
-	
-	
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que devuelve
 	public Cine[] cuantosCines() {
 		// TODO Auto-generated method stub

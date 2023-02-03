@@ -5,13 +5,14 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import modelo.Hora;
+
 import modelo.Pelicula;
 import modelo.Sala;
 import modelo.Sesion;
@@ -23,7 +24,7 @@ class TestSala {
 	 static Sesion[] sesiones = {sesion};
 		Sala sala1 =new Sala();
 			Sala sala2= new Sala(); 
-		static String resul = "CE-S01#Sala 1#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#12:25@]@";
+		static String resul = "CE-S01#Sala 1#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:00@]@";
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception {
 			
@@ -39,9 +40,8 @@ class TestSala {
 			cal.set(Calendar.MONTH, 0);
 			cal.set(Calendar.YEAR, 2023);
 			fecha = cal.getTime();
-			Hora hora = new Hora();
-			hora.setHoras(12);
-			hora.setMins(25);
+			Time hora = new Time(0);
+			hora.setTime(28800000  );
 			sesion.setIdSesion("CES01001");
 			sesion.setPelicula(pelicula);
 			sesion.setFecha(fecha);
