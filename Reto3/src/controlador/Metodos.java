@@ -8,7 +8,9 @@ import java.sql.Statement;
 
 import modelo.Cine;
 import modelo.Cliente;
+import modelo.Pelicula;
 import modelo.Sala;
+import modelo.Sesion;
 
 public class Metodos {
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
@@ -16,6 +18,7 @@ public class Metodos {
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente"; 
 	final String contra="Contraseña33#";
+	final int tiempo=360;
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que devuelve
 
 
@@ -89,7 +92,7 @@ public class Metodos {
 		boolean correcto = false;
 
 		for (int i = 0; i < usuario.length; i++) {
-			if (usuario[i].getNombre().equals(user) && usuario[i].getContrasena().equals(passw)) {
+			if (usuario[i].getDni().equals(user) && usuario[i].getContrasena().equals(passw)) {
 				correcto = true;
 			}
 		}
@@ -130,6 +133,45 @@ public class Metodos {
 		}
 
 		return cines;
+	}
+	public Pelicula[] plDisponibles(Cine[] cines) {
+		
+		for (int cont = 0; cont < cines.length; cont++) {
+			for (int i = 0; i < cines[cont].getSalas().length; i++) {
+		try {
+			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
+			Statement comando = conexion.createStatement();
+			ResultSet registro = comando.executeQuery("SELECT * FROM peliculas where duracion<=tiempo");
+
+			while (registro[i] == true) {
+				Sesion sesion = new Sesion();
+				Pelicula peli = new Pelicula();
+				peli.setCdPel(registro.getString("cod_pelicula"));
+				peli.setNombre(registro.getString("pelicula"));
+				peli.setGenero(registro.getString("genero"));
+				peli.setDuracion(registro.getInt("duracion"));
+				peli.setPrecio(registro.getFloat("precio"));
+				
+				sesion.setPelicula(peli);
+				sesion.se
+				
+
+				Sala[] arrayNuevo = new Sala[salas.length + 1];
+				for (int i = 0; i < salas.length; i++) {
+					arrayNuevo[i] = salas[i];
+				}
+				arrayNuevo[salas.length] = sala;
+				salas = arrayNuevo;
+				cines[cont].setSalas(salas);
+			}
+			conexion.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		
+		
 	}
 
 }
