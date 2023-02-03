@@ -40,12 +40,11 @@ class TestSala {
 			cal.set(Calendar.MONTH, 0);
 			cal.set(Calendar.YEAR, 2023);
 			fecha = cal.getTime();
-			Time hora = new Time(0);
-			hora.setTime(28800000  );
+			
 			sesion.setIdSesion("CES01001");
 			sesion.setPelicula(pelicula);
 			sesion.setFecha(fecha);
-			sesion.setHora(hora);
+		
 			
 	
 		

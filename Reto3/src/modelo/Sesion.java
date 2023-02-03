@@ -10,13 +10,13 @@ public class Sesion {
 	String idSesion;
 	Pelicula pelicula;
 	Date fecha;
-	Time hora;
+	
 	
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");   
-		return  idSesion + "#" + pelicula + "#" + dt.format(fecha) + "#" + sdf.format(hora) + "@";
+		return  idSesion + "#" + pelicula + "#" + dt.format(fecha) + "#" + sdf.format(fecha) + "@";
 	}
 	
 	@Override
@@ -49,12 +49,8 @@ public class Sesion {
 	public Date getFecha() {
 		return fecha;
 	}
-	public void setHora(Time hora) {
-		this.hora = hora;
-	}
-	public Time getHora() {
-		return hora;
-	}
+	
+	
 	
 
 }

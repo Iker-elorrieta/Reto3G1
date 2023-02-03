@@ -18,19 +18,17 @@ import modelo.Sesion;
 
 
 class TestSesion {
-	static Date fecha = null;
-	static Pelicula pelicula =new Pelicula();
-	static Calendar cal = Calendar.getInstance();
-	static Time hora = new Time(0);
+	 Date fecha = null;
+	 Pelicula pelicula =new Pelicula();
+	 Calendar cal = Calendar.getInstance();
+	 Time hora = new Time(0);
 	  Sesion sesion1 = new Sesion();
 	  Sesion sesion2 = new Sesion();
 	
 		 String resul = "CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:00@";
-		@BeforeAll
-		static void setUpBeforeClass() throws Exception {
-			
-			
-			pelicula.setCdPel("Ac001");
+		
+	@Test
+	void testToString() {	pelicula.setCdPel("Ac001");
 			pelicula.setNombre("Terminator");
 			pelicula.setGenero("Accion");
 			pelicula.setDuracion(120);
@@ -40,21 +38,11 @@ class TestSesion {
 			cal.set(Calendar.MONTH, 0);
 			cal.set(Calendar.YEAR, 2023);
 			fecha = cal.getTime();
-			
-			hora.setTime(28800000);
-			
-			
-			
-	
-		
-		}
-	@Test
-	void testToString() {
 		
 		sesion1.setIdSesion("CES01001");
 		sesion1.setPelicula(pelicula);
 		sesion1.setFecha(fecha);
-		sesion1.setHora(hora);
+		
 		
 		assertEquals(resul,sesion1.toString());
 		
@@ -69,7 +57,7 @@ class TestSesion {
 		sesion2.setIdSesion(sesion1.getIdSesion());
 		sesion2.setPelicula(sesion1.getPelicula());
 		sesion2.setFecha(sesion1.getFecha());
-		sesion2.setHora(sesion1.getHora());
+		
 		
 		
 		

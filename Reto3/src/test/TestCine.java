@@ -21,19 +21,20 @@ import modelo.Sesion;
 
 class TestCine {
 	
-	static Sesion sesion = new Sesion();
-	static Sesion[] sesiones = {sesion}; 
-	  static Sala sala = new Sala();
-	   static Sala[] salas = {sala};
-
-	 
-		Cine cine1 =new Cine();
+	 Sesion sesion = new Sesion();
+	 Sesion[] sesiones = {sesion}; 
+	   Sala sala = new Sala();
+	    Sala[] salas = {sala};
+	Cine cine1 =new Cine();
 			Cine cine2= new Cine(); 
 		static String resul = "C01#Elorrieta#[CE-S01#Sala 1#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:00@]@]@";
-		@BeforeAll
-		static void setUpBeforeClass() throws Exception { 
-			
-	
+
+	 
+		
+		
+	@Test
+	void testToString() {	
+		
 			sala.setCdSala("CE-S01");
 			sala.setNomSala("Sala 1");
 			sala.setSesiones(sesiones);
@@ -55,14 +56,6 @@ class TestCine {
 			sesion.setIdSesion("CES01001");
 			sesion.setPelicula(pelicula);
 			sesion.setFecha(fecha);
-			sesion.setHora(hora);
-			
-		
-			
-		
-		}
-	@Test
-	void testToString() {
 		cine1.setCod_cine("C01");
 		cine1.setNombre_cine("Elorrieta");
 		cine1.setSalas(salas);
