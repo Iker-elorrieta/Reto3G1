@@ -29,9 +29,10 @@ public class VistaCines extends JFrame {
 	private JPanel contentPane;
 	JPanel panelCines;
 	Metodos metodos = new Metodos();
-	private Cine[] cines =null;
+	private Cine[] cines = null;
 	VistaPeliculas salas;
-	int i=0;
+	int i = 0;
+
 	/**
 	 * Launch the application.
 	 */
@@ -47,6 +48,7 @@ public class VistaCines extends JFrame {
 			}
 		});
 	}
+
 	/**
 	 * Create the frame.
 	 */
@@ -57,7 +59,7 @@ public class VistaCines extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel labelBienvenido = new JLabel("Bienvenido");
 		labelBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
 		labelBienvenido.addMouseListener(new MouseAdapter() {
@@ -70,14 +72,14 @@ public class VistaCines extends JFrame {
 		labelBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		labelBienvenido.setBounds(0, 0, 584, 461);
 		contentPane.add(labelBienvenido);
-		
+
 		panelCines = new JPanel();
 		panelCines.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelCines.setForeground(new Color(0, 0, 0));
 		panelCines.setBounds(0, 0, 584, 461);
 		contentPane.add(panelCines);
 		panelCines.setLayout(null);
-		
+
 		JButton btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -87,15 +89,14 @@ public class VistaCines extends JFrame {
 		btnFinalizar.setBounds(225, 404, 126, 46);
 		panelCines.add(btnFinalizar);
 		panelCines.setVisible(false);
-		
-		
+
 	}
-	
-	public void botonesCine (int cuantosCines) {
-		int y1=40;
-		
-		for (i=0;i < cuantosCines;i++) {
-			
+
+	public void botonesCine(int cuantosCines) {
+		int y1 = 40;
+
+		for (i = 0; i < cuantosCines; i++) {
+
 			JButton btncine = new JButton(cines[i].getNombre_cine());
 			btncine.setToolTipText(String.valueOf(i));
 			btncine.addActionListener(new ActionListener() {
@@ -103,27 +104,26 @@ public class VistaCines extends JFrame {
 					aSalas(cines[Integer.valueOf(btncine.getToolTipText())]);
 				}
 			});
-			if (i%2==0) {
+			if (i % 2 == 0) {
 				btncine.setBounds(50, y1, 200, 70);
-			}
-			else {
+			} else {
 				btncine.setBounds(350, y1, 200, 70);
-				y1+=100;
+				y1 += 100;
 			}
 			panelCines.add(btncine);
 			btncine.setEnabled(true);
 		}
 	}
-	
-	
+
 	public void aSalas(Cine cine) {
 		salas = new VistaPeliculas(cine);
 		salas.setVisible(true);
 	}
-	
+
 	public void actuador() {
-		
+
 		cines = metodos.cuantosCines();
+		cines = metodos.cuantasSalas(cines);
 		botonesCine(cines.length);
 		panelCines.updateUI();
 		
@@ -132,8 +132,8 @@ public class VistaCines extends JFrame {
 		} catch (Exception f) {
 			f.printStackTrace();
 		}
-		
+
 		panelCines.setVisible(true);
 	}
-	
+
 }
