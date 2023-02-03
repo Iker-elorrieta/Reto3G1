@@ -89,7 +89,7 @@ public class Metodos {
 		boolean correcto = false;
 
 		for (int i = 0; i < usuario.length; i++) {
-			if (usuario[i].getNombre().equals(user) && usuario[i].getContrasena().equals(passw)) {
+			if (usuario[i].getDni().equals(user) && usuario[i].getContrasena().equals(passw)) {
 				correcto = true;
 			}
 		}
