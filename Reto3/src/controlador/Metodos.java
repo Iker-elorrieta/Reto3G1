@@ -132,4 +132,24 @@ public class Metodos {
 		return cines;
 	}
 
+	public boolean validarDni(String text) {
+		// TODO Auto-generated method stub
+		boolean correcto=false;
+		
+		if(text.length() == 9) {
+			correcto=true;
+		}
+		else
+			correcto=false;
+		
+		
+		return correcto;	
+	}
+
+	public void registrarUsuario(String text, String text2, String text3, String text4, String text5,
+			Object selectedItem, String valueOf) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

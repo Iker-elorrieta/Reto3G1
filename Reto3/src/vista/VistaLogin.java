@@ -3,12 +3,15 @@ package vista;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import controlador.Metodos;
 import modelo.Cliente;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
@@ -17,6 +20,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 public class VistaLogin extends JFrame  implements ActionListener{
 
@@ -28,6 +33,7 @@ public class VistaLogin extends JFrame  implements ActionListener{
 	Metodos metodo = new Metodos();
 	boolean correcto=false;
 	Cliente[] usuarios;
+	private JButton atras;
 	private JPasswordField jPassw;
 	private JTextField jUser;
 	private JTextField nombre_reg;
@@ -36,6 +42,8 @@ public class VistaLogin extends JFrame  implements ActionListener{
 	private JTextField dni_reg;
 	private JPasswordField pass_reg;
 	private JPasswordField passval_reg;
+	private Color todoOk=Color.GREEN;
+	private DocumentListener dl;
 	/**
 	 * Launch the application.
 	 */
@@ -109,6 +117,51 @@ public class VistaLogin extends JFrame  implements ActionListener{
 		tabbedPane.addTab("Registrarse", null, panelRegistrarse, null);
 		panelRegistrarse.setLayout(null);
 		
+		 dl = new DocumentListener() {
+			 
+			 protected void updateFieldState(DocumentEvent e) {
+				
+					if(metodo.validarDni(dni_reg.getText()))
+				 		dni_reg.setBackground(Color.GREEN);
+				 	else
+						dni_reg.setBackground(Color.RED);
+
+             }
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				updateFieldState(e);
+			}
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				updateFieldState(e);
+			}
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				updateFieldState(e);
+			}
+
+		 };
+		
+		dni_reg = new JTextField();
+		dni_reg.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(metodo.validarDni(dni_reg.getText()))
+			 		dni_reg.setBackground(Color.GREEN);
+			 	else
+					dni_reg.setBackground(Color.RED);
+			}	 
+		});
+		dni_reg.getDocument().addDocumentListener(dl);
+		dni_reg.setBounds(169, 27, 149, 20);
+		panelRegistrarse.add(dni_reg);
+		dni_reg.setColumns(10);
+		 
 		nombre_reg = new JTextField();
 		nombre_reg.setBounds(169, 58, 149, 20);
 		panelRegistrarse.add(nombre_reg);
@@ -124,15 +177,10 @@ public class VistaLogin extends JFrame  implements ActionListener{
 		panelRegistrarse.add(apell2_reg);
 		apell2_reg.setColumns(10);
 		
-		dni_reg = new JTextField();
-		dni_reg.setBounds(169, 27, 149, 20);
-		panelRegistrarse.add(dni_reg);
-		dni_reg.setColumns(10);
-		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"H", "M"}));
-		comboBox.setBounds(169, 157, 64, 22);
-		panelRegistrarse.add(comboBox);
+		JComboBox<String> sexoCB = new JComboBox<String>();
+		sexoCB.setModel(new DefaultComboBoxModel<String>(new String[] {"H", "M"}));
+		sexoCB.setBounds(169, 157, 64, 22);
+		panelRegistrarse.add(sexoCB);
 		
 		pass_reg = new JPasswordField();
 		pass_reg.setBounds(169, 190, 149, 20);
@@ -163,7 +211,7 @@ public class VistaLogin extends JFrame  implements ActionListener{
 		panelRegistrarse.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_5_1 = new JLabel("Validar Contraseña:");
-		lblNewLabel_5_1.setBounds(60, 224, 109, 14);
+		lblNewLabel_5_1.setBounds(49, 224, 184, 14);
 		panelRegistrarse.add(lblNewLabel_5_1);
 		
 		passval_reg = new JPasswordField();
@@ -174,23 +222,34 @@ public class VistaLogin extends JFrame  implements ActionListener{
 		registrarseBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				if(dni_reg.getBackground() == todoOk && nombre_reg.getBackground() == todoOk 
+					&& apell1_reg.getBackground() == todoOk && apell2_reg.getBackground() == todoOk 
+					&& pass_reg.getBackground() == todoOk && passval_reg.getBackground() == todoOk)
+					metodo.registrarUsuario(dni_reg.getText(), nombre_reg.getText(), apell1_reg.getText(), apell2_reg.getText(), apell1_reg.getText(), sexoCB.getSelectedItem(), String.valueOf(pass_reg.getPassword()));
+				else {
+					JOptionPane.showMessageDialog(null,
+						"Rellena los campos con la informacion correcta.",
+						"Error",
+					JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		registrarseBtn.setBounds(174, 277, 119, 40);
 		panelRegistrarse.add(registrarseBtn);
 		
-		JButton atras = new JButton("Atras");
+		atras = new JButton("Atras");
 		atras.addActionListener(this);
 		atras.setBounds(569, 275, 89, 57);
 		contentPane.add(atras);
 		
-		
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		this.dispose();
+		if(e.getSource()==atras)
+			this.dispose();
+			
 	}
+	
 }
