@@ -146,10 +146,33 @@ public class Metodos {
 		return correcto;	
 	}
 
-	public void registrarUsuario(String text, String text2, String text3, String text4, String text5,
-			Object selectedItem, String valueOf) {
+	public Cliente[] registrarUsuario(String dni, String nombre, String apell1, String apell2, String sexoCB, String passw) {
 		// TODO Auto-generated method stub
 		
+		try {
+			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
+			Statement comando = conexion.createStatement();
+			comando.executeUpdate("Insert into clientes values ('"+dni+"', '"+apell1+"', '"+dni+"', '"+apell2+"', '"+sexoCB+"', '"+passw+"');");
+			
+			conexion.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Cliente[] usuario = usuariosArray();
+		
+		return usuario;
+	}
+	
+	public boolean esVacio(String texto) {
+		boolean estaVacio=false;
+		
+		if(texto==null || texto=="")
+			estaVacio=true;
+		
+		return estaVacio;
 	}
 
 }
