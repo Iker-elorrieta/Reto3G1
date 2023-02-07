@@ -132,17 +132,30 @@ public class Metodos {
 		return cines;
 	}
 
-	public boolean validarDni(String text) {
+	public boolean validarDni(String text, Cliente[] usuarios) {
 		// TODO Auto-generated method stub
-		boolean correcto=false;
+		boolean correcto=true;
 		
-		if(text.length() == 9) {
-			correcto=true;
-		}
-		else
+		if(text.length() != 9) {
 			correcto=false;
+		}
+		else {
+		int dni_num=Integer.valueOf(text.substring(0, (text.length()-1)));
+		int comp=dni_num%23;
+		String Letras="T;R;W;A;G;M;Y;F;P;D;X;B;N;J;Z;S;Q;V;H;L;C;K;E;";
+		String [] Letra= Letras.split(";");
+			if(String.valueOf(text.charAt(8)).equals(Letra[comp])) {
+				correcto=true;
+			}
+			else
+				correcto=false;
+		}
 		
-		
+		for (int i=0;i < usuarios.length;i++) {
+			if(text.equals(usuarios[i].getDni()))
+				correcto=false;
+		}	
+			
 		return correcto;	
 	}
 
@@ -169,7 +182,7 @@ public class Metodos {
 	public boolean esVacio(String texto) {
 		boolean estaVacio=false;
 		
-		if(texto==null || texto=="")
+		if(texto.equals(""))
 			estaVacio=true;
 		
 		return estaVacio;

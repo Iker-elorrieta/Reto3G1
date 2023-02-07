@@ -177,12 +177,7 @@ public class VistaLogin extends JFrame  implements ActionListener{
 		panelRegistrarse.add(passval_reg);
 		
 		registrarseBtn = new JButton("Registrarse");
-		registrarseBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-		});
+		registrarseBtn.addActionListener(this);
 		registrarseBtn.setBounds(174, 277, 119, 40);
 		panelRegistrarse.add(registrarseBtn);
 		
@@ -200,28 +195,34 @@ public class VistaLogin extends JFrame  implements ActionListener{
 			this.dispose();
 		else if (e.getSource()==registrarseBtn) {
 			
-			if(metodo.validarDni(dni_reg.getText()))
+			if(metodo.validarDni(dni_reg.getText(), usuarios))
 		 		dni_reg.setBackground(Color.GREEN);
 		 	else
 				dni_reg.setBackground(Color.RED);
 			
-			if(!metodo.esVacio(nombre_reg.getText()))
-				nombre_reg.setBackground(Color.GREEN);
+			if(metodo.esVacio(nombre_reg.getText()))
+				nombre_reg.setBackground(Color.RED);
 		 	else
-		 		nombre_reg.setBackground(Color.RED);
+		 		nombre_reg.setBackground(Color.GREEN);
 			
-			if(!metodo.esVacio(apell1_reg.getText()))
-				apell1_reg.setBackground(Color.GREEN);
+			if(metodo.esVacio(apell1_reg.getText()))
+				apell1_reg.setBackground(Color.RED);
 		 	else
-		 		apell1_reg.setBackground(Color.RED);
+		 		apell1_reg.setBackground(Color.GREEN);
 			
-			if(!metodo.esVacio(apell2_reg.getText()))
-				apell2_reg.setBackground(Color.GREEN);
+			if(metodo.esVacio(apell2_reg.getText()))
+				apell2_reg.setBackground(Color.RED);
 		 	else
-		 		apell2_reg.setBackground(Color.RED);
+		 		apell2_reg.setBackground(Color.GREEN);
 			
-			
-			
+			if(!metodo.esVacio(String.valueOf(pass_reg.getPassword())) && String.valueOf(pass_reg.getPassword()).equals(String.valueOf(passval_reg.getPassword()))) {
+				pass_reg.setBackground(Color.GREEN);
+				passval_reg.setBackground(Color.GREEN);
+			}
+		 	else {
+		 		pass_reg.setBackground(Color.RED);
+		 		passval_reg.setBackground(Color.RED);
+			}
 			if(dni_reg.getBackground() == todoOk && nombre_reg.getBackground() == todoOk 
 					&& apell1_reg.getBackground() == todoOk && apell2_reg.getBackground() == todoOk 
 					&& pass_reg.getBackground() == todoOk && passval_reg.getBackground() == todoOk)
