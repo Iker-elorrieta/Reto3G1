@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import modelo.Cine;
 import modelo.Cliente;
+import modelo.Pelicula;
 import modelo.Sala;
 
 public class Metodos {
@@ -186,6 +187,41 @@ public class Metodos {
 			estaVacio=true;
 		
 		return estaVacio;
+	}
+
+	public Pelicula[] cuantasPeliculas() {
+		Pelicula[] peliculas = new Pelicula[0];
+		try {
+			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
+			Statement comando = conexion.createStatement();
+			ResultSet registro = comando.executeQuery("SELECT * FROM peliculas;");
+
+			while (registro.next() == true) {
+
+				Pelicula pelicula = new Pelicula();
+				pelicula.setCdPel(registro.getString("cod_pelicula"));
+				pelicula.setNombre(registro.getString("nom_peli"));
+				pelicula.setGenero(registro.getString("genero"));
+				pelicula.setDuracion(registro.getInt("duracion"));
+				pelicula.setPrecio(registro.getFloat("coste"));
+
+				Pelicula[] arrayNuevo = new Pelicula[peliculas.length + 1];
+				for (int i = 0; i < peliculas.length; i++) {
+					arrayNuevo[i] = peliculas[i];
+				}
+				arrayNuevo[peliculas.length] = pelicula;
+				peliculas = arrayNuevo;
+			}
+
+			conexion.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -9,8 +9,13 @@ import javax.swing.border.EmptyBorder;
 import controlador.Metodos;
 import modelo.Cine;
 import modelo.Cliente;
+import modelo.Entrada;
+import modelo.Pelicula;
+import modelo.Sesion;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,12 +33,15 @@ public class VistaCines extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	JPanel panelCines;
-	Metodos metodos = new Metodos();
+	private JPanel panelCines;
+	private Metodos metodos = new Metodos();
 	private Cine[] cines;
-	Cliente[] users;
-	VistaLogin login;
-	VistaPeliculas salas;
+	private Cliente[] users;
+	private Sesion[] sesiones;
+	private Entrada[] entradas_compradas=null;
+	private Pelicula[] peliculas;
+	private VistaLogin login;
+	private VistaPeliculas vPeliculas;
 	int i = 0;
 
 	/**
@@ -86,9 +94,15 @@ public class VistaCines extends JFrame {
 		JButton btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				login = new VistaLogin(users);
-				login.setVisible(true);
+				if(entradas_compradas==null) {
+					JOptionPane.showMessageDialog(null,
+						"Tienes que elegir alguna pelicula.",
+						"Error",
+						JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					login = new VistaLogin(users);
+					login.setVisible(true);
+				}
 			}
 		});
 		btnFinalizar.setBounds(225, 404, 126, 46);
@@ -106,7 +120,7 @@ public class VistaCines extends JFrame {
 			btncine.setToolTipText(String.valueOf(i));
 			btncine.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					aSalas(cines[Integer.valueOf(btncine.getToolTipText())]);
+					aPelis(cines[Integer.valueOf(btncine.getToolTipText())]);
 				}
 			});
 			if (i % 2 == 0) {
@@ -120,9 +134,9 @@ public class VistaCines extends JFrame {
 		}
 	}
 
-	public void aSalas(Cine cine) {
-		salas = new VistaPeliculas(cine);
-		salas.setVisible(true);
+	public void aPelis(Cine cine) {
+		vPeliculas = new VistaPeliculas(cine);
+		vPeliculas.setVisible(true);
 	}
 
 	public void actuador() {
@@ -130,6 +144,7 @@ public class VistaCines extends JFrame {
 		cines = metodos.cuantosCines();
 		cines = metodos.cuantasSalas(cines);
 		users =metodos.usuariosArray();
+		peliculas=metodos.cuantasPeliculas();
 		botonesCine(cines.length);
 		panelCines.updateUI();
 		
