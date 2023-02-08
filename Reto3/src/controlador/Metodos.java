@@ -16,6 +16,7 @@ import modelo.Sesion;
 public class Metodos {
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
+	
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra = "Contraseña33#";

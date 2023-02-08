@@ -10,7 +10,6 @@ public class Sesion {
 	Pelicula pelicula;
 	Date fecha;
 	
-	
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
