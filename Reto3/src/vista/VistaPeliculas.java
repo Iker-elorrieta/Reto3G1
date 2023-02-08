@@ -46,7 +46,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 
 		JButton atras = new JButton("Atras");
-		atras.setBounds(319, 0, 71, 29);
+		atras.setBounds(338, 0, 71, 29);
 		atras.addActionListener(this);
 		contentPane.setLayout(null);
 		contentPane.add(atras);

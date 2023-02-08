@@ -100,14 +100,14 @@ public class VistaLogin extends JFrame implements ActionListener{
 				String dni = jUser.getText();
 				String pass = String.valueOf(jPassw.getPassword());
 				if(metodo.validarUsers(usuarios, dni, pass)) {
-
-					labelIncorrecto.setText("");
-					labelIncorrecto.setVisible(false);
 					
+					labelIncorrecto.setVisible(false);
 					JOptionPane.showMessageDialog(null,
 							"Desde aqui se manda a ticket",
 							"Bienvenido.",
 						JOptionPane.INFORMATION_MESSAGE);
+					
+					
 				}
 				else {
 					labelIncorrecto.setForeground(Color.RED);

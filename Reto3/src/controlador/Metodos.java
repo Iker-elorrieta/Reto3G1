@@ -284,7 +284,7 @@ public class Metodos {
 				for (int i = 0; i < cines[cont1].getSalas().length; i++) {
 					ResultSet registro = comando
 							.executeQuery("select distinct cod_pelicula from sesiones where cod_sala='"
-									+ cines[cont1].getSalas()[i].getCdSala() + "' ORDER BY fecha DESC;");
+									+ cines[cont1].getSalas()[i].getCdSala() + "' ORDER BY fecha Desc, hora Desc;");
 
 					while (registro.next() == true) {
 
