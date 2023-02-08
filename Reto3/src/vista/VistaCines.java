@@ -11,8 +11,6 @@ import modelo.Cine;
 import modelo.Cliente;
 import modelo.Entrada;
 import modelo.Pelicula;
-import modelo.Sesion;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -35,11 +33,10 @@ public class VistaCines extends JFrame {
 	private JPanel contentPane;
 	private JPanel panelCines;
 	private Metodos metodos = new Metodos();
-	private Cine[] cines;
-	private Cliente[] users;
-	private Sesion[] sesiones;
-	private Entrada[] entradas_compradas=null;
-	private Pelicula[] peliculas;
+	private Cine[] cines = metodos.cuantosCines();
+	private Cliente[] users = metodos.usuariosArray();
+	private Entrada[] entradas_compradas = null;
+	private Pelicula[] peliculas = metodos.todasLasPeliculas(cines);
 	private VistaLogin login;
 	private VistaPeliculas vPeliculas;
 	int i = 0;
@@ -94,12 +91,10 @@ public class VistaCines extends JFrame {
 		JButton btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(entradas_compradas==null) {
-					JOptionPane.showMessageDialog(null,
-						"Tienes que elegir alguna pelicula.",
-						"Error",
-						JOptionPane.INFORMATION_MESSAGE);
-				}else {
+				if (entradas_compradas == null) {
+					JOptionPane.showMessageDialog(null, "Tienes que elegir alguna pelicula.", "Error",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
 					login = new VistaLogin(users);
 					login.setVisible(true);
 				}
@@ -135,19 +130,14 @@ public class VistaCines extends JFrame {
 	}
 
 	public void aPelis(Cine cine) {
-		vPeliculas = new VistaPeliculas(cine);
+		vPeliculas = new VistaPeliculas(cine, peliculas);
 		vPeliculas.setVisible(true);
 	}
 
 	public void actuador() {
-		
-		cines = metodos.cuantosCines();
-		cines = metodos.cuantasSalas(cines);
-		users =metodos.usuariosArray();
-		peliculas=metodos.cuantasPeliculas();
 		botonesCine(cines.length);
 		panelCines.updateUI();
-		
+
 		try {
 			Thread.sleep(3000);
 		} catch (Exception f) {

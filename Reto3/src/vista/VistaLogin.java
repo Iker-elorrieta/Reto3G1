@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class VistaLogin extends JFrame  implements ActionListener{
+public class VistaLogin extends JFrame implements ActionListener{
 
 	/**
 	 * 
@@ -41,6 +41,7 @@ public class VistaLogin extends JFrame  implements ActionListener{
 	private Color todoOk=Color.GREEN;
 	private JButton registrarseBtn;
 	private JComboBox<String> sexoCB;
+	private JTabbedPane tabbedPane;
 	
 	/**
 	 * Launch the application.
@@ -61,7 +62,7 @@ public class VistaLogin extends JFrame  implements ActionListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 562, 377);
 		contentPane.add(tabbedPane);
 		
@@ -224,19 +225,37 @@ public class VistaLogin extends JFrame  implements ActionListener{
 		 		passval_reg.setBackground(Color.RED);
 			}
 			if(dni_reg.getBackground() == todoOk && nombre_reg.getBackground() == todoOk 
-					&& apell1_reg.getBackground() == todoOk && apell2_reg.getBackground() == todoOk 
-					&& pass_reg.getBackground() == todoOk && passval_reg.getBackground() == todoOk)
+				&& apell1_reg.getBackground() == todoOk && apell2_reg.getBackground() == todoOk 
+				&& pass_reg.getBackground() == todoOk && passval_reg.getBackground() == todoOk) {
+				
 					usuarios=metodo.registrarUsuario(dni_reg.getText(), nombre_reg.getText(), apell1_reg.getText(), apell2_reg.getText(), sexoCB.getSelectedItem().toString(), String.valueOf(pass_reg.getPassword()));
-				else {
+					limpiarCamposReg();
+					tabbedPane.setSelectedIndex(1);
+					
 					JOptionPane.showMessageDialog(null,
-						"Rellena los campos con la informacion correcta.",
-						"Error",
-					JOptionPane.INFORMATION_MESSAGE);
-				}
+							"Prueba a hacer login",
+							"Error",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+			else {
+				JOptionPane.showMessageDialog(null,
+					"Rellena los campos con la informacion correcta.",
+					"Error",
+				JOptionPane.INFORMATION_MESSAGE);
+			}
 			
 			
 		}
 			
+	}
+	
+	public void limpiarCamposReg() {
+		dni_reg.setText("");
+		nombre_reg.setText("");
+		apell1_reg.setText("");
+		apell2_reg.setText("");
+		pass_reg.setText("");
+		passval_reg.setText("");
 	}
 	
 }
