@@ -87,10 +87,11 @@ public class VistaLogin extends JFrame implements ActionListener{
 		labelPassw.setBounds(31, 87, 90, 14);
 		panelLogin.add(labelPassw);
 		
-		JLabel labelIncorrecto = new JLabel("");
+		JLabel labelIncorrecto = new JLabel("DNI o Contraseña inorrectos.");
 		labelIncorrecto.setForeground(Color.RED);
 		labelIncorrecto.setBounds(214, 87, 284, 14);
 		panelLogin.add(labelIncorrecto);
+		labelIncorrecto.setVisible(false);
 		
 		JButton validarBtn = new JButton("Iniciar sesion");
 		validarBtn.addActionListener(new ActionListener() {
@@ -99,13 +100,18 @@ public class VistaLogin extends JFrame implements ActionListener{
 				String dni = jUser.getText();
 				String pass = String.valueOf(jPassw.getPassword());
 				if(metodo.validarUsers(usuarios, dni, pass)) {
-					//manda a ticket
-					labelIncorrecto.setForeground(Color.GREEN);
-					labelIncorrecto.setText("Todo bien.");
+
+					labelIncorrecto.setText("");
+					labelIncorrecto.setVisible(false);
+					
+					JOptionPane.showMessageDialog(null,
+							"Desde aqui se manda a ticket",
+							"Bienvenido.",
+						JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
 					labelIncorrecto.setForeground(Color.RED);
-					labelIncorrecto.setText("DNI o Contraseña inorrectos.");
+					labelIncorrecto.setVisible(true);
 				}
 			}
 		});
@@ -233,8 +239,8 @@ public class VistaLogin extends JFrame implements ActionListener{
 					tabbedPane.setSelectedIndex(1);
 					
 					JOptionPane.showMessageDialog(null,
-							"Prueba a hacer login",
-							"Error",
+							"Prueba a hacer login.",
+							"Registrado correctamente",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 			else {
