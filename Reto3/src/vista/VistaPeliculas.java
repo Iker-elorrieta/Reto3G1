@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.swing.JButton;
@@ -12,7 +13,6 @@ import javax.swing.border.EmptyBorder;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-
 import modelo.Cine;
 import modelo.DateLabelFormatter;
 import modelo.Pelicula;
@@ -40,9 +40,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public VistaPeliculas(Cine cineEscojido, Pelicula[] peliculas) {
+	public VistaPeliculas(Cine cineEscojido) {
 		cine = cineEscojido;
-		this.peliculas = peliculas;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 763, 517);
@@ -104,6 +103,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	protected void elegirSesion(Pelicula pelicula) {
 		// TODO Auto-generated method stub
 		UtilDateModel model = new UtilDateModel();
+		
 		Properties p = new Properties();
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 		tabSesiones.setLayout(null);
@@ -120,8 +120,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			this.dispose();
 		else {
 			
-			
-			
+			Date selectedDate = (Date) datePicker.getModel().getValue();
 			
 		}
 			

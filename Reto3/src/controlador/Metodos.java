@@ -96,7 +96,7 @@ public class Metodos {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
 			ResultSet registro = comando
-					.executeQuery("SELECT * FROM sesiones where cod_sala='" + sala.getCdSala() + "';");
+					.executeQuery("SELECT * FROM sesiones where cod_sala='" + sala.getCdSala() + "' order by fecha;");
 
 			while (registro.next() == true) {
 
@@ -113,7 +113,7 @@ public class Metodos {
 				cal.set(Calendar.MINUTE, Integer.valueOf(hora.split(":")[1]));
 
 				sesion.setFecha(cal.getTime());
-				sesion = cuantasPeliculas(sesion);
+				sesion = cuantasPeliculas(sesion, registro.getString("cod_pelicula"));
 
 				Sesion[] arrayNuevo = new Sesion[sesiones.length + 1];
 				for (int i = 0; i < sesiones.length; i++) {
@@ -133,14 +133,13 @@ public class Metodos {
 	}
 
 	// Aqui se lee que pelicula hay para cada sesion.
-	public Sesion cuantasPeliculas(Sesion sesion) {
+	public Sesion cuantasPeliculas(Sesion sesion, String cod_pelicula) {
 
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
 
-			ResultSet registro = comando
-					.executeQuery("select * from peliculas where cod_pelicula='" + sesion.getIdSesion() + "';");
+			ResultSet registro = comando.executeQuery("select * from peliculas where cod_pelicula='" + cod_pelicula + "';");
 
 			while (registro.next() == true) {
 
@@ -169,7 +168,7 @@ public class Metodos {
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
-			ResultSet registro = comando.executeQuery("SELECT * FROM clientes;");
+			ResultSet registro = comando.executeQuery("SELECT dni, nombre, apellido_1, apellido_2, sexo, passw FROM clientes;");
 
 			while (registro.next() == true) {
 
@@ -247,7 +246,7 @@ public class Metodos {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
 			comando.executeUpdate("Insert into clientes values ('" + dni + "', '" + apell1 + "', '" + dni + "', '"
-					+ apell2 + "', '" + sexoCB + "', '" + passw + "');");
+					+ apell2 + "', '" + sexoCB + "', AES_ENCRYPT('" + passw + "', 'key'));");
 
 			conexion.close();
 
@@ -269,48 +268,6 @@ public class Metodos {
 			estaVacio = true;
 
 		return estaVacio;
-	}
-
-	// Aqui se declaran todas las peliculas que tiene el cine para poder hacer
-	// comparaciones en las vistas.
-	public Pelicula[] todasLasPeliculas(Cine[] cines) {
-		// TODO Auto-generated method stub
-		Pelicula[] peliculas = null;
-		for (int cont1 = 0; cont1 < cines.length; cont1++) {
-			peliculas = new Pelicula[0];
-			try {
-				Connection conexion = DriverManager.getConnection(sConexion, user, contra);
-				Statement comando = conexion.createStatement();
-				for (int i = 0; i < cines[cont1].getSalas().length; i++) {
-					ResultSet registro = comando
-							.executeQuery("select distinct cod_pelicula from sesiones where cod_sala='"
-									+ cines[cont1].getSalas()[i].getCdSala() + "' ORDER BY fecha Desc, hora Desc;");
-
-					while (registro.next() == true) {
-
-						Pelicula pelicula = new Pelicula();
-						pelicula.setCdPel(registro.getString("cod_pelicula"));
-						pelicula.setNombre(registro.getString("nom_peli"));
-						pelicula.setGenero(registro.getString("genero"));
-						pelicula.setDuracion(registro.getInt("duracion"));
-						pelicula.setPrecio(registro.getFloat("coste"));
-
-						Pelicula[] arrayNuevo = new Pelicula[peliculas.length + 1];
-						for (int cont2 = 0; cont2 < peliculas.length; cont2++) {
-							arrayNuevo[cont2] = peliculas[cont2];
-						}
-						arrayNuevo[peliculas.length] = pelicula;
-						peliculas = arrayNuevo;
-
-					}
-				}
-				conexion.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return peliculas;
 	}
 
 }

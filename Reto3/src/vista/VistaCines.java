@@ -10,7 +10,6 @@ import controlador.Metodos;
 import modelo.Cine;
 import modelo.Cliente;
 import modelo.Entrada;
-import modelo.Pelicula;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -34,7 +33,6 @@ public class VistaCines extends JFrame implements ActionListener {
 	private Cine[] cines = metodos.cuantosCines();
 	private Cliente[] users = metodos.usuariosArray();
 	private Entrada[] entradas_compradas = null;
-	private Pelicula[] peliculas = metodos.todasLasPeliculas(cines);
 	private VistaLogin login;
 	private VistaPeliculas vPeliculas;
 	int i = 0;
@@ -127,7 +125,7 @@ public class VistaCines extends JFrame implements ActionListener {
 	}
 
 	public void aPelis(Cine cine) {
-		vPeliculas = new VistaPeliculas(cine, peliculas);
+		vPeliculas = new VistaPeliculas(cine);
 		vPeliculas.setVisible(true);
 	}
 
