@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
+import javax.swing.JButton;
 
 public class VistaTicket extends JFrame {
 
@@ -47,5 +48,13 @@ public class VistaTicket extends JFrame {
 		table = new JTable();
 		table.setBounds(109, 27, 430, 331);
 		contentPane.add(table);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(501, 401, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.setBounds(61, 401, 89, 23);
+		contentPane.add(btnNewButton_1);
 	}
 }
