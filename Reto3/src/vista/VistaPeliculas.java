@@ -13,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+
+import controlador.Metodos;
 import modelo.Cine;
 import modelo.DateLabelFormatter;
 import modelo.Pelicula;
@@ -26,12 +28,13 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Cine cine;
-	private Pelicula[] peliculas;
+	private Pelicula[] peliculas ;
 	private JPanel tabPeliculas;
 	private JPanel tabSesiones;
 	private JTabbedPane tabbedPane;
 	private JButton atras;
 	JDatePickerImpl datePicker;
+	Metodos metodos = new Metodos();
 
 	/**
 	 * Launch the application.
@@ -42,7 +45,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	 */
 	public VistaPeliculas(Cine cineEscojido) {
 		cine = cineEscojido;
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 763, 517);
 		contentPane = new JPanel();
@@ -67,8 +70,10 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabbedPane.addTab("Sesiones", null, tabSesiones, null);
 		tabbedPane.setEnabledAt(1, false);
 		tabSesiones.setLayout(null);
-
-		botonesPelis(this.peliculas);
+		
+		
+		peliculas = metodos.cargarPeliculas(cine);
+		botonesPelis(peliculas);
 	}
 
 	public void botonesPelis(Pelicula[] peliculas) {

@@ -270,4 +270,18 @@ public class Metodos {
 		return estaVacio;
 	}
 
+	public Pelicula[] cargarPeliculas(Cine cine) {
+		// TODO Auto-generated method stub
+		Pelicula[] peliculas =new Pelicula[0];
+			for (int contSalas=0;contSalas < cine.getSalas().length;contSalas++) {
+				
+				
+			}
+		
+		
+			
+		
+			return peliculas;
+	}
+
 }
