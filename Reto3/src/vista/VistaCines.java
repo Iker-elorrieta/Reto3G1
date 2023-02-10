@@ -85,16 +85,7 @@ public class VistaCines extends JFrame implements ActionListener {
 		panelCines.setLayout(null);
 
 		JButton btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (entradas_compradas == null) {
-					
-				} else {
-					login = new VistaLogin(users);
-					login.setVisible(true);
-				}
-			}
-		});
+		btnFinalizar.addActionListener(this);
 		btnFinalizar.setBounds(225, 404, 126, 46);
 		panelCines.add(btnFinalizar);
 		panelCines.setVisible(false);
@@ -145,7 +136,12 @@ public class VistaCines extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		this.dispose();
+		if (entradas_compradas == null) {
+			this.dispose();
+		} else {
+			login = new VistaLogin(users);
+			login.setVisible(true);
+		}
 	}
 
 }

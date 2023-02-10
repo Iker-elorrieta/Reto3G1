@@ -103,11 +103,9 @@ public class VistaLogin extends JFrame implements ActionListener{
 					
 					labelIncorrecto.setVisible(false);
 					JOptionPane.showMessageDialog(null,
-							"Desde aqui se manda a ticket",
+							"Sesion iniciada",
 							"Bienvenido.",
 						JOptionPane.INFORMATION_MESSAGE);
-					
-					
 				}
 				else {
 					labelIncorrecto.setForeground(Color.RED);
@@ -202,8 +200,15 @@ public class VistaLogin extends JFrame implements ActionListener{
 			this.dispose();
 		else if (e.getSource()==registrarseBtn) {
 			
-			if(metodo.validarDni(dni_reg.getText(), usuarios))
-		 		dni_reg.setBackground(Color.GREEN);
+			
+			
+			if(metodo.validarDni(dni_reg.getText(), usuarios)) {
+				for (int i = 0; i < usuarios.length; i++) {
+					if (dni_reg.getText().equals(usuarios[i].getDni()))
+						dni_reg.setBackground(Color.GREEN);
+				}
+		 		
+			}
 		 	else
 				dni_reg.setBackground(Color.RED);
 			

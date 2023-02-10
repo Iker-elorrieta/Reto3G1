@@ -14,7 +14,9 @@ public class Sesion {
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");   
+
+		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");   
+
 		return  idSesion + "#" + pelicula + "#" + dt.format(fecha) + "#" + sdf.format(fecha) + "@";
 	}
 	
