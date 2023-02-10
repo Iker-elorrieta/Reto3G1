@@ -10,9 +10,9 @@ public class Entrada {
 		return cdEntrada + "#" + Arrays.toString(sesiones) + "#" + precio
 				+ "@";
 	}
-	String cdEntrada;
-	Sesion[] sesiones;
-	float precio;
+	private String cdEntrada;
+	private Sesion[] sesiones;
+	private float precio;
 	
 	public String getCdEntrada() {
 		return cdEntrada;

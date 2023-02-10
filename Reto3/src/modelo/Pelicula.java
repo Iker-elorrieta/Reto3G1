@@ -6,7 +6,7 @@ public class Pelicula {
 	private float precio;
 	private String cdPel;
 	private String nombre;
-	private float duracion;
+	private int duracion;
 	private String genero; 
 	
 	public String getCdPel() {
@@ -25,11 +25,11 @@ public class Pelicula {
 		this.nombre = nombre;
 	}
 
-	public float getDuracion() {
+	public int getDuracion() {
 		return duracion;
 	}
 
-	public void setDuracion(float duración) {
+	public void setDuracion(int duración) {
 		this.duracion = duración;
 	}
 
