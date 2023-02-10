@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.Date;
 import java.util.Properties;
 
@@ -92,7 +91,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		horaCB = new JComboBox<String>();
 		horaCB.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-
+				
 				Date fecha = (Date) datePicker.getModel().getValue();
 				String[] horas = new String[0];
 				if (fecha != null)
@@ -182,7 +181,6 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		}
 
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
