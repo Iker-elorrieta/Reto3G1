@@ -26,7 +26,7 @@ class TestCine {
 	    Sala[] salas = {sala};
 	Cine cine1 =new Cine();
 			Cine cine2= new Cine(); 
-		 String resul = "C01#Elorrieta#[CE-S01#Sala 1#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:56@]@]@";
+		 String resul = "CE#Elorrieta#[CE-01#Sala 1#[CE-01-0001#AC001#Terminator#120#Accion#5.0@#20-01-2023#09:56@]@]@";
 
 	 
 		
@@ -34,12 +34,12 @@ class TestCine {
 	@Test
 	void testToString() {	
 		
-			sala.setCdSala("CE-S01");
+			sala.setCdSala("CE-01");
 			sala.setNomSala("Sala 1");
 			sala.setSesiones(sesiones);
 	
 			Pelicula pelicula =new Pelicula();
-			pelicula.setCdPel("Ac001");
+			pelicula.setCdPel("AC001");
 			pelicula.setNombre("Terminator");
 			pelicula.setGenero("Accion");
 			pelicula.setDuracion(120);
@@ -53,10 +53,10 @@ class TestCine {
 			cal.set(Calendar.MINUTE, 56);
 			fecha = cal.getTime();
 		
-			sesion.setIdSesion("CES01001");
+			sesion.setIdSesion("CE-01-0001");
 			sesion.setPelicula(pelicula);
 			sesion.setFecha(fecha);
-		cine1.setCod_cine("C01");
+		cine1.setCod_cine("CE");
 		cine1.setNombre_cine("Elorrieta");
 		cine1.setSalas(salas);
 		

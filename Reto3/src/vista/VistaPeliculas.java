@@ -2,17 +2,24 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
+import controlador.Metodos;
 import modelo.Cine;
+import modelo.DateLabelFormatter;
 import modelo.Pelicula;
 import javax.swing.JTabbedPane;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class VistaPeliculas extends JFrame implements ActionListener {
 
@@ -22,10 +29,13 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Cine cine;
-	private Pelicula[] peliculas;
+	private Pelicula[] peliculas ;
 	private JPanel tabPeliculas;
 	private JPanel tabSesiones;
 	private JTabbedPane tabbedPane;
+	private JButton atras;
+	JDatePickerImpl datePicker;
+	Metodos metodos = new Metodos();
 
 	/**
 	 * Launch the application.
@@ -34,10 +44,9 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public VistaPeliculas(Cine cineEscojido, Pelicula[] peliculas) {
+	public VistaPeliculas(Cine cineEscojido) {
 		cine = cineEscojido;
-		this.peliculas = peliculas;
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 763, 517);
 		contentPane = new JPanel();
@@ -45,8 +54,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 
 		setContentPane(contentPane);
 
-		JButton atras = new JButton("Atras");
-		atras.setBounds(319, 0, 71, 29);
+		atras = new JButton("Atras");
+		atras.setBounds(338, 0, 71, 29);
 		atras.addActionListener(this);
 		contentPane.setLayout(null);
 		contentPane.add(atras);
@@ -62,13 +71,10 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabbedPane.addTab("Sesiones", null, tabSesiones, null);
 		tabbedPane.setEnabledAt(1, false);
 		tabSesiones.setLayout(null);
-
-		JLabel lblNewLabel = new JLabel("Hola");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(234, 98, 238, 142);
-		tabSesiones.add(lblNewLabel);
-
-		botonesPelis(this.peliculas);
+		
+		
+		peliculas = metodos.cargarPeliculas(cine);
+		botonesPelis(peliculas);
 	}
 
 	public void botonesPelis(Pelicula[] peliculas) {
@@ -80,9 +86,11 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			btnpeli.setToolTipText(String.valueOf(i));
 			btnpeli.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					elegirSesion(peliculas[Integer.valueOf(btnpeli.getToolTipText())]);
 					tabbedPane.setEnabledAt(0, false);
 					tabbedPane.setEnabledAt(1, true);
 					tabbedPane.setSelectedIndex(1);
+					
 				}
 			});
 
@@ -91,7 +99,6 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			} else {
 				btnpeli.setBounds(350, y1, 200, 70);
 				y1 += 100;
-
 			}
 			tabPeliculas.add(btnpeli);
 			btnpeli.setEnabled(true);
@@ -99,9 +106,33 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 
 	}
 
+	protected void elegirSesion(Pelicula pelicula) {
+		// TODO Auto-generated method stub
+		UtilDateModel model = new UtilDateModel();
+		Properties p = new Properties();
+		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+		tabSesiones.setLayout(null);
+		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		datePicker.setBounds(170, 11, 202, 23);
+		tabSesiones.add(datePicker);
+		
+	
+		/*Calendar now = Calendar.getInstance();
+		
+
+		*/
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		this.dispose();
+		if (e.getSource()==atras)
+			this.dispose();
+		else {
+			
+			Date selectedDate = (Date) datePicker.getModel().getValue();
+			
+		}
+			
 	}
 }

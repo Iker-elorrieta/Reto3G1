@@ -10,10 +10,7 @@ import controlador.Metodos;
 import modelo.Cine;
 import modelo.Cliente;
 import modelo.Entrada;
-import modelo.Pelicula;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,7 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
-public class VistaCines extends JFrame {
+public class VistaCines extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -36,7 +33,6 @@ public class VistaCines extends JFrame {
 	private Cine[] cines = metodos.cuantosCines();
 	private Cliente[] users = metodos.usuariosArray();
 	private Entrada[] entradas_compradas = null;
-	private Pelicula[] peliculas = metodos.todasLasPeliculas(cines);
 	private VistaLogin login;
 	private VistaPeliculas vPeliculas;
 	int i = 0;
@@ -92,8 +88,7 @@ public class VistaCines extends JFrame {
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (entradas_compradas == null) {
-					JOptionPane.showMessageDialog(null, "Tienes que elegir alguna pelicula.", "Error",
-							JOptionPane.INFORMATION_MESSAGE);
+					
 				} else {
 					login = new VistaLogin(users);
 					login.setVisible(true);
@@ -130,7 +125,7 @@ public class VistaCines extends JFrame {
 	}
 
 	public void aPelis(Cine cine) {
-		vPeliculas = new VistaPeliculas(cine, peliculas);
+		vPeliculas = new VistaPeliculas(cine);
 		vPeliculas.setVisible(true);
 	}
 
@@ -145,6 +140,12 @@ public class VistaCines extends JFrame {
 		}
 
 		panelCines.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		this.dispose();
 	}
 
 }
