@@ -23,7 +23,7 @@ class TestSala {
 	  Sesion[] sesiones = {sesion};
 		Sala sala1 =new Sala();
 			Sala sala2= new Sala(); 
-		static String resul = "CE-S01#Sala 1#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:56@]@";
+		static String resul = "CE-01#Sala 1#[CE-01-0001#Ac001#Terminator#120#Accion#5.0@#20-01-2023#09:56@]@";
 	
 	@Test
 	void testToString() {
@@ -42,11 +42,11 @@ class TestSala {
 			cal.set(Calendar.MINUTE, 56);
 			fecha = cal.getTime();
 			
-			sesion.setIdSesion("CES01001");
+			sesion.setIdSesion("CE-01-0001");
 			sesion.setPelicula(pelicula);
 			sesion.setFecha(fecha);
 		
-		sala1.setCdSala("CE-S01");
+		sala1.setCdSala("CE-01");
 		sala1.setNomSala("Sala 1");
 		sala1.setSesiones(sesiones);
 	

@@ -5,10 +5,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
 import java.util.Date;
+
 
 import modelo.Cine;
 import modelo.Cliente;
@@ -17,6 +20,7 @@ import modelo.Sala;
 import modelo.Sesion;
 
 public class Metodos {
+
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
 
@@ -28,8 +32,12 @@ public class Metodos {
 	//final String user = "root";
 	//final String contra = "";
 
-	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que
-	// devuelve.
+
+
+
+	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que devuelve
+
+	
 	public Cine[] cuantosCines() {
 		// TODO Auto-generated method stub
 		Cine[] cines = new Cine[0];
@@ -102,8 +110,10 @@ public class Metodos {
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
+
 			ResultSet registro = comando.executeQuery(
 					"SELECT * FROM sesiones where cod_sala='" + sala.getCdSala() + "' order by fecha, hora;");
+
 
 			while (registro.next() == true) {
 
@@ -277,6 +287,7 @@ public class Metodos {
 	public Pelicula[] cargarPeliculas(Cine cine) {
 		// TODO Auto-generated method stub
 
+
 		Pelicula[] peliculas = new Pelicula[0];
 		for (int contSalas = 0; contSalas < cine.getSalas().length; contSalas++) {
 			for (int contSesiones = 0; contSesiones < cine.getSalas()[contSalas].getSesiones().length; contSesiones++) {
@@ -285,6 +296,7 @@ public class Metodos {
 
 				for (int i = 0; i < peliculas.length; i++) {
 					arrayNuevo[i] = peliculas[i];
+
 				}
 				boolean estaEnELArray = false;
 
@@ -348,5 +360,6 @@ public class Metodos {
 
 		return horas;
 	}
+
 
 }

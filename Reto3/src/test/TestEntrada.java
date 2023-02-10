@@ -23,12 +23,12 @@ class TestEntrada {
 	  Sesion[] sesiones = {sesion};
 		Entrada entrada1 = new Entrada();
 		Entrada entrada2 = new Entrada();
-		 String resul = "CETCK001#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:56@]#23.0@";
+		 String resul = "CETCK001#[CE-01-0001#AC001#Terminator#120#Accion#5.0@#20-01-2023#09:56@]#23.0@";
 		
 	@Test
 	void testToString() {	
 			Pelicula pelicula =new Pelicula();
-			pelicula.setCdPel("Ac001");
+			pelicula.setCdPel("AC001");
 			pelicula.setNombre("Terminator");
 			pelicula.setGenero("Accion");
 			pelicula.setDuracion(120);
@@ -44,7 +44,7 @@ class TestEntrada {
 			
 		
 		
-			sesion.setIdSesion("CES01001");
+			sesion.setIdSesion("CE-01-0001");
 			sesion.setPelicula(pelicula);
 			sesion.setFecha(fecha);
 			
