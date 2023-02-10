@@ -107,8 +107,9 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 
 	protected void elegirSesion(Pelicula pelicula) {
 		// TODO Auto-generated method stub
-		UtilDateModel model = new UtilDateModel();
 		
+		UtilDateModel model = new UtilDateModel();
+		model.setDate(1990, 8, 24);
 		Properties p = new Properties();
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 		tabSesiones.setLayout(null);

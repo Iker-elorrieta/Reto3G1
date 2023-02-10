@@ -95,8 +95,7 @@ public class Metodos {
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
-			ResultSet registro = comando
-					.executeQuery("SELECT * FROM sesiones where cod_sala='" + sala.getCdSala() + "' order by fecha;");
+			ResultSet registro = comando.executeQuery("SELECT * FROM sesiones where cod_sala='" + sala.getCdSala() + "' order by fecha, hora;");
 
 			while (registro.next() == true) {
 
@@ -272,13 +271,33 @@ public class Metodos {
 
 	public Pelicula[] cargarPeliculas(Cine cine) {
 		// TODO Auto-generated method stub
+		
 		Pelicula[] peliculas =new Pelicula[0];
 			for (int contSalas=0;contSalas < cine.getSalas().length;contSalas++) {
-				
 				for (int contSesiones=0;contSesiones < cine.getSalas()[contSalas].getSesiones().length;contSesiones++) {
 					
+					Pelicula[] arrayNuevo =new Pelicula[peliculas.length+1];
+					
+					for (int i = 0; i < peliculas.length; i++) {
+						arrayNuevo[i] = peliculas[i];
+					}
+					boolean estaEnELArray=false;
+					
+					for (int nuevasPelis=0;nuevasPelis < arrayNuevo.length;nuevasPelis++) {
+						
+						if(arrayNuevo[nuevasPelis]!=null) {
+							if (arrayNuevo[nuevasPelis].getCdPel().equals(cine.getSalas()[contSalas].getSesiones()[contSesiones].getPelicula().getCdPel())) {
+								estaEnELArray=true;
+							}
+						}
+					}
+					
+					if (!estaEnELArray) {
+						arrayNuevo[arrayNuevo.length-1]=cine.getSalas()[contSalas].getSesiones()[contSesiones].getPelicula();
+						peliculas=arrayNuevo;
+					}
+
 				}
-				
 			}
 		
 			return peliculas;
