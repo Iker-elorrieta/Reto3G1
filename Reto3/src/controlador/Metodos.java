@@ -275,11 +275,11 @@ public class Metodos {
 		Pelicula[] peliculas =new Pelicula[0];
 			for (int contSalas=0;contSalas < cine.getSalas().length;contSalas++) {
 				
+				for (int contSesiones=0;contSesiones < cine.getSalas()[contSalas].getSesiones().length;contSesiones++) {
+					
+				}
 				
 			}
-		
-		
-			
 		
 			return peliculas;
 	}
