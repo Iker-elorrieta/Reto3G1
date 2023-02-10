@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.Date;
 import java.util.Properties;
 
@@ -25,10 +24,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 public class VistaPeliculas extends JFrame implements ActionListener {
 
@@ -92,39 +87,11 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabSesiones.add(aceptar);
 
 		horaCB = new JComboBox<String>();
-		horaCB.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				
-				
-			}
-		});
-		horaCB.setModel(new DefaultComboBoxModel<String>(new String[] { "-------" }));
+		horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
 		horaCB.setSelectedIndex(0);
 		horaCB.setMaximumRowCount(50);
 		horaCB.setBounds(441, 34, 135, 29);
 		tabSesiones.add(horaCB);
-		horaCB.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-				Date fecha = (Date) datePicker.getModel().getValue();
-				String[] horas = new String[0];
-				if (fecha != null)
-					horas = metodos.horarioSesiones(pelicula, cine, fecha);
-
-				horaCB.setModel(new DefaultComboBoxModel<String>(new String[] { "-------" }));
-
-				if (horas.length != 0) {
-					for (int horasN = 0; horasN < horas.length; horasN++) {
-						horaCB.addItem(horas[horasN]);
-					}
-				} else {
-					datePicker.getModel().setValue(null);
-				}
-			}
-		});
-		
-		
 
 		labelNombrePelicula = new JLabel("AAAAAA");
 		labelNombrePelicula.setHorizontalAlignment(SwingConstants.CENTER);
@@ -158,6 +125,24 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 		tabSesiones.setLayout(null);
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		datePicker.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Date fecha = (Date) datePicker.getModel().getValue();
+				String[] horas = new String[0];
+				if (fecha != null)
+					horas = metodos.horarioSesiones(pelicula, cine, fecha);
+				
+				horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
+				
+				if (horas.length != 0) {
+					for (int horasN = 0; horasN < horas.length; horasN++) {
+						horaCB.addItem(horas[horasN]);
+					}
+				} else {
+					datePicker.getModel().setValue(null);
+				}
+			}
+		});
 		datePicker.setBounds(170, 11, 202, 23);
 		tabSesiones.add(datePicker);
 	}
@@ -192,7 +177,6 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		}
 
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
