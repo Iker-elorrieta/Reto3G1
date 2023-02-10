@@ -204,10 +204,9 @@ public class VistaLogin extends JFrame implements ActionListener{
 			
 			if(metodo.validarDni(dni_reg.getText(), usuarios)) {
 				for (int i = 0; i < usuarios.length; i++) {
-					if (dni_reg.getText().equals(usuarios[i].getDni()))
+					if (!dni_reg.getText().equals(usuarios[i].getDni()))
 						dni_reg.setBackground(Color.GREEN);
 				}
-		 		
 			}
 		 	else
 				dni_reg.setBackground(Color.RED);
