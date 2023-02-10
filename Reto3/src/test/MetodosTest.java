@@ -1,12 +1,15 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import controlador.Metodos;
 import modelo.Cine;
 import modelo.Cliente;
+import modelo.Pelicula;
 
 class MetodosTest {
 	Metodos metodos=new Metodos();
@@ -51,6 +54,23 @@ class MetodosTest {
 			 text="2275228S";
 			  resul=metodos.validarDni(text, clientes);
 			assertEquals(false, resul);
+			
+		}
+		@Test
+		void testRegistrarUsuario() {
+			String dni="45894650J"; String nombre="Sergio"; String apell1="Galera"; String apell2="Frias"; String sexoCB="H";
+			String passw="1234";
+			
+			
+			
+		}
+		@Test
+		void testCargarPeliculas() {
+			Cine[] cines= metodos.cuantosCines();
+			Cine cine = cines[0];
+			Pelicula[] resul= null ;
+			assertEquals(resul, cine.setSalas(null));
+			
 			
 		}
 	}
