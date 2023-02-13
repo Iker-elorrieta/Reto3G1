@@ -15,6 +15,7 @@ import java.util.Date;
 
 import modelo.Cine;
 import modelo.Cliente;
+import modelo.Entrada;
 import modelo.Pelicula;
 import modelo.Sala;
 import modelo.Sesion;
@@ -387,15 +388,45 @@ public class Metodos {
 					}
 					arrayNuevo[arrayNuevo.length - 1]=cine.getSalas()[salasN];
 					salas=arrayNuevo;
-					
 				}
-				
-				
 			}
 		}
 		
 		return salas;
 	}
 
+	public Entrada[] siguienteEntrada(Entrada[] entradas_compradas) {
+		// TODO Auto-generated method stub
+		Entrada[] nuevoArray = new Entrada[entradas_compradas.length];
+		
+		for (int i = 0; i < entradas_compradas.length; i++) {
+			nuevoArray[i] = entradas_compradas[i];
+		}
+		
+		entradas_compradas = nuevoArray;
+		
+		return entradas_compradas;
 	}
+	
+	public Sesion queSesion(Cine cine, String nombre_sala, Date fecha, String hora, Pelicula pelicula) {
+		// TODO Auto-generated method stub
+		Sesion sesionF= new Sesion();
+		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
+			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
+				Sesion sesion = cine.getSalas()[salasN].getSesiones()[sesionesN];
+				if(sesion.getPelicula().getCdPel().equals(pelicula.getCdPel()) && sesion.getFecha().equals(fecha) && sesion.getHora().equals(hora) && cine.getSalas()[salasN].getNomSala().equals(nombre_sala))
+					sesionF = cine.getSalas()[salasN].getSesiones()[sesionesN];
+				}
+			}
+		
+		return sesionF;
+	}
+
+
+	public Entrada nuevaEntrada(Sesion sesion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
 

@@ -17,8 +17,10 @@ import org.jdatepicker.impl.UtilDateModel;
 import controlador.Metodos;
 import modelo.Cine;
 import modelo.DateLabelFormatter;
+import modelo.Entrada;
 import modelo.Pelicula;
 import modelo.Sala;
+import modelo.Sesion;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JComboBox;
@@ -59,16 +61,21 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private JButton aceptarHora;
 	private Sala[] salas;
 	private JButton aceptarSala;
+	private JButton aceptar;
+	private Entrada[] entrada;
 	/**
 	 * Launch the application.
 	 */
 
 	/**
 	 * Create the frame.
+	 * @param entradas_compradas 
 	 */
-	public VistaPeliculas(Cine cineEscojido) {
+	public VistaPeliculas(Cine cineEscojido, Entrada[] entradas_compradas) {
 		cine = cineEscojido;
-
+		entrada = metodos.siguienteEntrada(entradas_compradas);
+		
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 763, 517);
 		contentPane = new JPanel();
@@ -94,8 +101,10 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabbedPane.setEnabledAt(1, false);
 		tabSesiones.setLayout(null);
 
-		JButton aceptar = new JButton("Aceptar");
+		aceptar = new JButton("Aceptar");
+		aceptar.addActionListener(this);
 		aceptar.setBounds(643, 388, 89, 23);
+		aceptar.setEnabled(false);
 		tabSesiones.add(aceptar);
 
 		horaCB = new JComboBox<String>();
@@ -246,6 +255,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		else if(e.getSource()==aceptarHora) {
 			if (!String.valueOf(horaCB.getSelectedItem()).equals("-------------------------")) {
 				labelSalas.setVisible(true);
+				salasCB.setVisible(true);
 				aceptarSala.setVisible(true);
 				String hora = String.valueOf(horaCB.getSelectedItem());
 				Date fecha = (Date) datePicker.getModel().getValue();
@@ -266,9 +276,23 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			}
 		}
 		else if(e.getSource()==aceptarSala) {
+			if (!String.valueOf(salasCB.getSelectedItem()).equals("-------------------------")) {
+			String hora = String.valueOf(horaCB.getSelectedItem());
+			Date fecha = (Date) datePicker.getModel().getValue();
+			Sesion sesion=metodos.queSesion(cine, String.valueOf(salasCB.getSelectedItem()), fecha, hora, pelicula);
+			entrada[entrada.length-1]=metodos.nuevaEntrada(sesion);
 			
-			metodos.queSesion();
+			JOptionPane.showMessageDialog(null,
+					"Se ha determinado la sesion",
+					"",
+					JOptionPane.INFORMATION_MESSAGE);
 			
+			aceptar.setEnabled(true);
+			}
+		}
+		else {
+			
+			this.dispose();
 		}
 	}
 }
