@@ -59,7 +59,7 @@ class MetodosTest {
 		@Test
 		void testRegistrarUsuario() {
 			String dni="45894650J"; String nombre="Sergio"; String apell1="Galera"; String apell2="Frias"; String sexoCB="H";
-			String passw="1234";
+			String passw="12345";
 			
 			
 			

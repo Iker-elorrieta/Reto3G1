@@ -47,6 +47,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private JLabel lblNewLabel_1;
 	private JLabel labelGeneroPelicula;
 	private Pelicula pelicula;
+	JButton seleccionarFecha;
 	/**
 	 * Launch the application.
 	 */
@@ -125,26 +126,13 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 		tabSesiones.setLayout(null);
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		datePicker.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Date fecha = (Date) datePicker.getModel().getValue();
-				String[] horas = new String[0];
-				if (fecha != null)
-					horas = metodos.horarioSesiones(pelicula, cine, fecha);
-				
-				horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
-				
-				if (horas.length != 0) {
-					for (int horasN = 0; horasN < horas.length; horasN++) {
-						horaCB.addItem(horas[horasN]);
-					}
-				} else {
-					datePicker.getModel().setValue(null);
-				}
-			}
-		});
 		datePicker.setBounds(170, 11, 202, 23);
 		tabSesiones.add(datePicker);
+		
+		seleccionarFecha = new JButton("seleccionar");
+		seleccionarFecha.addActionListener(this);
+		seleccionarFecha.setBounds(57, 11, 89, 23);
+		tabSesiones.add(seleccionarFecha);
 	}
 
 	public void botonesPelis(Pelicula[] peliculas) {
@@ -177,10 +165,27 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		}
 
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		this.dispose();
+		if (e.getSource()==atras)
+			this.dispose();
+		else if (e.getSource()==seleccionarFecha) {
+			Date fecha = (Date) datePicker.getModel().getValue();
+			String[] horas = new String[0];
+			if (fecha != null)
+				horas = metodos.horarioSesiones(pelicula, cine, fecha);
+			
+			horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
+			
+			if (horas.length != 0) {
+				for (int horasN = 0; horasN < horas.length; horasN++) {
+					horaCB.addItem(horas[horasN]);
+				}
+			} else {
+				datePicker.getModel().setValue(null);
+			}
+		}
 	}
 }
