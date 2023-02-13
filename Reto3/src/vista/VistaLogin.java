@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import controlador.Metodos;
 import modelo.Cliente;
+import modelo.Entrada;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -44,15 +45,11 @@ public class VistaLogin extends JFrame implements ActionListener {
 	private JTabbedPane tabbedPane;
 
 	/**
-	 * Launch the application.
-	 */
-
-	/**
 	 * Create the frame.
 	 * 
 	 * @param users
 	 */
-	public VistaLogin(Cliente[] users) {
+	public VistaLogin(Cliente[] users, Entrada[] entradas) {
 		usuarios = users;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 684, 426);
@@ -100,10 +97,11 @@ public class VistaLogin extends JFrame implements ActionListener {
 				String dni = jUser.getText();
 				String pass = String.valueOf(jPassw.getPassword());
 				if (metodo.validarUsers(usuarios, dni, pass)) {
-
 					labelIncorrecto.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Sesion iniciada", "Bienvenido.",
 							JOptionPane.INFORMATION_MESSAGE);
+					VistaTicket ticket =new VistaTicket(entradas, dni);
+					ticket.setVisible(true);
 				} else {
 					labelIncorrecto.setForeground(Color.RED);
 					labelIncorrecto.setVisible(true);

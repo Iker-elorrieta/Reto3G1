@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Ticket {
 	private int cdTicket;

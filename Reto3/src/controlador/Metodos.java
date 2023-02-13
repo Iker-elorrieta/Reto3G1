@@ -425,12 +425,17 @@ public class Metodos {
 	}
 
 
-	public Entrada nuevaEntrada(Sesion sesion) {
+	public Entrada nuevaEntrada(Sesion sesion, int num_entrada) {
 		// TODO Auto-generated method stub
 		
+		Entrada entrada = new Entrada();
+		entrada.setCdEntrada(""+num_entrada);
+		entrada.setFecha(sesion.getFecha());
+		entrada.setHora(sesion.getHora());
+		entrada.setPrecio(sesion.getPelicula().getPrecio());
+		entrada.setSesion(sesion);
 		
-		
-		return null;
+		return entrada;
 	}
 
 }

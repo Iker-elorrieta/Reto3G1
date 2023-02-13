@@ -62,7 +62,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private Sala[] salas;
 	private JButton aceptarSala;
 	private JButton aceptar;
-	private Entrada[] entrada;
+	private Entrada[] entradas;
 	/**
 	 * Launch the application.
 	 */
@@ -73,8 +73,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	 */
 	public VistaPeliculas(Cine cineEscojido, Entrada[] entradas_compradas) {
 		cine = cineEscojido;
-		entrada = metodos.siguienteEntrada(entradas_compradas);
-		
+		entradas = metodos.siguienteEntrada(entradas_compradas);
+		entradas_compradas=entradas;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 763, 517);
@@ -295,7 +295,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			String hora = String.valueOf(horaCB.getSelectedItem());
 			Date fecha = (Date) datePicker.getModel().getValue();
 			Sesion sesion=metodos.queSesion(cine, String.valueOf(salasCB.getSelectedItem()), fecha, hora, pelicula);
-			entrada[entrada.length-1]=metodos.nuevaEntrada(sesion);
+			entradas[entradas.length-1]=metodos.nuevaEntrada(sesion, entradas.length);
 			
 			JOptionPane.showMessageDialog(null,
 					"Se ha determinado la sesion",
@@ -306,8 +306,10 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			}
 		}
 		else {
-			
 			this.dispose();
 		}
+	}
+	public Entrada[] obtenerEntradas() {
+		return entradas;
 	}
 }

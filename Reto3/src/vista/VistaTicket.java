@@ -1,8 +1,8 @@
 package vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
+
+import modelo.Entrada;
 
 public class VistaTicket extends JFrame {
 
@@ -12,21 +12,20 @@ public class VistaTicket extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 
+	public VistaTicket(Entrada[] entradas, String dni) {
+		// TODO Auto-generated constructor stub
+		
+		
+		
+		
+		
+	}
+
+
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VistaTicket frame = new VistaTicket();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
