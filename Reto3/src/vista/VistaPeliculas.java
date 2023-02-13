@@ -47,7 +47,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private JLabel lblNewLabel_1;
 	private JLabel labelGeneroPelicula;
 	private Pelicula pelicula;
-	JButton seleccionarFecha;
+	private JButton seleccionarFecha;
+	private JLabel labelCoste;
 	/**
 	 * Launch the application.
 	 */
@@ -131,8 +132,17 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		
 		seleccionarFecha = new JButton("seleccionar");
 		seleccionarFecha.addActionListener(this);
-		seleccionarFecha.setBounds(57, 11, 89, 23);
+		seleccionarFecha.setBounds(40, 11, 106, 29);
 		tabSesiones.add(seleccionarFecha);
+		
+		JLabel lblNewLabel_2 = new JLabel("Coste:");
+		lblNewLabel_2.setBounds(65, 370, 48, 14);
+		tabSesiones.add(lblNewLabel_2);
+		
+		labelCoste = new JLabel("AAAAAA");
+		labelCoste.setHorizontalAlignment(SwingConstants.CENTER);
+		labelCoste.setBounds(123, 370, 74, 14);
+		tabSesiones.add(labelCoste);
 	}
 
 	public void botonesPelis(Pelicula[] peliculas) {
@@ -151,6 +161,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 					labelNombrePelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getNombre());
 					labelDuracion.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getDuracion() + " minutos");
 					labelGeneroPelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getGenero());
+					labelCoste.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getPrecio()+"€");
 				}
 			});
 

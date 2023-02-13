@@ -24,13 +24,13 @@ public class Metodos {
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
 
-	//final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
-	//final String user = "cliente";
-	//final String contra = "Contraseña33#";
+	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
+	final String user = "cliente";
+	final String contra = "Contraseña33#";
 
-	final String sConexion = "jdbc:mysql://localhost:3306/cines";
-	final String user = "root";
-	final String contra = "";
+	//final String sConexion = "jdbc:mysql://localhost:3306/cines";
+	//final String user = "root";
+	//final String contra = "";
 
 
 
@@ -126,8 +126,7 @@ public class Metodos {
 				cal.set(Calendar.YEAR, Integer.valueOf(fecha.split("-")[2]));
 
 				String hora = registro.getString("hora");
-				cal.set(Calendar.HOUR, Integer.valueOf(hora.split(":")[0]));
-				cal.set(Calendar.MINUTE, Integer.valueOf(hora.split(":")[1]));
+				sesion.setHora(hora);
 
 				sesion.setFecha(cal.getTime());
 				sesion = cuantasPeliculas(sesion, registro.getString("cod_pelicula"));
@@ -326,7 +325,6 @@ public class Metodos {
 	public String[] horarioSesiones(Pelicula pelicula, Cine cine, Date fecha) {
 		String[] horas = new String[0];
 
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
 		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd"); 
 		String horaS = "";
 		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
@@ -342,16 +340,18 @@ public class Metodos {
 					if (arrayNuevo[nuevasHoras] != null) {
 						
 						if (dt.format(cine.getSalas()[salasN].getSesiones()[sesionesN].getFecha()).equals(dt.format(fecha))) {
-							horaS = String.valueOf(sdf.format(fecha));
+							horaS = cine.getSalas()[salasN].getSesiones()[sesionesN].getHora();
+							
 							if (arrayNuevo[nuevasHoras].equals(horaS)) {
 								estaEnELArray = true;
 							}
+							
 						}
 					}
 				}
 
 				if (!estaEnELArray) {
-					arrayNuevo[arrayNuevo.length - 1] = String.valueOf(sdf.format(fecha));
+					arrayNuevo[arrayNuevo.length - 1] = cine.getSalas()[salasN].getSesiones()[sesionesN].getHora();
 					horas = arrayNuevo;
 				}
 
