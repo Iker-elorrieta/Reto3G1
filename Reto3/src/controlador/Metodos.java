@@ -121,9 +121,9 @@ public class Metodos {
 				sesion.setIdSesion(registro.getString("cod_sesion"));
 
 				String fecha = String.valueOf(registro.getDate("fecha"));
-				cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(fecha.split("-")[0]));
-				cal.set(Calendar.MONTH, Integer.valueOf(fecha.split("-")[1]));
-				cal.set(Calendar.YEAR, Integer.valueOf(fecha.split("-")[2]));
+				cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(fecha.split("-")[2]));
+				cal.set(Calendar.MONTH, Integer.valueOf(fecha.split("-")[1])-1);
+				cal.set(Calendar.YEAR, Integer.valueOf(fecha.split("-")[0]));
 
 				String hora = registro.getString("hora");
 				sesion.setHora(hora);
@@ -324,22 +324,23 @@ public class Metodos {
 
 	public String[] horarioSesiones(Pelicula pelicula, Cine cine, Date fecha) {
 		String[] horas = new String[0];
-
+		boolean estaEnELArray =false;
 		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd"); 
 		String horaS = "";
 		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
 
+				
 				String[] arrayNuevo = new String[horas.length + 1];
 				for (int i = 0; i < horas.length; i++) {
 					arrayNuevo[i] = horas[i];
 				}
-				boolean estaEnELArray = false;
 
 				for (int nuevasHoras = 0; nuevasHoras < arrayNuevo.length; nuevasHoras++) {
 					if (arrayNuevo[nuevasHoras] != null) {
 						
 						if (dt.format(cine.getSalas()[salasN].getSesiones()[sesionesN].getFecha()).equals(dt.format(fecha))) {
+							estaEnELArray = false;
 							horaS = cine.getSalas()[salasN].getSesiones()[sesionesN].getHora();
 							
 							if (arrayNuevo[nuevasHoras].equals(horaS)) {
@@ -352,15 +353,24 @@ public class Metodos {
 
 				if (!estaEnELArray) {
 					arrayNuevo[arrayNuevo.length - 1] = cine.getSalas()[salasN].getSesiones()[sesionesN].getHora();
-					horas = arrayNuevo;
+					boolean segundaComp=false;
+					for (int i=0;i < horas.length;i++) {
+						if(horas[i].equals(arrayNuevo[arrayNuevo.length - 1]))
+							segundaComp = true;
+						}
+					
+					if (!segundaComp) {
+						horas = arrayNuevo;
+					}
 				}
-
 			}
 
 		}
 
+		
+
 		return horas;
 	}
 
+	}
 
-}

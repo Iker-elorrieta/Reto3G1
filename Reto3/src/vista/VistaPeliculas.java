@@ -98,7 +98,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		labelNombrePelicula = new JLabel("AAAAAA");
 		labelNombrePelicula.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNombrePelicula.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		labelNombrePelicula.setBounds(118, 271, 180, 42);
+		labelNombrePelicula.setBounds(136, 184, 180, 42);
 		tabSesiones.add(labelNombrePelicula);
 
 		labelDuracion = new JLabel("");
@@ -106,17 +106,17 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabSesiones.add(labelDuracion);
 
 		lblNewLabel = new JLabel("Nombre Pelicula:");
-		lblNewLabel.setBounds(22, 272, 124, 42);
+		lblNewLabel.setBounds(40, 185, 124, 42);
 		tabSesiones.add(lblNewLabel);
 
 		lblNewLabel_1 = new JLabel("Genero:");
-		lblNewLabel_1.setBounds(60, 325, 68, 14);
+		lblNewLabel_1.setBounds(78, 238, 68, 14);
 		tabSesiones.add(lblNewLabel_1);
 
 		labelGeneroPelicula = new JLabel("AAAAAA");
 		labelGeneroPelicula.setHorizontalAlignment(SwingConstants.CENTER);
 		labelGeneroPelicula.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		labelGeneroPelicula.setBounds(97, 310, 100, 42);
+		labelGeneroPelicula.setBounds(115, 223, 100, 42);
 		tabSesiones.add(labelGeneroPelicula);
 
 		peliculas = metodos.cargarPeliculas(cine);
@@ -136,12 +136,12 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabSesiones.add(seleccionarFecha);
 		
 		JLabel lblNewLabel_2 = new JLabel("Coste:");
-		lblNewLabel_2.setBounds(65, 370, 48, 14);
+		lblNewLabel_2.setBounds(83, 283, 48, 14);
 		tabSesiones.add(lblNewLabel_2);
 		
 		labelCoste = new JLabel("AAAAAA");
 		labelCoste.setHorizontalAlignment(SwingConstants.CENTER);
-		labelCoste.setBounds(123, 370, 74, 14);
+		labelCoste.setBounds(141, 283, 74, 14);
 		tabSesiones.add(labelCoste);
 	}
 
