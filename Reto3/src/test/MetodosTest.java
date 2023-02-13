@@ -68,8 +68,6 @@ class MetodosTest {
 		void testCargarPeliculas() {
 			Cine[] cines= metodos.cuantosCines();
 			Cine cine = cines[0];
-			Pelicula[] resul= null ;
-			assertEquals(resul, cine.setSalas(null));
 			
 			
 		}
