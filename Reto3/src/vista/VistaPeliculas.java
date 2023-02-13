@@ -175,10 +175,13 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		aceptarHora = new JButton("Seleccionar Hora");
 		aceptarHora.setBounds(441, 77, 135, 23);
 		aceptarHora.setVisible(false);
+		aceptarHora.addActionListener(this);
 		tabSesiones.add(aceptarHora);
 		
 		aceptarSala = new JButton("Seleccionar Sala");
 		aceptarSala.setBounds(443, 223, 133, 23);
+		aceptarSala.setVisible(false);
+		aceptarSala.addActionListener(this);
 		tabSesiones.add(aceptarSala);
 		
 	}
@@ -243,9 +246,10 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		else if(e.getSource()==aceptarHora) {
 			if (!String.valueOf(horaCB.getSelectedItem()).equals("-------------------------")) {
 				labelSalas.setVisible(true);
+				aceptarSala.setVisible(true);
 				String hora = String.valueOf(horaCB.getSelectedItem());
 				Date fecha = (Date) datePicker.getModel().getValue();
-				salas = metodos.enQueSalas(cine, pelicula.getCdPel(), fecha, hora);
+				salas = metodos.enQueSalas(cine, pelicula, fecha, hora);
 				
 				salasCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
 			
@@ -261,6 +265,10 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
-		else if(e.getSource()==aceptarSala)
+		else if(e.getSource()==aceptarSala) {
+			
+			metodos.queSesion();
+			
+		}
 	}
 }
