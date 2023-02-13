@@ -326,7 +326,7 @@ public class Metodos {
 	public String[] horarioSesiones(Pelicula pelicula, Cine cine, Date fecha) {
 		String[] horas = new String[0];
 		boolean estaEnELArray =false;
-		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd"); 
+		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 		String horaS = "";
 		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
@@ -374,13 +374,13 @@ public class Metodos {
 	}
 
 	public Sala[] enQueSalas(Cine cine, Pelicula pelicula, Date fecha, String hora) {
-		
+		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 		Sala[] salas = new Sala[0];
 		
 		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
 				Sesion sesion = cine.getSalas()[salasN].getSesiones()[sesionesN];
-				if(sesion.getPelicula().getCdPel().equals(pelicula.getCdPel()) && sesion.getFecha().equals(fecha) && sesion.getHora().equals(hora)) {
+				if(sesion.getPelicula().getCdPel().equals(pelicula.getCdPel()) && dt.format(sesion.getFecha()).equals(dt.format(fecha)) && sesion.getHora().equals(hora)) {
 					
 					Sala[] arrayNuevo = new Sala[salas.length+1];
 					for (int i = 0; i < salas.length; i++) {
@@ -397,7 +397,7 @@ public class Metodos {
 
 	public Entrada[] siguienteEntrada(Entrada[] entradas_compradas) {
 		// TODO Auto-generated method stub
-		Entrada[] nuevoArray = new Entrada[entradas_compradas.length];
+		Entrada[] nuevoArray = new Entrada[entradas_compradas.length+1];
 		
 		for (int i = 0; i < entradas_compradas.length; i++) {
 			nuevoArray[i] = entradas_compradas[i];
@@ -411,10 +411,12 @@ public class Metodos {
 	public Sesion queSesion(Cine cine, String nombre_sala, Date fecha, String hora, Pelicula pelicula) {
 		// TODO Auto-generated method stub
 		Sesion sesionF= new Sesion();
+		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+		
 		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
 				Sesion sesion = cine.getSalas()[salasN].getSesiones()[sesionesN];
-				if(sesion.getPelicula().getCdPel().equals(pelicula.getCdPel()) && sesion.getFecha().equals(fecha) && sesion.getHora().equals(hora) && cine.getSalas()[salasN].getNomSala().equals(nombre_sala))
+				if(sesion.getPelicula().getCdPel().equals(pelicula.getCdPel()) && dt.format(sesion.getFecha()).equals(dt.format(fecha)) && sesion.getHora().equals(hora) && cine.getSalas()[salasN].getNomSala().equals(nombre_sala))
 					sesionF = cine.getSalas()[salasN].getSesiones()[sesionesN];
 				}
 			}
@@ -425,6 +427,9 @@ public class Metodos {
 
 	public Entrada nuevaEntrada(Sesion sesion) {
 		// TODO Auto-generated method stub
+		
+		
+		
 		return null;
 	}
 

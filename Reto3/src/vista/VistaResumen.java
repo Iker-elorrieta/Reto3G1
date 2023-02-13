@@ -1,13 +1,15 @@
 package vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import modelo.Cliente;
+import modelo.Entrada;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -18,29 +20,19 @@ public class VistaResumen extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private VistaLogin login;
 	private JTable table;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VistaResumen frame = new VistaResumen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the fram
+	 * @param users 
+	 * @param entradas_compradas 
 	 */
-	public VistaResumen() {
+	public VistaResumen(Entrada[] entradas_compradas, Cliente[] users) {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 334, 173);
 		contentPane = new JPanel();
@@ -52,9 +44,11 @@ public class VistaResumen extends JFrame {
 	    
 		
 				
-		JButton btnImprimir = new JButton("Imprimir Ticket");
+		JButton btnImprimir = new JButton("Ir a ticket");
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				login = new VistaLogin(users);
+				login.setVisible(true);
 			}
 		});
 		btnImprimir.setBounds(94, 23, 127, 23);

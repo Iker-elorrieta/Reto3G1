@@ -33,7 +33,6 @@ public class VistaCines extends JFrame implements ActionListener {
 	private Cine[] cines = metodos.cuantosCines();
 	private Cliente[] users = metodos.usuariosArray();
 	private Entrada[] entradas_compradas = new Entrada[0];
-	private VistaLogin login;
 	private VistaPeliculas vPeliculas;
 	int i = 0;
 
@@ -139,8 +138,7 @@ public class VistaCines extends JFrame implements ActionListener {
 		if (entradas_compradas == null) {
 			this.dispose();
 		} else {
-			login = new VistaLogin(users);
-			login.setVisible(true);
+			VistaResumen resumen = new VistaResumen(entradas_compradas, users);
 		}
 	}
 

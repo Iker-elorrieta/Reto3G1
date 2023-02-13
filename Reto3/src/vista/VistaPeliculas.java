@@ -254,19 +254,34 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		}
 		else if(e.getSource()==aceptarHora) {
 			if (!String.valueOf(horaCB.getSelectedItem()).equals("-------------------------")) {
-				labelSalas.setVisible(true);
-				salasCB.setVisible(true);
-				aceptarSala.setVisible(true);
+				
 				String hora = String.valueOf(horaCB.getSelectedItem());
 				Date fecha = (Date) datePicker.getModel().getValue();
 				salas = metodos.enQueSalas(cine, pelicula, fecha, hora);
 				
-				salasCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
-			
-				for (int salasN = 0; salasN < salas.length; salasN++) {
-					salasCB.addItem(salas[salasN].getNomSala());
-				}
+				if (salas.length >= 1) {
 				
+					labelSalas.setVisible(true);
+					salasCB.setVisible(true);
+					aceptarSala.setVisible(true);
+				
+					salasCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
+			
+					for (int salasN = 0; salasN < salas.length; salasN++) {
+						salasCB.addItem(salas[salasN].getNomSala());
+					}
+				
+				}
+				else {
+					
+					JOptionPane.showMessageDialog(null,
+							"Parece que no hay sesion para esa pelicula el dia o la hora que has seleccionado.\n"
+							+ "¿Porqué no pruebas a buscar sesion en otro dia/hora?",
+							"Ups!",
+							JOptionPane.INFORMATION_MESSAGE);
+					
+				}
+					
 			}
 			else {
 				JOptionPane.showMessageDialog(null,
