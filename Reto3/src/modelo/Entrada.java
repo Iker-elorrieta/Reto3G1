@@ -5,15 +5,20 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Entrada {
+	
+	
+	private String cdEntrada;
+	private Sesion[] sesiones;
+	private float precio;
+	
+
+	
+	
 	@Override
 	public String toString() {
 		return cdEntrada + "#" + Arrays.toString(sesiones) + "#" + precio
 				+ "@";
 	}
-	private String cdEntrada;
-	private Sesion[] sesiones;
-	private float precio;
-	
 	public String getCdEntrada() {
 		return cdEntrada;
 	}
@@ -45,6 +50,8 @@ public class Entrada {
 		Entrada other = (Entrada) obj;
 		return Objects.equals(cdEntrada, other.cdEntrada);
 	}
+	
+	
 	
 	
 }

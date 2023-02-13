@@ -26,7 +26,7 @@ class TestCine {
 	    Sala[] salas = {sala};
 	Cine cine1 =new Cine();
 			Cine cine2= new Cine(); 
-		 String resul = "CE#Elorrieta#[CE-01#Sala 1#[CE-01-0001#AC001#Terminator#120#Accion#5.0@#20-01-2023#09:56@]@]@";
+		 String resul = "CE#Elorrieta#[CE-01#Sala 1#[CE-01-0001#AC001#Terminator#120#Accion#5.0@#2023-01-20#09:11@]@]@";
 
 	 
 		
@@ -49,13 +49,13 @@ class TestCine {
 			cal.set(Calendar.DAY_OF_MONTH, 20);
 			cal.set(Calendar.MONTH, 0);
 			cal.set(Calendar.YEAR, 2023);
-			cal.set(Calendar.HOUR, 9);
-			cal.set(Calendar.MINUTE, 56);
+		
 			fecha = cal.getTime();
 		
 			sesion.setIdSesion("CE-01-0001");
 			sesion.setPelicula(pelicula);
 			sesion.setFecha(fecha);
+			sesion.setHora("09:11");
 		cine1.setCod_cine("CE");
 		cine1.setNombre_cine("Elorrieta");
 		cine1.setSalas(salas);

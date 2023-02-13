@@ -23,7 +23,7 @@ class TestEntrada {
 	  Sesion[] sesiones = {sesion};
 		Entrada entrada1 = new Entrada();
 		Entrada entrada2 = new Entrada();
-		 String resul = "CETCK001#[CE-01-0001#AC001#Terminator#120#Accion#5.0@#20-01-2023#09:56@]#23.0@";
+		 String resul = "CETCK001#[CE-01-0001#AC001#Terminator#120#Accion#5.0@#2023-01-20#09:11@]#23.0@";
 		
 	@Test
 	void testToString() {	
@@ -38,8 +38,8 @@ class TestEntrada {
 			cal.set(Calendar.DAY_OF_MONTH, 20);
 			cal.set(Calendar.MONTH, 0);
 			cal.set(Calendar.YEAR, 2023);
-			cal.set(Calendar.HOUR, 9);
-			cal.set(Calendar.MINUTE, 56);
+			
+			
 			fecha = cal.getTime();
 			
 		
@@ -47,7 +47,7 @@ class TestEntrada {
 			sesion.setIdSesion("CE-01-0001");
 			sesion.setPelicula(pelicula);
 			sesion.setFecha(fecha);
-			
+			sesion.setHora("09:11");
 			
 		
 		entrada1.setCdEntrada("CETCK001");
