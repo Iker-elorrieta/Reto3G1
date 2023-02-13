@@ -18,10 +18,14 @@ import controlador.Metodos;
 import modelo.Cine;
 import modelo.DateLabelFormatter;
 import modelo.Pelicula;
+import modelo.Sala;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
@@ -49,6 +53,12 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private Pelicula pelicula;
 	private JButton seleccionarFecha;
 	private JLabel labelCoste;
+	private JLabel labelHorario;
+	private JComboBox<String> salasCB;
+	private JLabel labelSalas;
+	private JButton aceptarHora;
+	private Sala[] salas;
+	private JButton aceptarSala;
 	/**
 	 * Launch the application.
 	 */
@@ -89,24 +99,25 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabSesiones.add(aceptar);
 
 		horaCB = new JComboBox<String>();
-		horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
+		horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {""}));
 		horaCB.setSelectedIndex(0);
 		horaCB.setMaximumRowCount(50);
 		horaCB.setBounds(441, 34, 135, 29);
 		tabSesiones.add(horaCB);
-
+		horaCB.setVisible(false);
+		
 		labelNombrePelicula = new JLabel("AAAAAA");
-		labelNombrePelicula.setHorizontalAlignment(SwingConstants.CENTER);
+		labelNombrePelicula.setHorizontalAlignment(SwingConstants.LEFT);
 		labelNombrePelicula.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		labelNombrePelicula.setBounds(136, 184, 180, 42);
 		tabSesiones.add(labelNombrePelicula);
 
 		labelDuracion = new JLabel("");
-		labelDuracion.setBounds(608, 34, 124, 29);
+		labelDuracion.setBounds(586, 34, 146, 29);
 		tabSesiones.add(labelDuracion);
 
 		lblNewLabel = new JLabel("Nombre Pelicula:");
-		lblNewLabel.setBounds(40, 185, 124, 42);
+		lblNewLabel.setBounds(29, 185, 135, 42);
 		tabSesiones.add(lblNewLabel);
 
 		lblNewLabel_1 = new JLabel("Genero:");
@@ -140,9 +151,36 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabSesiones.add(lblNewLabel_2);
 		
 		labelCoste = new JLabel("AAAAAA");
-		labelCoste.setHorizontalAlignment(SwingConstants.CENTER);
+		labelCoste.setHorizontalAlignment(SwingConstants.LEFT);
 		labelCoste.setBounds(141, 283, 74, 14);
 		tabSesiones.add(labelCoste);
+		
+		labelHorario = new JLabel("Horario:");
+		labelHorario.setBounds(443, 9, 89, 14);
+		labelHorario.setVisible(false);
+		tabSesiones.add(labelHorario);
+		
+		salasCB = new JComboBox<String>();
+		salasCB.setSelectedIndex(-1);
+		salasCB.setMaximumRowCount(50);
+		salasCB.setBounds(441, 181, 135, 29);
+		salasCB.setVisible(false);
+		tabSesiones.add(salasCB);
+		
+		labelSalas = new JLabel("Salas disponibles:");
+		labelSalas.setBounds(441, 156, 135, 14);
+		labelSalas.setVisible(false);
+		tabSesiones.add(labelSalas);
+		
+		aceptarHora = new JButton("Seleccionar Hora");
+		aceptarHora.setBounds(441, 77, 135, 23);
+		aceptarHora.setVisible(false);
+		tabSesiones.add(aceptarHora);
+		
+		aceptarSala = new JButton("Seleccionar Sala");
+		aceptarSala.setBounds(443, 223, 133, 23);
+		tabSesiones.add(aceptarSala);
+		
 	}
 
 	public void botonesPelis(Pelicula[] peliculas) {
@@ -159,9 +197,10 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 					tabbedPane.setEnabledAt(1, true);
 					tabbedPane.setSelectedIndex(1);
 					labelNombrePelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getNombre());
-					labelDuracion.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getDuracion() + " minutos");
+					labelDuracion.setText("Duracion: "+peliculas[Integer.valueOf(btnpeli.getToolTipText())].getDuracion() + " minutos");
 					labelGeneroPelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getGenero());
 					labelCoste.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getPrecio()+"€");
+					
 				}
 			});
 
@@ -184,6 +223,9 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			this.dispose();
 		else if (e.getSource()==seleccionarFecha) {
 			Date fecha = (Date) datePicker.getModel().getValue();
+			horaCB.setVisible(true);
+			aceptarHora.setVisible(true);
+			labelHorario.setVisible(true);
 			String[] horas = new String[0];
 			if (fecha != null)
 				horas = metodos.horarioSesiones(pelicula, cine, fecha);
@@ -198,5 +240,27 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 				datePicker.getModel().setValue(null);
 			}
 		}
+		else if(e.getSource()==aceptarHora) {
+			if (!String.valueOf(horaCB.getSelectedItem()).equals("-------------------------")) {
+				labelSalas.setVisible(true);
+				String hora = String.valueOf(horaCB.getSelectedItem());
+				Date fecha = (Date) datePicker.getModel().getValue();
+				salas = metodos.enQueSalas(cine, pelicula.getCdPel(), fecha, hora);
+				
+				salasCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
+			
+				for (int salasN = 0; salasN < salas.length; salasN++) {
+					salasCB.addItem(salas[salasN].getNomSala());
+				}
+				
+			}
+			else {
+				JOptionPane.showMessageDialog(null,
+						"Selecciona una hora",
+						"Error!",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+		else if(e.getSource()==aceptarSala)
 	}
 }
