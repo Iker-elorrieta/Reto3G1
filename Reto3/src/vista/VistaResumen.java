@@ -33,7 +33,7 @@ public class VistaResumen extends JFrame {
 	 * @param entradas_compradas 
 	 */
 	public VistaResumen(Entrada[] entradas_compradas, Cliente[] users) {
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 334, 173);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

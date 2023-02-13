@@ -139,6 +139,7 @@ public class VistaCines extends JFrame implements ActionListener {
 			this.dispose();
 		} else {
 			VistaResumen resumen = new VistaResumen(entradas_compradas, users);
+			resumen.setVisible(true);
 		}
 	}
 
