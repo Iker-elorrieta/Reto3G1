@@ -116,7 +116,7 @@ class MetodosTest {
 			Cine[] cines= metodos.cuantosCines();
 			Cine cine = cines[0];
 			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
-			Pelicula pelicula= peliculas[7];	
+			Pelicula pelicula= peliculas[0];	
 			Calendar cal= Calendar.getInstance();;
 			Date fecha = null;
 			cal.set(Calendar.DAY_OF_MONTH, 1);
