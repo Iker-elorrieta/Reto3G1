@@ -33,9 +33,6 @@ public class Metodos {
 	final String user = "root";
 	final String contra = "";
 
-
-
-
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que devuelve
 
 	
@@ -374,6 +371,7 @@ public class Metodos {
 		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
 				Sesion sesion = cine.getSalas()[salasN].getSesiones()[sesionesN];
+				System.out.println(sesion.getIdSesion());
 				if(sesion.getPelicula().getCdPel().equals(pelicula.getCdPel()) && dt.format(sesion.getFecha()).equals(dt.format(fecha)) && sesion.getHora().equals(hora) && cine.getSalas()[salasN].getNomSala().equals(nombre_sala))
 					sesionF = cine.getSalas()[salasN].getSesiones()[sesionesN];
 				}

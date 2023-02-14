@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import controlador.Metodos;
 import modelo.Cine;
 import modelo.Cliente;
+import modelo.Entrada;
 import modelo.Pelicula;
 import modelo.Sesion;
 
@@ -44,10 +45,10 @@ class MetodosTest {
 		String usur="22759228S";
 		String passw="12345";
 		boolean resul=metodos.validarUsers(clientes, usur, passw);
-		assertEquals(true, resul);
+		assertTrue(resul);
 		 passw="1234";
 		  resul=metodos.validarUsers(clientes, usur, passw);
-		assertEquals(false, resul);
+		assertFalse( resul);
 	}
 		@Test
 		void testValidarDNI() {
@@ -116,7 +117,7 @@ class MetodosTest {
 		@Test
 		void testQueSesion() {
 			Cine[] cines= metodos.cuantosCines();
-			Cine cine = cines[0];
+			Cine cine = cines[1];
 			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
 			Pelicula pelicula= peliculas[0];	
 			String sala = "Sala 1";
@@ -125,10 +126,11 @@ class MetodosTest {
 			cal.set(Calendar.DAY_OF_MONTH, 3);
 			cal.set(Calendar.MONTH, 2);
 			cal.set(Calendar.YEAR, 2023);
-			
-			Sesion sesion = metodos.queSesion(cine, sala, cal.getTime(), hora, pelicula);
-			Sesion resul = sesion;
-			assertEquals(resul, sesion);
+			Date fecha1= (Date) cal.getTime();
+			System.out.println(fecha1.toString());
+			Sesion sesion = metodos.queSesion(cine, sala, fecha1, hora, pelicula);
+			String resul = sesion.toString();
+			assertEquals(resul, sesion.toString());
 
 		}
 		
@@ -140,7 +142,14 @@ class MetodosTest {
 			
 		}
 			
-		
+		@Test
+		void testSiguienteEntrada() {
+			Entrada[] entradas = new Entrada[2];
+			
+			entradas=metodos.siguienteEntrada(entradas);
+			Entrada[] entradas2 =entradas;
+			assertEquals(entradas, entradas2);
+		}
 	}
 
 
