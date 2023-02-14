@@ -362,7 +362,7 @@ public class Metodos {
 		
 		return entradas_compradas;
 	}
-	
+			
 	public Sesion queSesion(Cine cine, String nombre_sala, Date fecha, String hora, Pelicula pelicula) {
 		// TODO Auto-generated method stub
 		Sesion sesionF= new Sesion();
@@ -385,7 +385,7 @@ public class Metodos {
 		// TODO Auto-generated method stub
 		
 		Entrada entrada = new Entrada();
-		entrada.setCdEntrada(""+num_entrada);
+		entrada.setCdEntrada(String.valueOf(num_entrada));
 		entrada.setFecha(sesion.getFecha());
 		entrada.setHora(sesion.getHora());
 		entrada.setPrecio(sesion.getPelicula().getPrecio());

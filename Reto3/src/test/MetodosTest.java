@@ -127,7 +127,6 @@ class MetodosTest {
 			cal.set(Calendar.MONTH, 2);
 			cal.set(Calendar.YEAR, 2023);
 			Date fecha1= (Date) cal.getTime();
-			System.out.println(fecha1.toString());
 			Sesion sesion = metodos.queSesion(cine, sala, fecha1, hora, pelicula);
 			String resul = sesion.toString();
 			assertEquals(resul, sesion.toString());
