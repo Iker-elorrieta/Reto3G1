@@ -19,7 +19,6 @@ import modelo.Cine;
 import modelo.DateLabelFormatter;
 import modelo.Entrada;
 import modelo.Pelicula;
-import modelo.Sala;
 import modelo.Sesion;
 
 import javax.swing.JTabbedPane;
@@ -55,11 +54,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private Pelicula pelicula;
 	private JLabel labelCoste;
 	private JLabel labelHorario;
-	private JComboBox<String> salasCB;
-	private JLabel labelSalas;
 	private JButton aceptarHora;
-	private Sala[] salas;
-	private JButton aceptarSala;
 	private JButton aceptar;
 	private Entrada[] entradas;
 	/**
@@ -110,7 +105,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {""}));
 		horaCB.setSelectedIndex(0);
 		horaCB.setMaximumRowCount(50);
-		horaCB.setBounds(441, 34, 135, 29);
+		horaCB.setBounds(415, 92, 271, 29);
 		tabSesiones.add(horaCB);
 		horaCB.setVisible(false);
 		
@@ -121,7 +116,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabSesiones.add(labelNombrePelicula);
 
 		labelDuracion = new JLabel("");
-		labelDuracion.setBounds(586, 34, 146, 29);
+		labelDuracion.setBounds(515, 62, 135, 29);
 		tabSesiones.add(labelDuracion);
 
 		lblNewLabel = new JLabel("Nombre Pelicula:");
@@ -164,6 +159,11 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 					}
 				} else {
 					datePicker.getModel().setValue(null);
+					JOptionPane.showMessageDialog(null,
+						"Parece que no hay sesion para esa pelicula el dia o la hora que has seleccionado.\n"
+						+ "¿Porqué no pruebas a buscar sesion en otro dia/hora?",
+						"Ups!",
+						JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -180,33 +180,15 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabSesiones.add(labelCoste);
 		
 		labelHorario = new JLabel("Horario:");
-		labelHorario.setBounds(443, 9, 89, 14);
+		labelHorario.setBounds(417, 67, 89, 14);
 		labelHorario.setVisible(false);
 		tabSesiones.add(labelHorario);
 		
-		salasCB = new JComboBox<String>();
-		salasCB.setSelectedIndex(-1);
-		salasCB.setMaximumRowCount(50);
-		salasCB.setBounds(441, 181, 135, 29);
-		salasCB.setVisible(false);
-		tabSesiones.add(salasCB);
-		
-		labelSalas = new JLabel("Salas disponibles:");
-		labelSalas.setBounds(441, 156, 135, 14);
-		labelSalas.setVisible(false);
-		tabSesiones.add(labelSalas);
-		
 		aceptarHora = new JButton("Seleccionar Hora");
-		aceptarHora.setBounds(441, 77, 135, 23);
+		aceptarHora.setBounds(415, 135, 135, 23);
 		aceptarHora.setVisible(false);
 		aceptarHora.addActionListener(this);
 		tabSesiones.add(aceptarHora);
-		
-		aceptarSala = new JButton("Seleccionar Sala");
-		aceptarSala.setBounds(443, 223, 133, 23);
-		aceptarSala.setVisible(false);
-		aceptarSala.addActionListener(this);
-		tabSesiones.add(aceptarSala);
 		
 	}
 
@@ -227,7 +209,6 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 					labelDuracion.setText("Duracion: "+peliculas[Integer.valueOf(btnpeli.getToolTipText())].getDuracion() + " minutos");
 					labelGeneroPelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getGenero());
 					labelCoste.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getPrecio()+"€");
-					
 				}
 			});
 
@@ -250,47 +231,11 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			this.dispose();
 		else if(e.getSource()==aceptarHora) {
 			if (!String.valueOf(horaCB.getSelectedItem()).equals("-------------------------")) {
-				
-				String hora = String.valueOf(horaCB.getSelectedItem());
-				Date fecha = (Date) datePicker.getModel().getValue();
-				salas = metodos.enQueSalas(cine, pelicula, fecha, hora);
-				
-				if (salas.length >= 1) {
-				
-					labelSalas.setVisible(true);
-					salasCB.setVisible(true);
-					aceptarSala.setVisible(true);
-				
-					salasCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
-			
-					for (int salasN = 0; salasN < salas.length; salasN++) {
-						salasCB.addItem(salas[salasN].getNomSala());
-					}
-				
-				}
-				else {
-					
-					JOptionPane.showMessageDialog(null,
-							"Parece que no hay sesion para esa pelicula el dia o la hora que has seleccionado.\n"
-							+ "¿Porqué no pruebas a buscar sesion en otro dia/hora?",
-							"Ups!",
-							JOptionPane.INFORMATION_MESSAGE);
-					
-				}
-					
-			}
-			else {
-				JOptionPane.showMessageDialog(null,
-						"Selecciona una hora",
-						"Error!",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
-		}
-		else if(e.getSource()==aceptarSala) {
-			if (!String.valueOf(salasCB.getSelectedItem()).equals("-------------------------")) {
-			String hora = String.valueOf(horaCB.getSelectedItem());
+			String[] horaSala = String.valueOf(horaCB.getSelectedItem()).split(" - ");
+			String hora = horaSala[0];
 			Date fecha = (Date) datePicker.getModel().getValue();
-			Sesion sesion=metodos.queSesion(cine, String.valueOf(salasCB.getSelectedItem()), fecha, hora, pelicula);
+			String sala = horaSala[1];
+			Sesion sesion=metodos.queSesion(cine, sala, fecha, hora, pelicula);
 			entradas[entradas.length-1]=metodos.nuevaEntrada(sesion, entradas.length);
 			
 			JOptionPane.showMessageDialog(null,

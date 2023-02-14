@@ -325,47 +325,26 @@ public class Metodos {
 
 	public String[] horarioSesiones(Pelicula pelicula, Cine cine, Date fecha) {
 		String[] horas = new String[0];
-		boolean estaEnELArray =false;
+		
 		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 		String horaS = "";
+		String salaS = "";
 		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
 
-				
-				String[] arrayNuevo = new String[horas.length + 1];
-				for (int i = 0; i < horas.length; i++) {
-					arrayNuevo[i] = horas[i];
-				}
-
-				for (int nuevasHoras = 0; nuevasHoras < arrayNuevo.length; nuevasHoras++) {
-					if (arrayNuevo[nuevasHoras] != null) {
-						
-						if (dt.format(cine.getSalas()[salasN].getSesiones()[sesionesN].getFecha()).equals(dt.format(fecha))) {
-							estaEnELArray = false;
-							horaS = cine.getSalas()[salasN].getSesiones()[sesionesN].getHora();
-							
-							if (arrayNuevo[nuevasHoras].equals(horaS)) {
-								estaEnELArray = true;
-							}
-							
-						}
-					}
-				}
-
-				if (!estaEnELArray) {
-					arrayNuevo[arrayNuevo.length - 1] = cine.getSalas()[salasN].getSesiones()[sesionesN].getHora();
-					boolean segundaComp=false;
-					for (int i=0;i < horas.length;i++) {
-						if(horas[i].equals(arrayNuevo[arrayNuevo.length - 1]))
-							segundaComp = true;
-						}
+				if (dt.format(cine.getSalas()[salasN].getSesiones()[sesionesN].getFecha()).equals(dt.format(fecha)) && cine.getSalas()[salasN].getSesiones()[sesionesN].getPelicula().getCdPel().equals(pelicula.getCdPel())) {
 					
-					if (!segundaComp) {
-						horas = arrayNuevo;
+					String[] arrayNuevo = new String[horas.length + 1];
+					for (int i = 0; i < horas.length; i++) {
+						arrayNuevo[i] = horas[i];
 					}
+					
+					horaS = cine.getSalas()[salasN].getSesiones()[sesionesN].getHora();	
+					salaS = cine.getSalas()[salasN].getNomSala();
+					arrayNuevo[arrayNuevo.length-1] =horaS +" - "+ salaS;
+					horas=arrayNuevo;
 				}
 			}
-
 		}
 
 		
