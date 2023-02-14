@@ -352,27 +352,6 @@ public class Metodos {
 		return horas;
 	}
 
-	public Sala[] enQueSalas(Cine cine, Pelicula pelicula, Date fecha, String hora) {
-		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-		Sala[] salas = new Sala[0];
-		
-		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
-			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
-				Sesion sesion = cine.getSalas()[salasN].getSesiones()[sesionesN];
-				if(sesion.getPelicula().getCdPel().equals(pelicula.getCdPel()) && dt.format(sesion.getFecha()).equals(dt.format(fecha)) && sesion.getHora().equals(hora)) {
-					
-					Sala[] arrayNuevo = new Sala[salas.length+1];
-					for (int i = 0; i < salas.length; i++) {
-						arrayNuevo[i] = salas[i];
-					}
-					arrayNuevo[arrayNuevo.length - 1]=cine.getSalas()[salasN];
-					salas=arrayNuevo;
-				}
-			}
-		}
-		
-		return salas;
-	}
 
 	public Entrada[] siguienteEntrada(Entrada[] entradas_compradas) {
 		// TODO Auto-generated method stub

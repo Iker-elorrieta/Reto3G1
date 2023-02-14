@@ -47,7 +47,7 @@ public class VistaResumen extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 			
-		JButton btnImprimir = new JButton("Ir a ticket");
+		JButton btnImprimir = new JButton("Ir a login");
 		btnImprimir.addActionListener(this);
 		btnImprimir.setBounds(94, 23, 127, 23);
 		contentPane.add(btnImprimir);
