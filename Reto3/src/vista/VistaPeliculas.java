@@ -250,7 +250,13 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			this.dispose();
 		}
 	}
+	
 	public Entrada[] obtenerEntradas() {
+		return entradas;
+	}
+	
+	public Entrada[] LimpiarEntradasLogin() {
+		entradas=null;
 		return entradas;
 	}
 }

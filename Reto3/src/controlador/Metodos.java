@@ -25,14 +25,14 @@ public class Metodos {
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
 
-	//final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
-	//final String user = "cliente";
-	//final String contra = "Contraseña33#";
-
+	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
+	final String user = "cliente";
+	final String contra = "Contraseña33#";
+/*
 	final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	final String user = "root";
 	final String contra = "";
-
+*/
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que devuelve
 
 	
@@ -371,7 +371,7 @@ public class Metodos {
 		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
 				Sesion sesion = cine.getSalas()[salasN].getSesiones()[sesionesN];
-				System.out.println(sesion.getIdSesion());
+				
 				if(sesion.getPelicula().getCdPel().equals(pelicula.getCdPel()) && dt.format(sesion.getFecha()).equals(dt.format(fecha)) && sesion.getHora().equals(hora) && cine.getSalas()[salasN].getNomSala().equals(nombre_sala))
 					sesionF = cine.getSalas()[salasN].getSesiones()[sesionesN];
 				}

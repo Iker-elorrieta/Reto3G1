@@ -34,11 +34,13 @@ public class VistaResumen extends JFrame implements ActionListener {
 	/**
 	 * Create the frame
 	 * @param users 
+	 * @param vPeliculas 
 	 * @param entradas_compradas 
 	 */
 	public VistaResumen(Entrada[] entradas, Cliente[] users) {
 		this.users=users;
 		this.entradas=entradas;
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 334, 173);
 		contentPane = new JPanel();
