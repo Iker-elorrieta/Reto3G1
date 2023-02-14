@@ -394,5 +394,12 @@ public class Metodos {
 		return entrada;
 	}
 
+	public float sacarPrecio(Pelicula pelicula) {
+		// TODO Auto-generated method stub
+		float precio=0;
+		
+		return precio;
+	}
+
 }
 
