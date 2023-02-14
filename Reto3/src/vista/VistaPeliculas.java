@@ -160,8 +160,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 				} else {
 					datePicker.getModel().setValue(null);
 					JOptionPane.showMessageDialog(null,
-						"Parece que no hay sesion para esa pelicula el dia o la hora que has seleccionado.\n"
-						+ "¿Porqué no pruebas a buscar sesion en otro dia/hora?",
+						"Parece que no hay sesion para esa pelicula el dia que has seleccionado.\n"
+						+ "¿Porqué no pruebas a buscar sesion en otro dia?",
 						"Ups!",
 						JOptionPane.INFORMATION_MESSAGE);
 				}

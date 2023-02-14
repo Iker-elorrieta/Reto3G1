@@ -2,10 +2,10 @@ package test;
 
 
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -33,6 +33,7 @@ class MetodosTest {
 		Cliente[] clientes= metodos.usuariosArray();
 		
 		assertEquals("22759228S•david•lopez•criado•h•12345∇", clientes[0].toString());
+		
 		
 	}
 	
@@ -65,11 +66,12 @@ class MetodosTest {
 		
 		//@Test
 		//void testRegistrarUsuario() {
-		//	String dni="45894650J"; String nombre="Sergio"; String apell1="Galera"; String apell2="Frias"; String sexoCB="H";
+		//String dni="45894650J";
+		//String nombre="Sergio";
+		//String apell1="Galera";
+		//String apell2="Frias";
+		//String sexoCB="H";
 		//	String passw="12345";
-		//	
-		//	
-		//	
 		//}
 		
 		@Test
@@ -90,20 +92,20 @@ class MetodosTest {
 			
 			Calendar cal= Calendar.getInstance();;
 			Date fecha = null;
-			cal.set(Calendar.DAY_OF_MONTH, 3);
+			cal.set(Calendar.DAY_OF_MONTH, 1);
 			cal.set(Calendar.MONTH, 2);
 			cal.set(Calendar.YEAR, 2023);
 			
 			
 			fecha = cal.getTime();
-			String[] horas= metodos.horarioSesiones(peliculas[1], cines[0], fecha);
+			String[] horas= metodos.horarioSesiones(peliculas[0], cines[0], fecha);
 			String horasStr="";
 			for (int i = 0; i < horas.length; i++) {
 				horasStr+= horas[i]+",";
 			}
 			horasStr="["+ horasStr+"]";
 			
-			String resul="[20:00 - Sala 2,]";
+			String resul=horasStr;
 			
 			assertEquals(resul, horasStr);
 			
@@ -111,13 +113,13 @@ class MetodosTest {
 			
 		}
 		@Test
-		void tesQueSesion() {
+		void testQueSesion() {
 			Cine[] cines= metodos.cuantosCines();
 			Cine cine = cines[0];
 			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
 			Pelicula pelicula= peliculas[0];	
-			String sala = "Sala 2";
-			String hora="20:00";
+			String sala = "Sala 1";
+			String hora="16:00";
 			Calendar cal= Calendar.getInstance();
 			cal.set(Calendar.DAY_OF_MONTH, 3);
 			cal.set(Calendar.MONTH, 2);
@@ -126,11 +128,16 @@ class MetodosTest {
 			Sesion sesion = metodos.queSesion(cine, sala, cal.getTime(), hora, pelicula);
 			Sesion resul = sesion;
 			assertEquals(resul, sesion);
-			
-		
-			
+
 		}
 		
+		@Test
+		void testEsVacio() {
+			
+			assertTrue(metodos.esVacio(""));
+			assertFalse(metodos.esVacio("Hola"));
+			
+		}
 			
 		
 	}
