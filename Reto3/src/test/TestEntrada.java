@@ -51,7 +51,7 @@ class TestEntrada {
 			
 		
 		entrada1.setCdEntrada("CETCK001");
-		entrada1.setSesiones(sesiones);
+		entrada1.setSesion(sesiones[0]);
 		entrada1.setPrecio(23);
 	
 		assertEquals(resul,entrada1.toString());
@@ -65,7 +65,7 @@ class TestEntrada {
 	
 	
 		entrada2.setCdEntrada(entrada1.getCdEntrada());
-		entrada2.setSesiones(entrada1.getSesiones());
+		entrada2.setSesion(entrada1.getSesion());
 		entrada2.setPrecio(entrada1.getPrecio());
 		
 		

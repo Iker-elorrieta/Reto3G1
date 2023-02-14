@@ -57,7 +57,7 @@ class testTicket {
 			
 		
 		entrada.setCdEntrada("CETCK001");
-		entrada.setSesiones(sesiones);
+		entrada.setSesion(sesiones[0]);
 		entrada.setPrecio(23);
 	
 		ticket1.setCdTicket(01);

@@ -15,7 +15,6 @@ import modelo.Cine;
 import modelo.Cliente;
 import modelo.Pelicula;
 import modelo.Sala;
-import modelo.Sesion;
 
 class MetodosTest {
 	Metodos metodos=new Metodos();
