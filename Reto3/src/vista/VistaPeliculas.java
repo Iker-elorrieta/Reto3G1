@@ -208,7 +208,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 					labelNombrePelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getNombre());
 					labelDuracion.setText("Duracion: "+peliculas[Integer.valueOf(btnpeli.getToolTipText())].getDuracion() + " minutos");
 					labelGeneroPelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getGenero());
-					labelCoste.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getPrecio()+"€");
+					labelCoste.setText(metodos.sacarPrecio(peliculas[Integer.valueOf(btnpeli.getToolTipText())])+"€");
 				}
 			});
 
@@ -250,7 +250,13 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			this.dispose();
 		}
 	}
+	
 	public Entrada[] obtenerEntradas() {
+		return entradas;
+	}
+	
+	public Entrada[] LimpiarEntradasLogin() {
+		entradas=null;
 		return entradas;
 	}
 }

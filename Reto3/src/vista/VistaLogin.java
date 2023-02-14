@@ -46,6 +46,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 	private JButton validarBtn;
 	private JLabel labelIncorrecto;
 	private Entrada[] entradas;
+	private VistaTicket ticket;
 	/**
 	 * Create the frame.
 	 * 
@@ -182,8 +183,10 @@ public class VistaLogin extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getSource() == atras)
+		if (e.getSource() == atras) {
 			this.dispose();
+			VistaCines.entradas_compradas=null;
+		}
 		else if (e.getSource() == validarBtn) {
 			labelIncorrecto.setText("");
 			String dni = jUser.getText();
@@ -192,7 +195,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 				labelIncorrecto.setVisible(false);
 				JOptionPane.showMessageDialog(null, "Sesion iniciada", "Bienvenido.",
 						JOptionPane.INFORMATION_MESSAGE);
-				VistaTicket ticket =new VistaTicket(entradas, dni);
+				ticket =new VistaTicket(entradas, dni, usuarios);
 				ticket.setVisible(true);
 				this.dispose();
 			} else {
