@@ -43,7 +43,9 @@ public class VistaLogin extends JFrame implements ActionListener {
 	private JButton registrarseBtn;
 	private JComboBox<String> sexoCB;
 	private JTabbedPane tabbedPane;
-
+	private JButton validarBtn;
+	private JLabel labelIncorrecto;
+	private Entrada[] entradas;
 	/**
 	 * Create the frame.
 	 * 
@@ -51,6 +53,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 	 */
 	public VistaLogin(Cliente[] users, Entrada[] entradas) {
 		usuarios = users;
+		this.entradas=entradas;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 684, 426);
 		contentPane = new JPanel();
@@ -84,28 +87,16 @@ public class VistaLogin extends JFrame implements ActionListener {
 		labelPassw.setBounds(31, 87, 90, 14);
 		panelLogin.add(labelPassw);
 
-		JLabel labelIncorrecto = new JLabel("DNI o Contraseña inorrectos.");
+		labelIncorrecto = new JLabel("DNI o Contraseña inorrectos.");
 		labelIncorrecto.setForeground(Color.RED);
 		labelIncorrecto.setBounds(214, 87, 284, 14);
 		panelLogin.add(labelIncorrecto);
 		labelIncorrecto.setVisible(false);
 
-		JButton validarBtn = new JButton("Iniciar sesion");
+		validarBtn = new JButton("Iniciar sesion");
 		validarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				labelIncorrecto.setText("");
-				String dni = jUser.getText();
-				String pass = String.valueOf(jPassw.getPassword());
-				if (metodo.validarUsers(usuarios, dni, pass)) {
-					labelIncorrecto.setVisible(false);
-					JOptionPane.showMessageDialog(null, "Sesion iniciada", "Bienvenido.",
-							JOptionPane.INFORMATION_MESSAGE);
-					VistaTicket ticket =new VistaTicket(entradas, dni);
-					ticket.setVisible(true);
-				} else {
-					labelIncorrecto.setForeground(Color.RED);
-					labelIncorrecto.setVisible(true);
-				}
+				
 			}
 		});
 		validarBtn.setBounds(31, 195, 146, 23);
@@ -193,6 +184,22 @@ public class VistaLogin extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getSource() == atras)
 			this.dispose();
+		else if (e.getSource() == validarBtn) {
+			labelIncorrecto.setText("");
+			String dni = jUser.getText();
+			String pass = String.valueOf(jPassw.getPassword());
+			if (metodo.validarUsers(usuarios, dni, pass)) {
+				labelIncorrecto.setVisible(false);
+				JOptionPane.showMessageDialog(null, "Sesion iniciada", "Bienvenido.",
+						JOptionPane.INFORMATION_MESSAGE);
+				VistaTicket ticket =new VistaTicket(entradas, dni);
+				ticket.setVisible(true);
+				this.dispose();
+			} else {
+				labelIncorrecto.setForeground(Color.RED);
+				labelIncorrecto.setVisible(true);
+			}
+		}
 		else if (e.getSource() == registrarseBtn) {
 
 			if (metodo.validarDni(dni_reg.getText(), usuarios)) {
@@ -234,7 +241,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 						apell2_reg.getText(), sexoCB.getSelectedItem().toString(),
 						String.valueOf(pass_reg.getPassword()));
 				limpiarCamposReg();
-				tabbedPane.setSelectedIndex(1);
+				tabbedPane.setSelectedIndex(0);
 
 				JOptionPane.showMessageDialog(null, "Prueba a hacer login.", "Registrado correctamente",
 						JOptionPane.INFORMATION_MESSAGE);
