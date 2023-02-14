@@ -396,9 +396,7 @@ public class Metodos {
 
 	public float sacarPrecio(Pelicula pelicula) {
 		// TODO Auto-generated method stub
-		float precio=0;
-		
-		return precio;
+		return pelicula.getPrecio();
 	}
 
 }

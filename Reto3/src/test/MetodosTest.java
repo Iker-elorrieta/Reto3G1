@@ -149,6 +149,16 @@ class MetodosTest {
 			Entrada[] entradas2 =entradas;
 			assertEquals(entradas, entradas2);
 		}
+		@Test
+		void testSacarPrecio() {
+			Cine[] cines= metodos.cuantosCines();
+			Cine cine = cines[1];
+			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
+			Pelicula pelicula= peliculas[0];	
+			
+			
+			assertEquals(3.6, metodos.sacarPrecio(pelicula));
+		}
 	}
 
 
