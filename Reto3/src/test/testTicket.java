@@ -29,7 +29,7 @@ class testTicket {
 		Ticket ticket1 = new Ticket();
 		Ticket ticket2 = new Ticket();
 		
-		 String resul = "[1,23.0,22759228S•david•lopez•criado•h•12345∇,[CETCK001#[CE-01-0001#AC001#Terminator#120#Accion#5.0@#2023-01-20#09:11@]#23.0@]]";
+		 String resul = "[1,23.0,22759228S•david•lopez•criado•h•12345∇,[CETCK001#CE-01-0001#AC001#Terminator#120#Accion#5.0@#2023-01-20#09:11@#23.0@]]";
 		
 	@Test
 	void testToString() {	
@@ -57,7 +57,7 @@ class testTicket {
 			
 		
 		entrada.setCdEntrada("CETCK001");
-		entrada.setSesion(sesiones[0]);
+		entrada.setSesion(sesion);
 		entrada.setPrecio(23);
 	
 		ticket1.setCdTicket(01);
