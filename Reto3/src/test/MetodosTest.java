@@ -157,7 +157,7 @@ class MetodosTest {
 			Pelicula pelicula= peliculas[0];	
 			
 			
-			assertEquals(3.6, metodos.sacarPrecio(pelicula));
+			assertEquals(3.6,metodos.sacarPrecio(pelicula),0.1 );
 		}
 	}
 

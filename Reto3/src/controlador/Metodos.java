@@ -27,12 +27,40 @@ public class Metodos {
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra = "Contraseña33#";
+
 	/*
-	 * final String sConexion = "jdbc:mysql://localhost:3306/cines"; final String
-	 * user = "root"; final String contra = "";
+	 * final String sConexion = "jdbc:mysql://localhost:3306/cines"; 
+	 * final String user = "root";
+	 * final String contra = "";
 	 */
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que
 	// devuelve
+
+	final String codCine="cod_cine";
+	final String nombreCine="nombre_cine";
+	final String codSala="cod_sala";
+	final String nombreSala="nombre_sala";
+	final String codSesion= "cod_sesion";
+	final String fechaSesion= "fecha";
+	final String horaSesion= "hora";
+	final String codPelicula= "cod_pelicula";
+	final String nombrePelicula= "nom_peli";
+	final String generoPelicula= "genero";
+	final String duracionPelicula= "duracion";
+	final String costePelicula= "coste";
+	final String dniCliente= "dni";
+	final String nombreCliente= "nombre";
+	final String ApeCliente1= "apellido_1";
+	final String ApeCliente2= "apellido_2";
+	final String sexoCliente= "sexo";
+	final String contrasenaCliente= "passw";
+/*
+	final String sConexion = "jdbc:mysql://localhost:3306/cines";
+	final String user = "root";
+	final String contra = "";
+*/
+	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que devuelve
+
 
 	public Cine[] cuantosCines() {
 		// TODO Auto-generated method stub
@@ -45,8 +73,8 @@ public class Metodos {
 
 			while (registro.next() == true) {
 				Cine cine = new Cine();
-				cine.setCod_cine(registro.getString("cod_cine"));
-				cine.setNombre_cine(registro.getString("nombre_cine"));
+				cine.setCod_cine(registro.getString(codCine));
+				cine.setNombre_cine(registro.getString(nombreCine));
 				cine = cuantasSalas(cine);
 				Cine[] arrayNuevo = new Cine[cines.length + 1];
 				for (int i = 0; i < cines.length; i++) {
@@ -78,8 +106,8 @@ public class Metodos {
 
 			while (registro.next() == true) {
 				Sala sala = new Sala();
-				sala.setCdSala(registro.getString("cod_sala"));
-				sala.setNomSala(registro.getString("nombre_sala"));
+				sala.setCdSala(registro.getString(codSala));
+				sala.setNomSala(registro.getString(nombreSala));
 				sala = cuantasSesiones(sala);
 				Sala[] arrayNuevo = new Sala[salas.length + 1];
 				for (int i = 0; i < salas.length; i++) {
@@ -113,18 +141,18 @@ public class Metodos {
 			while (registro.next() == true) {
 
 				Sesion sesion = new Sesion();
-				sesion.setIdSesion(registro.getString("cod_sesion"));
+				sesion.setIdSesion(registro.getString(codSesion));
 
-				String fecha = String.valueOf(registro.getDate("fecha"));
+				String fecha = String.valueOf(registro.getDate(fechaSesion));
 				cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(fecha.split("-")[2]));
 				cal.set(Calendar.MONTH, Integer.valueOf(fecha.split("-")[1]) - 1);
 				cal.set(Calendar.YEAR, Integer.valueOf(fecha.split("-")[0]));
 
-				String hora = registro.getString("hora");
+				String hora = registro.getString(horaSesion);
 				sesion.setHora(hora);
 
 				sesion.setFecha(cal.getTime());
-				sesion = cuantasPeliculas(sesion, registro.getString("cod_pelicula"));
+				sesion = cuantasPeliculas(sesion, registro.getString(codPelicula));
 
 				Sesion[] arrayNuevo = new Sesion[sesiones.length + 1];
 				for (int i = 0; i < sesiones.length; i++) {
@@ -156,11 +184,11 @@ public class Metodos {
 			while (registro.next() == true) {
 
 				Pelicula pelicula = new Pelicula();
-				pelicula.setCdPel(registro.getString("cod_pelicula"));
-				pelicula.setNombre(registro.getString("nom_peli"));
-				pelicula.setGenero(registro.getString("genero"));
-				pelicula.setDuracion(registro.getInt("duracion"));
-				pelicula.setPrecio(registro.getFloat("coste"));
+				pelicula.setCdPel(registro.getString(codPelicula));
+				pelicula.setNombre(registro.getString(nombrePelicula));
+				pelicula.setGenero(registro.getString(generoPelicula));
+				pelicula.setDuracion(registro.getInt(duracionPelicula));
+				pelicula.setPrecio(registro.getFloat(costePelicula));
 
 				sesion.setPelicula(pelicula);
 			}
@@ -186,12 +214,12 @@ public class Metodos {
 			while (registro.next() == true) {
 
 				Cliente cliente = new Cliente();
-				cliente.setDni(registro.getString("dni"));
-				cliente.setNombre(registro.getString("nombre"));
-				cliente.setApellido_1(registro.getString("apellido_1"));
-				cliente.setApellido_2(registro.getString("apellido_2"));
-				cliente.setSexo(registro.getString("sexo").charAt(0));
-				cliente.setContrasena(registro.getString("passw"));
+				cliente.setDni(registro.getString(dniCliente));
+				cliente.setNombre(registro.getString(nombreCliente));
+				cliente.setApellido_1(registro.getString(ApeCliente1));
+				cliente.setApellido_2(registro.getString(ApeCliente2));
+				cliente.setSexo(registro.getString(sexoCliente).charAt(0));
+				cliente.setContrasena(registro.getString(contrasenaCliente));
 
 				Cliente[] arrayNuevo = new Cliente[usuario.length + 1];
 				for (int i = 0; i < usuario.length; i++) {
