@@ -127,7 +127,6 @@ class MetodosTest {
 			cal.set(Calendar.MONTH, 2);
 			cal.set(Calendar.YEAR, 2023);
 			Date fecha1= (Date) cal.getTime();
-			System.out.println(fecha1.toString());
 			Sesion sesion = metodos.queSesion(cine, sala, fecha1, hora, pelicula);
 			String resul = sesion.toString();
 			assertEquals(resul, sesion.toString());
@@ -149,6 +148,16 @@ class MetodosTest {
 			entradas=metodos.siguienteEntrada(entradas);
 			Entrada[] entradas2 =entradas;
 			assertEquals(entradas, entradas2);
+		}
+		@Test
+		void testSacarPrecio() {
+			Cine[] cines= metodos.cuantosCines();
+			Cine cine = cines[1];
+			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
+			Pelicula pelicula= peliculas[0];	
+			
+			
+			assertEquals(3.6, metodos.sacarPrecio(pelicula));
 		}
 	}
 
