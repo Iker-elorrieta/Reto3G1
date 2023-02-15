@@ -27,7 +27,7 @@ public class VistaTicket extends JFrame {
 		clientes=usuarios;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 286, 192);
+		setBounds(100, 100, 570, 391);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

@@ -137,16 +137,15 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		datePicker.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Date fecha = (Date) datePicker.getModel().getValue();
-				horaCB.setVisible(true);
-				aceptarHora.setVisible(true);
-				labelHorario.setVisible(true);
 				String[] horas = new String[0];
 				if (fecha != null)
 					horas = metodos.horarioSesiones(pelicula, cine, fecha);
 				
-				horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
-				
 				if (horas.length != 0) {
+					horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
+					horaCB.setVisible(true);
+					aceptarHora.setVisible(true);
+					labelHorario.setVisible(true);
 					for (int horasN = 0; horasN < horas.length; horasN++) {
 						horaCB.addItem(horas[horasN]);
 					}
@@ -251,8 +250,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		return entradas;
 	}
 	
-	public Entrada[] limpiarEntradasLogin() {
-		entradas=null;
+	public Entrada[] limpiarEntradas() {
+		entradas=new Entrada[1];
 		return entradas;
 	}
 }
