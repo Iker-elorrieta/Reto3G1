@@ -6,6 +6,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -158,6 +160,19 @@ class MetodosTest {
 			
 			
 			assertEquals(3.6,metodos.sacarPrecio(pelicula),0.1 );
+		}
+		@Test
+		void testFechasPeliculas() {
+			Cine[] cines= metodos.cuantosCines();
+			Cine cine = cines[1];
+			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
+			Pelicula pelicula= peliculas[0];	Date[] fechas=metodos.fechasPelicula(cine, pelicula);
+			Date[] resul=fechas;
+			DateFormat dt = new SimpleDateFormat("yyyy-MM-dd"); 
+
+			
+			assertEquals(dt.format(resul[0]),dt.format(fechas[0]));
+			
 		}
 	}
 

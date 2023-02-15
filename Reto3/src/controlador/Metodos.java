@@ -27,40 +27,30 @@ public class Metodos {
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra = "Contraseña33#";
-
+	final String codCine = "cod_cine";
+	final String nombreCine = "nombre_cine";
+	final String codSala = "cod_sala";
+	final String nombreSala = "nombre_sala";
+	final String codSesion = "cod_sesion";
+	final String fechaSesion = "fecha";
+	final String horaSesion = "hora";
+	final String codPelicula = "cod_pelicula";
+	final String nombrePelicula = "nom_peli";
+	final String generoPelicula = "genero";
+	final String duracionPelicula = "duracion";
+	final String costePelicula = "coste";
+	final String dniCliente = "dni";
+	final String nombreCliente = "nombre";
+	final String ApeCliente1 = "apellido_1";
+	final String ApeCliente2 = "apellido_2";
+	final String sexoCliente = "sexo";
+	final String contrasenaCliente = "passw";
 	/*
-	 * final String sConexion = "jdbc:mysql://localhost:3306/cines"; 
-	 * final String user = "root";
-	 * final String contra = "";
+	 * final String sConexion = "jdbc:mysql://localhost:3306/cines"; final String
+	 * user = "root"; final String contra = "";
 	 */
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que
 	// devuelve
-
-	final String codCine="cod_cine";
-	final String nombreCine="nombre_cine";
-	final String codSala="cod_sala";
-	final String nombreSala="nombre_sala";
-	final String codSesion= "cod_sesion";
-	final String fechaSesion= "fecha";
-	final String horaSesion= "hora";
-	final String codPelicula= "cod_pelicula";
-	final String nombrePelicula= "nom_peli";
-	final String generoPelicula= "genero";
-	final String duracionPelicula= "duracion";
-	final String costePelicula= "coste";
-	final String dniCliente= "dni";
-	final String nombreCliente= "nombre";
-	final String ApeCliente1= "apellido_1";
-	final String ApeCliente2= "apellido_2";
-	final String sexoCliente= "sexo";
-	final String contrasenaCliente= "passw";
-/*
-	final String sConexion = "jdbc:mysql://localhost:3306/cines";
-	final String user = "root";
-	final String contra = "";
-*/
-	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que devuelve
-
 
 	public Cine[] cuantosCines() {
 		// TODO Auto-generated method stub
@@ -375,14 +365,11 @@ public class Metodos {
 
 	public Entrada[] siguienteEntrada(Entrada[] entradas_compradas) {
 		// TODO Auto-generated method stub
-		Entrada[] nuevoArray = null;
-		if (entradas_compradas != null) {
-			nuevoArray = new Entrada[entradas_compradas.length + 1];
-			for (int i = 0; i < entradas_compradas.length; i++) {
-				nuevoArray[i] = entradas_compradas[i];
-			}
-		} else
-			nuevoArray = new Entrada[1];
+		Entrada[] nuevoArray = new Entrada[entradas_compradas.length + 1];
+
+		for (int i = 0; i < entradas_compradas.length; i++) {
+			nuevoArray[i] = entradas_compradas[i];
+		}
 
 		entradas_compradas = nuevoArray;
 
@@ -424,6 +411,28 @@ public class Metodos {
 	public float sacarPrecio(Pelicula pelicula) {
 		// TODO Auto-generated method stub
 		return pelicula.getPrecio();
+	}
+
+	public Date[] fechasPelicula(Cine cine, Pelicula pelicula) {
+		// TODO Auto-generated method stub	
+		
+		Date[] fechasPelicula= new Date[0];
+		for (int nSalas = 0; nSalas < cine.getSalas().length; nSalas++) {
+			Sesion[] sesiones = cine.getSalas()[nSalas].getSesiones();
+			for (int i = 0; i < sesiones.length; i++) {
+				if (sesiones[i].getPelicula().getCdPel().equals(pelicula.getCdPel())) {
+					
+					Date[] arrayTemp= new Date[fechasPelicula.length+1];
+					for (int nFechas=0;nFechas < fechasPelicula.length;nFechas++)
+						arrayTemp[nFechas] = fechasPelicula[nFechas];
+					
+					arrayTemp[arrayTemp.length-1]=sesiones[i].getFecha();
+					fechasPelicula=arrayTemp;
+				}
+
+			}
+		}
+		return fechasPelicula;
 	}
 
 }
