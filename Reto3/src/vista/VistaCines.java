@@ -35,6 +35,7 @@ public class VistaCines extends JFrame implements ActionListener {
 	static Entrada[] entradas_compradas = new Entrada[0];
 	private VistaPeliculas vPeliculas;
 	int i = 0;
+	private VistaResumen resumen;
 
 	/**
 	 * Launch the application.
@@ -135,14 +136,18 @@ public class VistaCines extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		entradas_compradas=vPeliculas.obtenerEntradas();
-		if (entradas_compradas[0]== null) {
+		entradas_compradas = resumen.loginAbierto();
+		
+		if (this.resumen == null) {
 			this.dispose();
 		} else {
-			VistaResumen resumen = new VistaResumen(entradas_compradas, users);
-			resumen.setVisible(true);
-			
+			entradas_compradas = vPeliculas.obtenerEntradas();
+			if (entradas_compradas[0] == null) {
+				this.dispose();
+			} else {
+				resumen = new VistaResumen(entradas_compradas, users);
+				resumen.setVisible(true);
+			}
 		}
 	}
-
 }

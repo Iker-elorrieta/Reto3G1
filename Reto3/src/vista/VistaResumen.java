@@ -14,8 +14,6 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class VistaResumen extends JFrame implements ActionListener {
 
@@ -40,11 +38,11 @@ public class VistaResumen extends JFrame implements ActionListener {
 	 * @param vPeliculas 
 	 * @param entradas_compradas 
 	 */
-	public VistaResumen(Entrada[] entradas, Cliente[] users) {
+	public VistaResumen(Entrada[] entradasC, Cliente[] users) {
 		this.users=users;
-		for()
-		this.entradas=entradas;
-		entradas
+		entradas = entradasC;
+		
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 726, 503);
 		contentPane = new JPanel();
@@ -72,9 +70,9 @@ public class VistaResumen extends JFrame implements ActionListener {
 	            "Numero Entrada", "Nombre Pelicula", "Fecha", "Hora", "Coste"
 	        };
 		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");    
-		String[][] datosTabla = new String[entradas.length][5];
+		String[][] datosTabla = new String[this.entradas.length][5];
 		
-		for(int i=0;i<entradas.length;i++) {
+		for(int i=0;i<this.entradas.length;i++) {
 			datosTabla[i][0] = entradas[i].getCdEntrada();
 			datosTabla[i][1] = entradas[i].getSesion().getPelicula().getNombre();
 			datosTabla[i][2] = dt.format(entradas[i].getFecha());
@@ -85,9 +83,6 @@ public class VistaResumen extends JFrame implements ActionListener {
 		table = new JTable(datosTabla,columns);
 		scrollPane.setViewportView(table);
 		table.setEnabled(false);
-		
-		
-
 	}
 
 	@Override
@@ -99,7 +94,13 @@ public class VistaResumen extends JFrame implements ActionListener {
 		else {
 			login = new VistaLogin(users, entradas);
 			login.setVisible(true);
+			entradas = new Entrada[2];
+			entradas[1]=null;
 			this.dispose();
 		}
+	}
+	
+	public Entrada[] loginAbierto() {
+		return entradas;
 	}
 }
