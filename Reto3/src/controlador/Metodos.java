@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-
 import modelo.Cine;
 import modelo.Cliente;
 import modelo.Entrada;
@@ -28,14 +27,13 @@ public class Metodos {
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra = "Contraseña33#";
-/*
-	final String sConexion = "jdbc:mysql://localhost:3306/cines";
-	final String user = "root";
-	final String contra = "";
-*/
-	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que devuelve
+	/*
+	 * final String sConexion = "jdbc:mysql://localhost:3306/cines"; final String
+	 * user = "root"; final String contra = "";
+	 */
+	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que
+	// devuelve
 
-	
 	public Cine[] cuantosCines() {
 		// TODO Auto-generated method stub
 		Cine[] cines = new Cine[0];
@@ -112,7 +110,6 @@ public class Metodos {
 			ResultSet registro = comando.executeQuery(
 					"SELECT * FROM sesiones where cod_sala='" + sala.getCdSala() + "' order by fecha, hora;");
 
-
 			while (registro.next() == true) {
 
 				Sesion sesion = new Sesion();
@@ -120,7 +117,7 @@ public class Metodos {
 
 				String fecha = String.valueOf(registro.getDate("fecha"));
 				cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(fecha.split("-")[2]));
-				cal.set(Calendar.MONTH, Integer.valueOf(fecha.split("-")[1])-1);
+				cal.set(Calendar.MONTH, Integer.valueOf(fecha.split("-")[1]) - 1);
 				cal.set(Calendar.YEAR, Integer.valueOf(fecha.split("-")[0]));
 
 				String hora = registro.getString("hora");
@@ -257,8 +254,8 @@ public class Metodos {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
 
-			comando.executeUpdate("Insert into clientes values ('" + dni + "', '" + apell1 + "', '" + apell2 + "', '" + sexoCB + "', AES_ENCRYPT('" + passw + "', 'key'));");
-
+			comando.executeUpdate("Insert into clientes values ('" + dni + "', '" + apell1 + "', '" + apell2 + "', '"
+					+ sexoCB + "', AES_ENCRYPT('" + passw + "', 'key'));");
 
 			conexion.close();
 
@@ -284,7 +281,6 @@ public class Metodos {
 
 	public Pelicula[] cargarPeliculas(Cine cine) {
 		// TODO Auto-generated method stub
-
 
 		Pelicula[] peliculas = new Pelicula[0];
 		for (int contSalas = 0; contSalas < cine.getSalas().length; contSalas++) {
@@ -322,75 +318,78 @@ public class Metodos {
 
 	public String[] horarioSesiones(Pelicula pelicula, Cine cine, Date fecha) {
 		String[] horas = new String[0];
-		
+
 		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 		String horaS = "";
 		String salaS = "";
 		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
 
-				if (dt.format(cine.getSalas()[salasN].getSesiones()[sesionesN].getFecha()).equals(dt.format(fecha)) && cine.getSalas()[salasN].getSesiones()[sesionesN].getPelicula().getCdPel().equals(pelicula.getCdPel())) {
-					
+				if (dt.format(cine.getSalas()[salasN].getSesiones()[sesionesN].getFecha()).equals(dt.format(fecha))
+						&& cine.getSalas()[salasN].getSesiones()[sesionesN].getPelicula().getCdPel()
+								.equals(pelicula.getCdPel())) {
+
 					String[] arrayNuevo = new String[horas.length + 1];
 					for (int i = 0; i < horas.length; i++) {
 						arrayNuevo[i] = horas[i];
 					}
-					
-					horaS = cine.getSalas()[salasN].getSesiones()[sesionesN].getHora();	
+
+					horaS = cine.getSalas()[salasN].getSesiones()[sesionesN].getHora();
 					salaS = cine.getSalas()[salasN].getNomSala();
-					arrayNuevo[arrayNuevo.length-1] =horaS +" - "+ salaS;
-					horas=arrayNuevo;
+					arrayNuevo[arrayNuevo.length - 1] = horaS + " - " + salaS;
+					horas = arrayNuevo;
 				}
 			}
 		}
-
-		
 
 		return horas;
 	}
 
-
 	public Entrada[] siguienteEntrada(Entrada[] entradas_compradas) {
 		// TODO Auto-generated method stub
-		Entrada[] nuevoArray = new Entrada[entradas_compradas.length+1];
-		
-		for (int i = 0; i < entradas_compradas.length; i++) {
-			nuevoArray[i] = entradas_compradas[i];
-		}
-		
+		Entrada[] nuevoArray = null;
+		if (entradas_compradas != null) {
+			nuevoArray = new Entrada[entradas_compradas.length + 1];
+			for (int i = 0; i < entradas_compradas.length; i++) {
+				nuevoArray[i] = entradas_compradas[i];
+			}
+		} else
+			nuevoArray = new Entrada[1];
+
 		entradas_compradas = nuevoArray;
-		
+
 		return entradas_compradas;
 	}
-			
+
 	public Sesion queSesion(Cine cine, String nombre_sala, Date fecha, String hora, Pelicula pelicula) {
 		// TODO Auto-generated method stub
-		Sesion sesionF= new Sesion();
+		Sesion sesionF = new Sesion();
 		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		for (int salasN = 0; salasN < cine.getSalas().length; salasN++) {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
 				Sesion sesion = cine.getSalas()[salasN].getSesiones()[sesionesN];
-				
-				if(sesion.getPelicula().getCdPel().equals(pelicula.getCdPel()) && dt.format(sesion.getFecha()).equals(dt.format(fecha)) && sesion.getHora().equals(hora) && cine.getSalas()[salasN].getNomSala().equals(nombre_sala))
+
+				if (sesion.getPelicula().getCdPel().equals(pelicula.getCdPel())
+						&& dt.format(sesion.getFecha()).equals(dt.format(fecha)) && sesion.getHora().equals(hora)
+						&& cine.getSalas()[salasN].getNomSala().equals(nombre_sala))
 					sesionF = cine.getSalas()[salasN].getSesiones()[sesionesN];
-				}
 			}
-		
+		}
+
 		return sesionF;
 	}
 
-
 	public Entrada nuevaEntrada(Sesion sesion, int num_entrada) {
 		// TODO Auto-generated method stub
-		
+
 		Entrada entrada = new Entrada();
 		entrada.setCdEntrada(String.valueOf(num_entrada));
 		entrada.setFecha(sesion.getFecha());
 		entrada.setHora(sesion.getHora());
 		entrada.setPrecio(sesion.getPelicula().getPrecio());
 		entrada.setSesion(sesion);
-		
+
 		return entrada;
 	}
 
@@ -400,4 +399,3 @@ public class Metodos {
 	}
 
 }
-

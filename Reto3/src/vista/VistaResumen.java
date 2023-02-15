@@ -81,8 +81,8 @@ public class VistaResumen extends JFrame implements ActionListener {
 		}
 		
 		table = new JTable(datosTabla,columns);
-		scrollPane.setViewportView(table);
 		table.setEnabled(false);
+		scrollPane.setViewportView(table);
 	}
 
 	@Override

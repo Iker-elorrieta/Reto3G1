@@ -136,17 +136,26 @@ public class VistaCines extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		entradas_compradas = resumen.loginAbierto();
 		
-		if (this.resumen == null) {
-			this.dispose();
-		} else {
+		if (resumen == null) {
 			entradas_compradas = vPeliculas.obtenerEntradas();
 			if (entradas_compradas[0] == null) {
 				this.dispose();
 			} else {
 				resumen = new VistaResumen(entradas_compradas, users);
 				resumen.setVisible(true);
+				vPeliculas.limpiarEntradasLogin();
+			}
+		} else {
+			Entrada[] verificarLogin=resumen.loginAbierto();
+			if (verificarLogin.length == 2 && verificarLogin[1]==null && entradas_compradas==null && vPeliculas.obtenerEntradas()==null || vPeliculas.obtenerEntradas()[0]==null)
+				this.dispose();
+			else {
+				entradas_compradas = vPeliculas.obtenerEntradas();
+				if (entradas_compradas[0] != null) {
+					resumen = new VistaResumen(entradas_compradas, users);
+					resumen.setVisible(true);
+				}
 			}
 		}
 	}

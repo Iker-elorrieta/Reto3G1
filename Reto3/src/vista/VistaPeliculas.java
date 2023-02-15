@@ -55,7 +55,6 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private JLabel labelCoste;
 	private JLabel labelHorario;
 	private JButton aceptarHora;
-	private JButton aceptar;
 	private Entrada[] entradas;
 	/**
 	 * Launch the application.
@@ -94,12 +93,6 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabbedPane.addTab("Sesiones", null, tabSesiones, null);
 		tabbedPane.setEnabledAt(1, false);
 		tabSesiones.setLayout(null);
-
-		aceptar = new JButton("Aceptar");
-		aceptar.addActionListener(this);
-		aceptar.setBounds(643, 388, 89, 23);
-		aceptar.setEnabled(false);
-		tabSesiones.add(aceptar);
 
 		horaCB = new JComboBox<String>();
 		horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {""}));
@@ -243,11 +236,14 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 					"",
 					JOptionPane.INFORMATION_MESSAGE);
 			
-			aceptar.setEnabled(true);
-			}
-		}
-		else {
 			this.dispose();
+			}
+			else {
+				JOptionPane.showMessageDialog(null,
+						"Porfavor, selecciona una sesion.",
+						"Error",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 	}
 	
@@ -255,7 +251,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		return entradas;
 	}
 	
-	public Entrada[] LimpiarEntradasLogin() {
+	public Entrada[] limpiarEntradasLogin() {
 		entradas=null;
 		return entradas;
 	}
