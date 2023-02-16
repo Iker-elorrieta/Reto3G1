@@ -27,7 +27,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	Metodos metodo = new Metodos();
+	Metodos metodos = new Metodos();
 	boolean correcto = false;
 	Cliente[] usuarios;
 	private JButton atras;
@@ -52,8 +52,8 @@ public class VistaLogin extends JFrame implements ActionListener {
 	 * 
 	 * @param users
 	 */
-	public VistaLogin(Cliente[] users, Entrada[] entradas) {
-		usuarios = users;
+	public VistaLogin(Entrada[] entradas) {
+		usuarios = metodos.usuariosArray();
 		this.entradas=entradas;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 684, 426);
@@ -191,7 +191,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 			labelIncorrecto.setText("");
 			String dni = jUser.getText();
 			String pass = String.valueOf(jPassw.getPassword());
-			if (metodo.validarUsers(usuarios, dni, pass)) {
+			if (metodos.validarUsers(usuarios, dni, pass)) {
 				labelIncorrecto.setVisible(false);
 				JOptionPane.showMessageDialog(null, "Sesion iniciada", "Bienvenido.",
 						JOptionPane.INFORMATION_MESSAGE);
@@ -205,7 +205,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 		}
 		else if (e.getSource() == registrarseBtn) {
 
-			if (metodo.validarDni(dni_reg.getText(), usuarios)) {
+			if (metodos.validarDni(dni_reg.getText(), usuarios)) {
 				for (int i = 0; i < usuarios.length; i++) {
 					if (!dni_reg.getText().equals(usuarios[i].getDni()))
 						dni_reg.setBackground(Color.GREEN);
@@ -213,22 +213,22 @@ public class VistaLogin extends JFrame implements ActionListener {
 			} else
 				dni_reg.setBackground(Color.RED);
 
-			if (metodo.esVacio(nombre_reg.getText()))
+			if (metodos.esVacio(nombre_reg.getText()))
 				nombre_reg.setBackground(Color.RED);
 			else
 				nombre_reg.setBackground(Color.GREEN);
 
-			if (metodo.esVacio(apell1_reg.getText()))
+			if (metodos.esVacio(apell1_reg.getText()))
 				apell1_reg.setBackground(Color.RED);
 			else
 				apell1_reg.setBackground(Color.GREEN);
 
-			if (metodo.esVacio(apell2_reg.getText()))
+			if (metodos.esVacio(apell2_reg.getText()))
 				apell2_reg.setBackground(Color.RED);
 			else
 				apell2_reg.setBackground(Color.GREEN);
 
-			if (!metodo.esVacio(String.valueOf(pass_reg.getPassword()))
+			if (!metodos.esVacio(String.valueOf(pass_reg.getPassword()))
 					&& String.valueOf(pass_reg.getPassword()).equals(String.valueOf(passval_reg.getPassword()))) {
 				pass_reg.setBackground(Color.GREEN);
 				passval_reg.setBackground(Color.GREEN);
@@ -240,7 +240,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 					&& apell1_reg.getBackground() == todoOk && apell2_reg.getBackground() == todoOk
 					&& pass_reg.getBackground() == todoOk && passval_reg.getBackground() == todoOk) {
 
-				usuarios = metodo.registrarUsuario(dni_reg.getText(), nombre_reg.getText(), apell1_reg.getText(),
+				usuarios = metodos.registrarUsuario(dni_reg.getText(), nombre_reg.getText(), apell1_reg.getText(),
 						apell2_reg.getText(), sexoCB.getSelectedItem().toString(),
 						String.valueOf(pass_reg.getPassword()));
 				limpiarCamposReg();

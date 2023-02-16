@@ -4,16 +4,19 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controlador.Metodos;
 import modelo.Cine;
-import modelo.Cliente;
 import modelo.Entrada;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.JButton;
@@ -31,12 +34,20 @@ public class VistaCines extends JFrame implements ActionListener {
 	private JPanel panelCines;
 	private Metodos metodos = new Metodos();
 	private Cine[] cines = metodos.cuantosCines();
-	private Cliente[] users = metodos.usuariosArray();
 	static Entrada[] entradas_compradas = new Entrada[0];
 	private VistaPeliculas vPeliculas;
 	int i = 0;
-	private VistaResumen resumen;
 
+	private VistaLogin login;
+	private JTable table;
+	private JButton btnCancelar;
+	private JLabel labelCosteTot;
+	private JButton btnImprimir;
+	private JPanel contentPaneResumen;
+	private JButton btnFinalizar;
+	private JLabel labelBienvenido;
+	private JLabel jlabelcoste;
+	private JScrollPane scrollPane;
 	/**
 	 * Launch the application.
 	 */
@@ -58,13 +69,13 @@ public class VistaCines extends JFrame implements ActionListener {
 	 */
 	public VistaCines() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 500);
+		setBounds(100, 100, 726, 503);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel labelBienvenido = new JLabel("Bienvenido");
+		labelBienvenido = new JLabel("Bienvenido");
 		labelBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
 		labelBienvenido.addMouseListener(new MouseAdapter() {
 			@Override
@@ -74,22 +85,51 @@ public class VistaCines extends JFrame implements ActionListener {
 			}
 		});
 		labelBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		labelBienvenido.setBounds(0, 0, 584, 461);
+		labelBienvenido.setBounds(0, 0, 710, 461);
 		contentPane.add(labelBienvenido);
 
 		panelCines = new JPanel();
 		panelCines.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelCines.setForeground(new Color(0, 0, 0));
-		panelCines.setBounds(0, 0, 584, 461);
+		panelCines.setBounds(0, 0, 710, 461);
 		contentPane.add(panelCines);
 		panelCines.setLayout(null);
 
-		JButton btnFinalizar = new JButton("Finalizar");
+		btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.addActionListener(this);
-		btnFinalizar.setBounds(225, 404, 126, 46);
+		btnFinalizar.setBounds(292, 404, 126, 46);
 		panelCines.add(btnFinalizar);
 		panelCines.setVisible(false);
 
+		contentPaneResumen = new JPanel();
+		contentPaneResumen.setBounds(0, 0, 710, 461);
+		contentPane.add(contentPaneResumen);
+		contentPaneResumen.setLayout(null);
+
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 50, 690, 403);
+		contentPaneResumen.add(scrollPane);
+
+		btnImprimir = new JButton("Ir a login");
+		btnImprimir.addActionListener(this);
+		btnImprimir.setBounds(573, 11, 127, 23);
+		contentPaneResumen.add(btnImprimir);
+		btnImprimir.setVisible(false);
+
+		btnCancelar = new JButton("Atras");
+		btnCancelar.addActionListener(this);
+		btnCancelar.setBounds(10, 11, 89, 23);
+		contentPaneResumen.add(btnCancelar);
+		btnCancelar.setVisible(false);
+		
+		jlabelcoste = new JLabel("Coste Total:");
+		jlabelcoste.setBounds(176, 15, 96, 14);
+		contentPaneResumen.add(jlabelcoste);
+		jlabelcoste.setVisible(false);
+		
+		labelCosteTot = new JLabel("");
+		labelCosteTot.setBounds(260, 15, 59, 14);
+		contentPaneResumen.add(labelCosteTot);
 	}
 
 	public void botonesCine(int cuantosCines) {
@@ -136,27 +176,53 @@ public class VistaCines extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
-		if (resumen == null) {
+		if (e.getSource() == btnFinalizar) {
 			entradas_compradas = vPeliculas.obtenerEntradas();
 			if (entradas_compradas[0] == null) {
 				this.dispose();
 			} else {
-				resumen = new VistaResumen(entradas_compradas, users);
-				resumen.setVisible(true);
-				vPeliculas.limpiarEntradasLogin();
-			}
-		} else {
-			Entrada[] verificarLogin=resumen.loginAbierto();
-			if (verificarLogin.length == 2 && verificarLogin[1]==null && entradas_compradas==null && vPeliculas.obtenerEntradas()==null || vPeliculas.obtenerEntradas()[0]==null)
-				this.dispose();
-			else {
-				entradas_compradas = vPeliculas.obtenerEntradas();
-				if (entradas_compradas[0] != null) {
-					resumen = new VistaResumen(entradas_compradas, users);
-					resumen.setVisible(true);
+				panelCines.setVisible(false);
+				contentPaneResumen.setVisible(true);
+				btnImprimir.setVisible(true);
+				btnCancelar.setVisible(true);
+				jlabelcoste.setVisible(true);
+				String[] columns = new String[] { "Numero Entrada", "Nombre Pelicula", "Fecha", "Hora", "Coste" };
+				DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+				String[][] datosTabla = new String[entradas_compradas.length][5];
+				float costeTotSinDescuento = 0;
+				for (int i = 0; i < entradas_compradas.length; i++) {
+					costeTotSinDescuento += entradas_compradas[i].getPrecio();
+					datosTabla[i][0] = entradas_compradas[i].getCdEntrada();
+					datosTabla[i][1] = entradas_compradas[i].getSesion().getPelicula().getNombre();
+					datosTabla[i][2] = dt.format(entradas_compradas[i].getFecha());
+					datosTabla[i][3] = entradas_compradas[i].getHora().toString();
+					datosTabla[i][4] = String.valueOf(entradas_compradas[i].getPrecio()) + "€";
 				}
+				
+				contentPaneResumen.add(scrollPane);
+				table = new JTable(datosTabla, columns);
+				table.setEnabled(false);
+				scrollPane.setViewportView(table);
+
+				float costeTotConDescuento = metodos.calcularDescuento(costeTotSinDescuento, entradas_compradas.length);
+				labelCosteTot.setText(String.valueOf(costeTotConDescuento) + "€");
+				labelCosteTot.setBounds(260, 15, 59, 14);
+				contentPaneResumen.add(labelCosteTot);
+				contentPane.updateUI();
 			}
+		} else if (e.getSource() == btnCancelar) {
+			panelCines.setVisible(true);
+			contentPaneResumen.setVisible(false);
+		} else if (e.getSource() == btnImprimir) {
+			panelCines.setVisible(true);
+			contentPaneResumen.setVisible(false);
+			btnImprimir.setVisible(false);
+			btnCancelar.setVisible(false);
+			jlabelcoste.setVisible(false);
+			login = new VistaLogin(entradas_compradas);
+			login.setVisible(true);
+			entradas_compradas = vPeliculas.limpiarEntradas();
 		}
+
 	}
 }
