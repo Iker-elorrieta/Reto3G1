@@ -461,4 +461,24 @@ public class Metodos {
 		return nombre;
 	}
 
+	public String salaConFechaYPelicula(Sesion sesion, Cine[] cines) {
+		String nombreSalayCine="";
+		
+		for(int nCines=0;nCines < cines.length;nCines++) {
+			for(int nSalas=0;nSalas < cines[nCines].getSalas().length;nSalas++) {
+				
+				for(int nSesiones=0;nSesiones < cines[nCines].getSalas()[nSalas].getSesiones().length ;nSesiones++) {
+					
+					Sesion sesionAcomparar=cines[nCines].getSalas()[nSalas].getSesiones()[nSesiones];
+					
+					if(sesionAcomparar.getIdSesion().equals(sesion.getIdSesion())) {
+						nombreSalayCine=cines[nCines].getNombre_cine()+" - "+cines[nCines].getSalas()[nSalas].getNomSala();
+					}
+				}
+			}
+		}
+		
+		return nombreSalayCine;
+	}
+
 }

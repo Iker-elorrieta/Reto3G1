@@ -156,8 +156,11 @@ public class VistaCines extends JFrame implements ActionListener {
 	}
 
 	public void aPelis(Cine cine) {
-		if(vPeliculas != null)
-			entradas_compradas = vPeliculas.obtenerEntradas();
+		if(vPeliculas != null) {
+			if(vPeliculas.obtenerEntradas()[vPeliculas.obtenerEntradas().length-1]!=null)
+				entradas_compradas = vPeliculas.obtenerEntradas();
+		}
+			
 		vPeliculas = new VistaPeliculas(cine, entradas_compradas);
 		vPeliculas.setVisible(true);
 	}
@@ -182,7 +185,10 @@ public class VistaCines extends JFrame implements ActionListener {
 
 			try {
 				vPeliculas.obtenerEntradas();
-				entradas_compradas = vPeliculas.obtenerEntradas();
+				
+				if(vPeliculas.obtenerEntradas()[vPeliculas.obtenerEntradas().length-1]!=null)
+					entradas_compradas = vPeliculas.obtenerEntradas();
+				
 				if (entradas_compradas[0] == null) {
 					this.dispose();
 				} else {
@@ -191,9 +197,9 @@ public class VistaCines extends JFrame implements ActionListener {
 					btnImprimir.setVisible(true);
 					btnCancelar.setVisible(true);
 					jlabelcoste.setVisible(true);
-					String[] columns = new String[] { "Numero Entrada", "Nombre Pelicula", "Fecha", "Hora", "Coste" };
+					String[] columns = new String[] { "Numero Entrada", "Nombre Pelicula", "Fecha", "Hora", "Sala", "Coste"};
 					DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-					String[][] datosTabla = new String[entradas_compradas.length][5];
+					String[][] datosTabla = new String[entradas_compradas.length][6];
 					float costeTotSinDescuento = 0;
 					for (int i = 0; i < entradas_compradas.length; i++) {
 						costeTotSinDescuento += entradas_compradas[i].getPrecio();
@@ -201,7 +207,8 @@ public class VistaCines extends JFrame implements ActionListener {
 						datosTabla[i][1] = entradas_compradas[i].getSesion().getPelicula().getNombre();
 						datosTabla[i][2] = dt.format(entradas_compradas[i].getFecha());
 						datosTabla[i][3] = entradas_compradas[i].getHora().toString();
-						datosTabla[i][4] = String.valueOf(entradas_compradas[i].getPrecio()) + "€";
+						datosTabla[i][4] = metodos.salaConFechaYPelicula(entradas_compradas[i].getSesion(), cines);
+						datosTabla[i][5] = String.valueOf(entradas_compradas[i].getPrecio()) + "€";
 					}
 
 					contentPaneResumen.add(scrollPane);
@@ -217,9 +224,9 @@ public class VistaCines extends JFrame implements ActionListener {
 					contentPane.updateUI();
 				}
 			} catch (Exception ex) {
+				ex.printStackTrace();
 				this.dispose();
 			}
-
 		} else if (e.getSource() == btnCancelar) {
 			panelCines.setVisible(true);
 			contentPaneResumen.setVisible(false);

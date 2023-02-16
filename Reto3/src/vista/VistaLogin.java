@@ -95,11 +95,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 		labelIncorrecto.setVisible(false);
 
 		validarBtn = new JButton("Iniciar sesion");
-		validarBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+		validarBtn.addActionListener(this);
 		validarBtn.setBounds(31, 195, 146, 23);
 		panelLogin.add(validarBtn);
 
@@ -188,7 +184,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 			VistaCines.entradas_compradas=null;
 		}
 		else if (e.getSource() == validarBtn) {
-			labelIncorrecto.setText("");
+			labelIncorrecto.setVisible(false);
 			String dni = jUser.getText();
 			String pass = String.valueOf(jPassw.getPassword());
 			if (metodos.validarUsers(usuarios, dni, pass)) {
