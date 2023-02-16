@@ -276,7 +276,7 @@ public class Metodos {
 			Statement comando = conexion.createStatement();
 
 			comando.executeUpdate("Insert into clientes values ('" + dni + "', '" + apell1 + "', '" + apell2 + "', '"
-					+ sexoCB + "', AES_ENCRYPT('" + passw + "', 'key'));");
+					+ sexoCB + "', '" + passw + "');");
 
 			conexion.close();
 

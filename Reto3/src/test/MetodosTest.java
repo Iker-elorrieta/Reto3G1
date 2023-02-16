@@ -6,6 +6,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,7 +25,11 @@ import modelo.Pelicula;
 import modelo.Sesion;
 
 class MetodosTest {
+	final String sConexion = "jdbc:mysql://localhost:3306/cines";
+	final String user = "root"; 
+	final String contra = "";
 	Metodos metodos=new Metodos();
+	
 	@Test
 	void testCuantosCines() {
 		
@@ -68,15 +76,38 @@ class MetodosTest {
 			
 		}
 		
-		//@Test
-		//void testRegistrarUsuario() {
-		//String dni="45894650J";
-		//String nombre="Sergio";
-		//String apell1="Galera";
-		//String apell2="Frias";
-		//String sexoCB="H";
-		//	String passw="12345";
-		//}
+		@Test
+		void testRegistrarUsuario() {
+			String dni="45894650J";
+			String nombre="Sergio";
+			String apell1="Galera";
+			String apell2="Frias";
+			String sexoCB="H";
+			String passw="12345";
+			
+			Cliente[] usuarios = metodos.usuariosArray();
+			
+			for (int i=0;i < usuarios.length;i++) {
+				if (usuarios[i].getDni().equals(dni)) {
+					try {
+						Connection conexion = DriverManager.getConnection(sConexion, user, contra);
+						Statement comando = conexion.createStatement();
+
+						comando.executeUpdate("delete from clientes where dni='"+dni+"';");
+
+						conexion.close();
+
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			
+			usuarios=metodos.registrarUsuario(dni, nombre, apell1, apell2, sexoCB, passw);
+			
+			assertEquals(dni, usuarios[usuarios.length-1].getDni());
+		}
 		
 		@Test
 		void testCargarPeliculas() {
