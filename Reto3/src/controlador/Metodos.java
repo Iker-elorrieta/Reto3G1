@@ -23,11 +23,11 @@ public class Metodos {
 
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
-	/*
+	
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra = "Contraseña33#";
-	 */
+	
 
 	final String codCine = "cod_cine";
 	final String nombreCine = "nombre_cine";
@@ -47,11 +47,11 @@ public class Metodos {
 	final String ApeCliente2 = "apellido_2";
 	final String sexoCliente = "sexo";
 	final String contrasenaCliente = "passw";
-	
+	/*
 	 final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	 final String user = "root"; 
 	 final String contra = "";
-	
+	 */
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que
 	// devuelve
 
@@ -439,7 +439,8 @@ public class Metodos {
 		return fechasPelicula;
 	}
 		
-	public float calcularDescuento(float costeTotSinDescuento, int length) {
+	public float calcularDescuento(float costeTotSinDescuento, float length) {
+		
 		float aDescontar=(float) costeTotSinDescuento*(length/10);
 		costeTotSinDescuento-=aDescontar;
 		
