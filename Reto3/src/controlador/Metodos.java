@@ -447,5 +447,16 @@ public class Metodos {
 		return costeTotSinDescuento;
 
 	}
+	
+	public String nombreUsuario(Cliente[] clientes, String dni) {
+		String nombre="";
+		
+		for(int i=0;i < clientes.length;i++) {
+			if(clientes[i].getDni().equals(dni))
+				nombre=clientes[i].getNombre();
+		}
+		
+		return nombre;
+	}
 
 }
