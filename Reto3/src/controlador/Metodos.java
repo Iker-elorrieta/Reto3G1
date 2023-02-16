@@ -439,8 +439,6 @@ public class Metodos {
 		return fechasPelicula;
 	}
 		
-		
-		
 	public float calcularDescuento(float costeTotSinDescuento, int length) {
 		float aDescontar=(float) costeTotSinDescuento*(length/10);
 		costeTotSinDescuento-=aDescontar;

@@ -111,6 +111,7 @@ class MetodosTest {
 		
 		@Test
 		void testCargarPeliculas() {
+			
 			Cine[] cines= metodos.cuantosCines();
 			Cine cine = cines[0];
 			String resul=cines[0].toString();
@@ -119,6 +120,7 @@ class MetodosTest {
 			
 		}
 		
+		// En este test Tenemos en String, dada una pelicula y su fecha que nos saque la sesion y su hora y sala.
 		@Test
 		void testHorarioSesiones() {
 			Cine[] cines= metodos.cuantosCines();
@@ -197,7 +199,8 @@ class MetodosTest {
 			Cine[] cines= metodos.cuantosCines();
 			Cine cine = cines[1];
 			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
-			Pelicula pelicula= peliculas[0];	Date[] fechas=metodos.fechasPelicula(cine, pelicula);
+			Pelicula pelicula= peliculas[0];	
+			Date[] fechas=metodos.fechasPelicula(cine, pelicula);
 			Date[] resul=fechas;
 			DateFormat dt = new SimpleDateFormat("yyyy-MM-dd"); 
 
@@ -205,6 +208,7 @@ class MetodosTest {
 			assertEquals(dt.format(resul[0]),dt.format(fechas[0]));
 			
 		}
+		
 	}
 
 
