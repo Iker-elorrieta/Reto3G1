@@ -25,9 +25,16 @@ import modelo.Pelicula;
 import modelo.Sesion;
 
 class MetodosTest {
-	final String sConexion = "jdbc:mysql://localhost:3306/cines";
-	final String user = "root"; 
-	final String contra = "";
+	
+	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
+	final String user = "cliente";
+	final String contra = "Contraseña33#";
+	/*
+	 final String sConexion = "jdbc:mysql://localhost:3306/cines";
+	 final String user = "root"; 
+	 final String contra = "";
+	 */
+	
 	Metodos metodos=new Metodos();
 	
 	@Test
@@ -128,7 +135,7 @@ class MetodosTest {
 			Cine cine = cines[0];
 			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
 			
-			Calendar cal= Calendar.getInstance();;
+			Calendar cal= Calendar.getInstance();
 			Date fecha = null;
 			cal.set(Calendar.DAY_OF_MONTH, 1);
 			cal.set(Calendar.MONTH, 2);
@@ -136,7 +143,7 @@ class MetodosTest {
 			
 			
 			fecha = cal.getTime();
-			String[] horas= metodos.horarioSesiones(peliculas[0], cines[0], fecha);
+			String[] horas= metodos.horarioSesiones(peliculas[0], cines[1], fecha);
 			String horasStr="";
 			for (int i = 0; i < horas.length; i++) {
 				horasStr+= horas[i]+",";
