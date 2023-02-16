@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -78,6 +78,7 @@ class MetodosTest {
 		
 		@Test
 		void testRegistrarUsuario() {
+			
 			String dni="45894650J";
 			String nombre="Sergio";
 			String apell1="Galera";
@@ -91,9 +92,9 @@ class MetodosTest {
 				if (usuarios[i].getDni().equals(dni)) {
 					try {
 						Connection conexion = DriverManager.getConnection(sConexion, user, contra);
-						Statement comando = conexion.createStatement();
-
-						comando.executeUpdate("delete from clientes where dni='"+dni+"';");
+						
+						PreparedStatement st=conexion.prepareStatement("delete from clientes where dni='"+dni+"';");
+						st.executeUpdate();	
 
 						conexion.close();
 
@@ -105,8 +106,8 @@ class MetodosTest {
 			}
 			
 			usuarios=metodos.registrarUsuario(dni, nombre, apell1, apell2, sexoCB, passw);
-			
-			assertEquals(dni, usuarios[usuarios.length-1].getDni());
+			usuarios = metodos.usuariosArray();
+			assertEquals(dni, usuarios[1].getDni());
 		}
 		
 		@Test

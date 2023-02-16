@@ -15,7 +15,7 @@ import modelo.Pelicula;
 import modelo.Sesion;
 import modelo.Ticket;
 
-class testTicket {
+class TestTicket {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {

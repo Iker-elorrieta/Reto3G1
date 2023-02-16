@@ -275,8 +275,8 @@ public class Metodos {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
 
-			comando.executeUpdate("Insert into clientes values ('" + dni + "', '" + apell1 + "', '" + apell2 + "', '"
-					+ sexoCB + "', '" + passw + "');");
+			comando.executeUpdate("Insert into clientes values ('" + dni + "', '" +nombre+"', '"+ apell1 + "', '" + apell2 + "', '"
+					+ sexoCB.charAt(0) + "', '" + passw + "');");
 
 			conexion.close();
 
