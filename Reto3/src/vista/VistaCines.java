@@ -185,7 +185,7 @@ public class VistaCines extends JFrame implements ActionListener {
 
 			try {
 				vPeliculas.obtenerEntradas();
-				
+			
 				if(vPeliculas.obtenerEntradas()[vPeliculas.obtenerEntradas().length-1]!=null)
 					entradas_compradas = vPeliculas.obtenerEntradas();
 				
@@ -224,7 +224,6 @@ public class VistaCines extends JFrame implements ActionListener {
 					contentPane.updateUI();
 				}
 			} catch (Exception ex) {
-				ex.printStackTrace();
 				this.dispose();
 			}
 		} else if (e.getSource() == btnCancelar) {

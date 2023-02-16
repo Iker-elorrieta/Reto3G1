@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class VistaTicket extends JFrame implements ActionListener {
 
@@ -40,6 +41,7 @@ public class VistaTicket extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel);
 		
 		JLabel labelNombreUser = new JLabel("New label");
+		labelNombreUser.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNombreUser.setBounds(57, 24, 69, 14);
 		contentPane.add(labelNombreUser);
 		
