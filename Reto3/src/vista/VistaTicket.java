@@ -43,7 +43,7 @@ public class VistaTicket extends JFrame implements ActionListener {
 		labelNombreUser.setBounds(57, 24, 69, 14);
 		contentPane.add(labelNombreUser);
 		
-		metodos.nombreUsuario(usuarios, dni_usuario);
+		labelNombreUser.setText(metodos.nombreUsuario(usuarios, dni_usuario));
 		
 		JLabel lblNewLabel_1 = new JLabel(", Tu compra ha sido registrada.");
 		lblNewLabel_1.setBounds(130, 24, 166, 14);
