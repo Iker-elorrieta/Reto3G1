@@ -420,7 +420,8 @@ public class Metodos {
 		return pelicula.getPrecio();
 	}
 
-
+	//Cuando podamos restringir las fechas del DatePicker usaremos este metodo para habilitar las fechas resultantes,
+	//por ahora no se usa
 	public Date[] fechasPelicula(Cine cine, Pelicula pelicula) {
 		// TODO Auto-generated method stub	
 		
