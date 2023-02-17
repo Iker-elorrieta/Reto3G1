@@ -38,16 +38,15 @@ class MetodosTest {
 	 
 	
 	Metodos metodos=new Metodos();
-	Cine[] cines= metodos.cuantosCines();
-	Cine[] cine=cines;
+	
+
 	@Test
 	void testCuantosCines() {
-		
+		Cine[] cines= metodos.cuantosCines();
 
+		String resul=cines[0].toString();
 		
-		String resul=cine[0].toString();
-		
-		assertEquals(resul, cine[0].toString());
+		assertEquals(resul, cines[0].toString());
 		
 	}
 	@Test
@@ -122,11 +121,10 @@ class MetodosTest {
 		
 		@Test
 		void testCargarPeliculas() {
-			
-			
-			Cine cine = cines[0];
+			Cine[] cines= metodos.cuantosCines();
+		
 			String resul=cines[0].toString();
-			assertEquals(resul, cine.toString());
+			assertEquals(resul, cines[0].toString());
 			
 			
 		}
@@ -134,9 +132,8 @@ class MetodosTest {
 		// En este test Tenemos en String, dada una pelicula y su fecha que nos saque la sesion y su hora y sala.
 		@Test
 		void testHorarioSesiones() {
-			
-			Cine cine = cines[0];
-			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
+			Cine[] cines= metodos.cuantosCines();
+			Pelicula[] peliculas = metodos.cargarPeliculas(cines[0]);
 			
 			Calendar cal= Calendar.getInstance();
 			Date fecha = null;
@@ -162,9 +159,9 @@ class MetodosTest {
 		}
 		@Test
 		void testQueSesion() {
+			Cine[] cines= metodos.cuantosCines();
 			
-			Cine cine = cines[0];
-			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
+			Pelicula[] peliculas = metodos.cargarPeliculas(cines[0]);
 			Pelicula pelicula= peliculas[0];	
 			Calendar cal= Calendar.getInstance();
 			cal.set(Calendar.DAY_OF_MONTH, 1);
@@ -173,7 +170,7 @@ class MetodosTest {
 			Date fecha1= (Date) cal.getTime();
 			String sala=cines[0].getSalas()[0].getNomSala();
 			String hora=cines[0].getSalas()[0].getSesiones()[0].getHora();
-			Sesion sesion = metodos.queSesion(cine, sala, fecha1, hora, pelicula);
+			Sesion sesion = metodos.queSesion(cines[0], sala, fecha1, hora, pelicula);
 			String resul = sesion.toString();
 			assertEquals(resul, sesion.toString());
 
@@ -198,8 +195,8 @@ class MetodosTest {
 		@Test
 		void testSacarPrecio() {
 			
-			Cine cine = cines[0];
-			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
+			Cine[] cines= metodos.cuantosCines();
+			Pelicula[] peliculas = metodos.cargarPeliculas(cines[0]);
 			Pelicula pelicula= peliculas[0];	
 			float precio = metodos.sacarPrecio(pelicula);
 			
@@ -209,8 +206,8 @@ class MetodosTest {
 		@Test
 		void testSacarDescuento() {
 			
-			Cine cine = cines[0];
-			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
+			Cine[] cines= metodos.cuantosCines();
+			Pelicula[] peliculas = metodos.cargarPeliculas(cines[0]);
 			Pelicula pelicula= peliculas[0];	
 			float precio = metodos.calcularDescuento(pelicula.getPrecio(), (float) 1);
 			
@@ -220,10 +217,10 @@ class MetodosTest {
 		@Test
 		void testFechasPeliculas() {
 			
-			Cine cine = cines[0];
-			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
+			Cine[] cines= metodos.cuantosCines();
+			Pelicula[] peliculas = metodos.cargarPeliculas(cines[0]);
 			Pelicula pelicula= peliculas[0];	
-			Date[] fechas=metodos.fechasPelicula(cine, pelicula);
+			Date[] fechas=metodos.fechasPelicula(cines[0], pelicula);
 			Date[] resul=fechas;
 			DateFormat dt = new SimpleDateFormat("yyyy-MM-dd"); 
 			
@@ -251,6 +248,7 @@ class MetodosTest {
 		
 		@Test
 		void testNuevaEntrada () {
+			Cine[] cines= metodos.cuantosCines();
 			Sesion sesion=cines[0].getSalas()[0].getSesiones()[0];
 			Entrada entrada=metodos.nuevaEntrada(sesion, 1);
 			assertEquals(entrada.toString(),metodos.nuevaEntrada(sesion, 1).toString());
@@ -258,9 +256,10 @@ class MetodosTest {
 		
 		@Test
 		void testSalaConFechaYPelicula () {
+			Cine[] cines= metodos.cuantosCines();
 			Sesion sesion=cines[0].getSalas()[0].getSesiones()[0];
-			String cineYsala=metodos.salaConFechaYPelicula(sesion, cine);
-			assertEquals(cineYsala, metodos.salaConFechaYPelicula(sesion, cine));
+			String cineYsala=metodos.salaConFechaYPelicula(sesion, cines);
+			assertEquals(cineYsala, metodos.salaConFechaYPelicula(sesion, cines));
 		}
 	}
 
