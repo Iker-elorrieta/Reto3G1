@@ -30,15 +30,15 @@ public class Metodos {
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
 
-	/*
+	
 	 final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines"; final String
 	 user = "cliente"; final String contra = "Contraseña33#";
-	 */
-
+	 
+	 /*
 	final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	final String user = "root";
 	final String contra = "";
-
+*/
 	final String codCine = "cod_cine";
 	final String nombreCine = "nombre_cine";
 	final String codSala = "cod_sala";
@@ -67,7 +67,6 @@ public class Metodos {
 
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
-
 			Statement comando = conexion.createStatement();
 			ResultSet registro = comando.executeQuery("SELECT * FROM cines;");
 
@@ -75,7 +74,7 @@ public class Metodos {
 				Cine cine = new Cine();
 				cine.setCod_cine(registro.getString(codCine));
 				cine.setNombre_cine(registro.getString(nombreCine));
-				cine = cuantasSalas(cine);
+				cine = cuantasSalas(cine, conexion);
 				Cine[] arrayNuevo = new Cine[cines.length + 1];
 				for (int i = 0; i < cines.length; i++) {
 					arrayNuevo[i] = cines[i];
@@ -95,13 +94,12 @@ public class Metodos {
 	}
 
 	// Aqui lee cuantas salas hay por cine y las devuelve.
-	public Cine cuantasSalas(Cine cines) {
+	public Cine cuantasSalas(Cine cines, Connection conexion) {
 		// TODO Auto-generated method stub
 
 		Sala[] salas = new Sala[0];
 
 		try {
-			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
 			ResultSet registro = comando
 					.executeQuery("SELECT * FROM salas where cod_cine='" + cines.getCod_cine() + "';");
@@ -110,7 +108,7 @@ public class Metodos {
 				Sala sala = new Sala();
 				sala.setCdSala(registro.getString(codSala));
 				sala.setNomSala(registro.getString(nombreSala));
-				sala = cuantasSesiones(sala);
+				sala = cuantasSesiones(sala, conexion);
 				Sala[] arrayNuevo = new Sala[salas.length + 1];
 				for (int i = 0; i < salas.length; i++) {
 					arrayNuevo[i] = salas[i];
@@ -122,7 +120,6 @@ public class Metodos {
 
 			registro.close();
 			comando.close();
-			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,12 +129,11 @@ public class Metodos {
 	}
 
 	// Aqui la funcion que le las sesiones por cada sala.
-	public Sala cuantasSesiones(Sala sala) {
+	public Sala cuantasSesiones(Sala sala, Connection conexion) {
 
 		Sesion[] sesiones = new Sesion[0];
 		Calendar cal = Calendar.getInstance();
 		try {
-			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
 
 			ResultSet registro = comando.executeQuery(
@@ -157,7 +153,7 @@ public class Metodos {
 				sesion.setHora(hora);
 
 				sesion.setFecha(cal.getTime());
-				sesion = cuantasPeliculas(sesion, registro.getString(codPelicula));
+				sesion = cuantasPeliculas(sesion, registro.getString(codPelicula), conexion);
 
 				Sesion[] arrayNuevo = new Sesion[sesiones.length + 1];
 				for (int i = 0; i < sesiones.length; i++) {
@@ -170,8 +166,6 @@ public class Metodos {
 
 			registro.close();
 			comando.close();
-
-			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -181,10 +175,10 @@ public class Metodos {
 	}
 
 	// Aqui se lee que pelicula hay para cada sesion.
-	public Sesion cuantasPeliculas(Sesion sesion, String cod_pelicula) {
+	public Sesion cuantasPeliculas(Sesion sesion, String cod_pelicula, Connection conexion) {
 
 		try {
-			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
+			
 			Statement comando = conexion.createStatement();
 
 			ResultSet registro = comando
@@ -204,7 +198,6 @@ public class Metodos {
 
 			registro.close();
 			comando.close();
-			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
