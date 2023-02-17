@@ -47,14 +47,17 @@ public class VistaLogin extends JFrame implements ActionListener {
 	private JLabel labelIncorrecto;
 	private Entrada[] entradas;
 	private VistaTicket ticket;
+	String[] cinesYSalas;
 	/**
 	 * Create the frame.
+	 * @param cinesYsalas 
 	 * 
 	 * @param users
 	 */
-	public VistaLogin(Entrada[] entradas) {
+	public VistaLogin(Entrada[] entradas, String[] cinesYsalas) {
 		usuarios = metodos.usuariosArray();
 		this.entradas=entradas;
+		cinesYSalas=cinesYsalas;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 684, 426);
 		contentPane = new JPanel();
@@ -95,11 +98,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 		labelIncorrecto.setVisible(false);
 
 		validarBtn = new JButton("Iniciar sesion");
-		validarBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+		validarBtn.addActionListener(this);
 		validarBtn.setBounds(31, 195, 146, 23);
 		panelLogin.add(validarBtn);
 
@@ -188,14 +187,14 @@ public class VistaLogin extends JFrame implements ActionListener {
 			VistaCines.entradas_compradas=null;
 		}
 		else if (e.getSource() == validarBtn) {
-			labelIncorrecto.setText("");
+			labelIncorrecto.setVisible(false);
 			String dni = jUser.getText();
 			String pass = String.valueOf(jPassw.getPassword());
 			if (metodos.validarUsers(usuarios, dni, pass)) {
 				labelIncorrecto.setVisible(false);
 				JOptionPane.showMessageDialog(null, "Sesion iniciada", "Bienvenido.",
 						JOptionPane.INFORMATION_MESSAGE);
-				ticket =new VistaTicket(entradas, dni, usuarios);
+				ticket =new VistaTicket(entradas, dni, usuarios, cinesYSalas);
 				ticket.setVisible(true);
 				this.dispose();
 			} else {

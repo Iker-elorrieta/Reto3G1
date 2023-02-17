@@ -1,5 +1,9 @@
 package controlador;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,6 +15,8 @@ import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 import modelo.Cine;
 import modelo.Cliente;
@@ -24,15 +30,17 @@ public class Metodos {
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
 	
+	/*
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra = "Contraseña33#";
-	/*
-	 * 
+	*/
+	
+
 	 final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	 final String user = "root"; 
 	 final String contra = "";
-	 */
+	 
 
 	final String codCine = "cod_cine";
 	final String nombreCine = "nombre_cine";
@@ -418,7 +426,8 @@ public class Metodos {
 		return pelicula.getPrecio();
 	}
 
-
+	//Cuando podamos restringir las fechas del DatePicker usaremos este metodo para habilitar las fechas resultantes,
+	//por ahora no se usa
 	public Date[] fechasPelicula(Cine cine, Pelicula pelicula) {
 		// TODO Auto-generated method stub	
 		
@@ -459,6 +468,58 @@ public class Metodos {
 		}
 		
 		return nombre;
+	}
+
+	// Aqui se devuelve en que sala de que cine se da la sesion
+	public String salaConFechaYPelicula(Sesion sesion, Cine[] cines) {
+		String nombreSalayCine="";
+		
+		for(int nCines=0;nCines < cines.length;nCines++) {
+			for(int nSalas=0;nSalas < cines[nCines].getSalas().length;nSalas++) {
+				
+				for(int nSesiones=0;nSesiones < cines[nCines].getSalas()[nSalas].getSesiones().length ;nSesiones++) {
+					
+					Sesion sesionAcomparar=cines[nCines].getSalas()[nSalas].getSesiones()[nSesiones];
+					
+					if(sesionAcomparar.getIdSesion().equals(sesion.getIdSesion())) {
+						nombreSalayCine=cines[nCines].getNombre_cine()+" - "+cines[nCines].getSalas()[nSalas].getNomSala();
+					}
+				}
+			}
+		}
+		
+		return nombreSalayCine;
+	}
+
+	public void imprimirFactura(Entrada[] entradasArray, Cliente[] usuarios, String dni_usuario, String[] cinesYSalas) {
+		// TODO Auto-generated method stub
+		
+
+		File file = new File("factura.txt");
+		
+		BufferedWriter fichero;
+		
+			try {
+				fichero = new BufferedWriter(new FileWriter(file));
+				fichero.write("");
+				
+			for(int i =0;i<entradasArray.length;i++)
+			{
+				fichero.write(entradasArray[i].toString());
+			}
+			fichero.close();
+			JOptionPane.showMessageDialog(null,
+					"La informacion pertinente ha sido almacenada en el fichero factura.txt",
+					"éxito!",
+					JOptionPane.INFORMATION_MESSAGE);
+			
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		
+		
+		
 	}
 
 }
