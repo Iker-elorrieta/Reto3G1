@@ -37,7 +37,6 @@ public class VistaCines extends JFrame implements ActionListener {
 	static Entrada[] entradas_compradas = new Entrada[0];
 	private VistaPeliculas vPeliculas;
 	int i = 0;
-
 	private VistaLogin login;
 	private JTable table;
 	private JButton btnCancelar;
