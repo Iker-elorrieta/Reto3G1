@@ -30,17 +30,17 @@ public class Metodos {
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
 	
-	/*
+	
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra = "Contraseña33#";
-	*/
 	
-
+	
+	/*
 	 final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	 final String user = "root"; 
 	 final String contra = "";
-	 
+	 */
 
 	final String codCine = "cod_cine";
 	final String nombreCine = "nombre_cine";
@@ -72,6 +72,8 @@ public class Metodos {
 
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
+			
+			
 			Statement comando = conexion.createStatement();
 			ResultSet registro = comando.executeQuery("SELECT * FROM cines;");
 
@@ -87,6 +89,7 @@ public class Metodos {
 				arrayNuevo[cines.length] = cine;
 				cines = arrayNuevo;
 			}
+			comando.clearBatch();
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -121,6 +124,7 @@ public class Metodos {
 				salas = arrayNuevo;
 				cines.setSalas(salas);
 			}
+			comando.clearBatch();;
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -166,6 +170,7 @@ public class Metodos {
 				sesiones = arrayNuevo;
 				sala.setSesiones(sesiones);
 			}
+			comando.clearBatch();;
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -196,7 +201,7 @@ public class Metodos {
 
 				sesion.setPelicula(pelicula);
 			}
-
+			comando.clearBatch();;
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -232,7 +237,7 @@ public class Metodos {
 				arrayNuevo[usuario.length] = cliente;
 				usuario = arrayNuevo;
 			}
-
+			comando.clearBatch();;
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -288,7 +293,8 @@ public class Metodos {
 
 			comando.executeUpdate("Insert into clientes values ('" + dni + "', '" +nombre+"', '"+ apell1 + "', '" + apell2 + "', '"
 					+ sexoCB.charAt(0) + "', '" + passw + "');");
-
+			
+			comando.clearBatch();;
 			conexion.close();
 
 		} catch (SQLException e) {

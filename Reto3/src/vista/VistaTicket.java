@@ -49,7 +49,7 @@ public class VistaTicket extends JFrame implements ActionListener {
 		labelNombreUser.setText(metodos.nombreUsuario(usuarios, dni_usuario));
 		
 		JLabel lblNewLabel_1 = new JLabel(", Tu compra ha sido registrada.");
-		lblNewLabel_1.setBounds(130, 24, 166, 14);
+		lblNewLabel_1.setBounds(130, 24, 212, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		btnImprimirFactura = new JButton("Imprimir factura");
@@ -58,11 +58,11 @@ public class VistaTicket extends JFrame implements ActionListener {
 				metodos.imprimirFactura(entradasArray, usuarios, dni_usuario, cinesYSalas);
 			}
 		});
-		btnImprimirFactura.setBounds(381, 54, 130, 23);
+		btnImprimirFactura.setBounds(408, 54, 130, 23);
 		contentPane.add(btnImprimirFactura);
 		
 		JLabel lblNewLabel_2 = new JLabel("Si quieres puedes imprimir la factura pulsando este boton:");
-		lblNewLabel_2.setBounds(25, 58, 317, 14);
+		lblNewLabel_2.setBounds(25, 58, 347, 14);
 		contentPane.add(lblNewLabel_2);
 		
 		JButton volver = new JButton("Inicio");

@@ -37,7 +37,6 @@ class MetodosTest {
 	final String contra = "";
 	 
 	Metodos metodos=new Metodos();
-	static Cliente[] clientes;
 	
 	@Test
 	void testCuantosCines() {
@@ -49,7 +48,7 @@ class MetodosTest {
 	}
 	@Test
 	void testUsuariosArray() {
-		clientes= metodos.usuariosArray();
+		Cliente[] clientes= metodos.usuariosArray();
 		
 		assertEquals("22759228S•david•lopez•criado•h•12345∇", clientes[0].toString());
 		
@@ -58,7 +57,7 @@ class MetodosTest {
 	
 	@Test
 	void testValidarUsers() {
-		clientes= metodos.usuariosArray();
+		Cliente[] clientes= metodos.usuariosArray();
 		String usur="22759228S";
 		String passw="12345";
 		boolean resul=metodos.validarUsers(clientes, usur, passw);
@@ -103,6 +102,7 @@ class MetodosTest {
 						PreparedStatement st=conexion.prepareStatement("delete from clientes where dni='"+dni+"';");
 						st.executeUpdate();	
 
+						st.close();
 						conexion.close();
 
 					} catch (SQLException e) {
@@ -112,7 +112,7 @@ class MetodosTest {
 				}
 			}
 			
-			usuarios=metodos.registrarUsuario(dni, nombre, apell1, apell2, sexoCB, passw);
+			usuarios = metodos.registrarUsuario(dni, nombre, apell1, apell2, sexoCB, passw);
 			usuarios = metodos.usuariosArray();
 			assertEquals(dni, usuarios[1].getDni());
 		}
