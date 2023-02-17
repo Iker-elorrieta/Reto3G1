@@ -33,7 +33,7 @@ public class VistaCines extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JPanel panelCines;
 	private Metodos metodos = new Metodos();
-	private Cine[] cines = metodos.cuantosCines();
+	private static Cine[] cines;
 	static Entrada[] entradas_compradas = new Entrada[0];
 	private VistaPeliculas vPeliculas;
 	int i = 0;
@@ -68,6 +68,9 @@ public class VistaCines extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public VistaCines() {
+		cines = metodos.cuantosCines();
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 726, 503);
 		contentPane = new JPanel();
