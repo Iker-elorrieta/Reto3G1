@@ -143,7 +143,7 @@ class MetodosTest {
 			
 			
 			fecha = cal.getTime();
-			String[] horas= metodos.horarioSesiones(peliculas[0], cines[1], fecha);
+			String[] horas= metodos.horarioSesiones(peliculas[0], cines[0], fecha);
 			String horasStr="";
 			for (int i = 0; i < horas.length; i++) {
 				horasStr+= horas[i]+",";
@@ -215,6 +215,34 @@ class MetodosTest {
 			
 			assertEquals(dt.format(resul[0]),dt.format(fechas[0]));
 			
+		}
+		@Test
+		void testNuevaEntrada() {
+			int codEntrada=01;
+			Cine[] cine = metodos.cuantosCines();
+		
+			Sesion sesiones= cine[0].getSalas()[0].getSesiones()[0];
+			Entrada entrada = metodos.nuevaEntrada(sesiones, codEntrada);
+			assertEquals(entrada,metodos.nuevaEntrada(sesiones, codEntrada));
+		}
+		
+		@Test
+		void testCalcularDescuento() {
+			float precioSinDesc= 4;
+			float tm=1;
+			float resul=metodos.calcularDescuento(precioSinDesc, tm);
+			assertEquals(resul,metodos.calcularDescuento(precioSinDesc, tm));
+		}
+		
+		@Test
+		void testNombreUsuario() {
+			Cliente[] clientes= metodos.usuariosArray();
+			String dni="22759228S";
+			String nombre= metodos.nombreUsuario(clientes, dni);
+					assertEquals(nombre,metodos.nombreUsuario(clientes, dni));
+			 dni="22759228B";
+			nombre= metodos.nombreUsuario(clientes, dni);
+			assertEquals(nombre,metodos.nombreUsuario(clientes, dni));
 		}
 		
 	}

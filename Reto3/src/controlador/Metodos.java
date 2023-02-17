@@ -28,6 +28,7 @@ public class Metodos {
 	final String user = "cliente";
 	final String contra = "Contraseña33#";
 	/*
+	 * 
 	 final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	 final String user = "root"; 
 	 final String contra = "";
@@ -323,7 +324,7 @@ public class Metodos {
 						if (arrayNuevo[nuevasPelis].getCdPel().equals(
 								cine.getSalas()[contSalas].getSesiones()[contSesiones].getPelicula().getCdPel())) {
 							estaEnELArray = true;
-						}
+						} 
 					}
 				}
 
@@ -349,8 +350,7 @@ public class Metodos {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
 
 				if (dt.format(cine.getSalas()[salasN].getSesiones()[sesionesN].getFecha()).equals(dt.format(fecha))
-						&& cine.getSalas()[salasN].getSesiones()[sesionesN].getPelicula().getCdPel()
-								.equals(pelicula.getCdPel())) {
+						&& cine.getSalas()[salasN].getSesiones()[sesionesN].getPelicula().getCdPel().equals(pelicula.getCdPel())) {
 
 					String[] arrayNuevo = new String[horas.length + 1];
 					for (int i = 0; i < horas.length; i++) {
