@@ -48,6 +48,7 @@ public class VistaCines extends JFrame implements ActionListener {
 	private JLabel jlabelcoste;
 	private JScrollPane scrollPane;
 	private String[] cinesYsalas;
+
 	/**
 	 * Launch the application.
 	 */
@@ -69,8 +70,7 @@ public class VistaCines extends JFrame implements ActionListener {
 	 */
 	public VistaCines() {
 		cines = metodos.cuantosCines();
-		
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 726, 503);
 		contentPane = new JPanel();
@@ -134,6 +134,7 @@ public class VistaCines extends JFrame implements ActionListener {
 		labelCosteTot.setBounds(260, 15, 59, 14);
 		contentPaneResumen.add(labelCosteTot);
 	}
+
 	public void botonesCine(int cuantosCines) {
 		int y1 = 40;
 
@@ -158,11 +159,11 @@ public class VistaCines extends JFrame implements ActionListener {
 	}
 
 	public void aPelis(Cine cine) {
-		if(vPeliculas != null) {
-			if(vPeliculas.obtenerEntradas()[vPeliculas.obtenerEntradas().length-1]!=null)
+		if (vPeliculas != null) {
+			if (vPeliculas.obtenerEntradas()[vPeliculas.obtenerEntradas().length - 1] != null)
 				entradas_compradas = vPeliculas.obtenerEntradas();
 		}
-			
+
 		vPeliculas = new VistaPeliculas(cine, entradas_compradas);
 		vPeliculas.setVisible(true);
 	}
@@ -187,10 +188,10 @@ public class VistaCines extends JFrame implements ActionListener {
 
 			try {
 				vPeliculas.obtenerEntradas();
-			
-				if(vPeliculas.obtenerEntradas()[vPeliculas.obtenerEntradas().length-1]!=null)
+
+				if (vPeliculas.obtenerEntradas()[vPeliculas.obtenerEntradas().length - 1] != null)
 					entradas_compradas = vPeliculas.obtenerEntradas();
-				
+
 				if (entradas_compradas[0] == null) {
 					this.dispose();
 				} else {
@@ -199,14 +200,15 @@ public class VistaCines extends JFrame implements ActionListener {
 					btnImprimir.setVisible(true);
 					btnCancelar.setVisible(true);
 					jlabelcoste.setVisible(true);
-					String[] columns = new String[] { "Numero Entrada", "Nombre Pelicula", "Fecha", "Hora", "Sala", "Coste"};
+					String[] columns = new String[] { "Numero Entrada", "Nombre Pelicula", "Fecha", "Hora", "Sala",
+							"Coste" };
 					DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 					String[][] datosTabla = new String[entradas_compradas.length][6];
-					cinesYsalas=new String[entradas_compradas.length];
+					cinesYsalas = new String[entradas_compradas.length];
 					float costeTotSinDescuento = 0;
 					for (int i = 0; i < entradas_compradas.length; i++) {
-						cinesYsalas[i]=metodos.salaConFechaYPelicula(entradas_compradas[i].getSesion(), cines);
-						
+						cinesYsalas[i] = metodos.salaConFechaYPelicula(entradas_compradas[i].getSesion(), cines);
+
 						costeTotSinDescuento += entradas_compradas[i].getPrecio();
 						datosTabla[i][0] = entradas_compradas[i].getCdEntrada();
 						datosTabla[i][1] = entradas_compradas[i].getSesion().getPelicula().getNombre();
