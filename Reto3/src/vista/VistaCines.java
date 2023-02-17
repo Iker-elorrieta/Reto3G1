@@ -70,11 +70,7 @@ public class VistaCines extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public VistaCines() {
-		Cine[] nuevoArray=new Cine[cines.length];
-		for(int cont=0;cont < nuevoArray.length;cont++)
-			nuevoArray[cont]=cines[cont];
-		
-		cines=nuevoArray;
+
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 726, 503);

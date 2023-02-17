@@ -24,15 +24,15 @@ import modelo.Sesion;
 
 class MetodosTest {
 
-	
+	/*
 	  final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines"; final String
 	  user = "cliente"; final String contra = "Contraseña33#";
+	*/
 	
-	 /*
 	final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	final String user = "root";
 	final String contra = "";
- */
+ 
 	Metodos metodos = new Metodos();
 
 	@Test
