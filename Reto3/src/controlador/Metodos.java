@@ -493,16 +493,17 @@ public class Metodos {
 
 	public void imprimirFactura(Entrada[] entradasArray, Cliente[] usuarios, String dni_usuario, String[] cinesYSalas) {
 		// TODO Auto-generated method stub
+		String nombre=nombreUsuario(usuarios, dni_usuario);
 		
-
 		File file = new File("factura.txt");
 		
 		BufferedWriter fichero;
 		
 			try {
 				fichero = new BufferedWriter(new FileWriter(file));
+				fichero.write("Hola "+nombre+", a continuacion te imprimimos la informacion pertinante a la compra:");
 				fichero.write("");
-				
+				fichero.write("Num Entrada\t"+"Pelicula\t"+"");
 			for(int i =0;i<entradasArray.length;i++)
 			{
 				fichero.write(entradasArray[i].toString());
