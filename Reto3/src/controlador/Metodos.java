@@ -29,18 +29,15 @@ public class Metodos {
 
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
-	
+
 	/*
-	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
-	final String user = "cliente";
-	final String contra = "Contraseña33#";
-	*/
-	
-	
-	 final String sConexion = "jdbc:mysql://localhost:3306/cines";
-	 final String user = "root"; 
-	 final String contra = "";
-	 
+	 final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines"; final String
+	 user = "cliente"; final String contra = "Contraseña33#";
+	 */
+
+	final String sConexion = "jdbc:mysql://localhost:3306/cines";
+	final String user = "root";
+	final String contra = "";
 
 	final String codCine = "cod_cine";
 	final String nombreCine = "nombre_cine";
@@ -60,9 +57,7 @@ public class Metodos {
 	final String ApeCliente2 = "apellido_2";
 	final String sexoCliente = "sexo";
 	final String contrasenaCliente = "passw";
-	
-	
-	
+
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que
 	// devuelve
 
@@ -72,8 +67,7 @@ public class Metodos {
 
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
-			
-			
+
 			Statement comando = conexion.createStatement();
 			ResultSet registro = comando.executeQuery("SELECT * FROM cines;");
 
@@ -124,7 +118,8 @@ public class Metodos {
 				salas = arrayNuevo;
 				cines.setSalas(salas);
 			}
-			comando.clearBatch();;
+			comando.clearBatch();
+			;
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -170,7 +165,8 @@ public class Metodos {
 				sesiones = arrayNuevo;
 				sala.setSesiones(sesiones);
 			}
-			comando.clearBatch();;
+			comando.clearBatch();
+			;
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -201,7 +197,8 @@ public class Metodos {
 
 				sesion.setPelicula(pelicula);
 			}
-			comando.clearBatch();;
+			comando.clearBatch();
+			;
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -237,7 +234,8 @@ public class Metodos {
 				arrayNuevo[usuario.length] = cliente;
 				usuario = arrayNuevo;
 			}
-			comando.clearBatch();;
+			comando.clearBatch();
+			;
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -291,10 +289,11 @@ public class Metodos {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
 
-			comando.executeUpdate("Insert into clientes values ('" + dni + "', '" +nombre+"', '"+ apell1 + "', '" + apell2 + "', '"
-					+ sexoCB.charAt(0) + "', '" + passw + "');");
-			
-			comando.clearBatch();;
+			comando.executeUpdate("Insert into clientes values ('" + dni + "', '" + nombre + "', '" + apell1 + "', '"
+					+ apell2 + "', '" + sexoCB.charAt(0) + "', '" + passw + "');");
+
+			comando.clearBatch();
+			;
 			conexion.close();
 
 		} catch (SQLException e) {
@@ -338,7 +337,7 @@ public class Metodos {
 						if (arrayNuevo[nuevasPelis].getCdPel().equals(
 								cine.getSalas()[contSalas].getSesiones()[contSesiones].getPelicula().getCdPel())) {
 							estaEnELArray = true;
-						} 
+						}
 					}
 				}
 
@@ -364,7 +363,8 @@ public class Metodos {
 			for (int sesionesN = 0; sesionesN < cine.getSalas()[salasN].getSesiones().length; sesionesN++) {
 
 				if (dt.format(cine.getSalas()[salasN].getSesiones()[sesionesN].getFecha()).equals(dt.format(fecha))
-						&& cine.getSalas()[salasN].getSesiones()[sesionesN].getPelicula().getCdPel().equals(pelicula.getCdPel())) {
+						&& cine.getSalas()[salasN].getSesiones()[sesionesN].getPelicula().getCdPel()
+								.equals(pelicula.getCdPel())) {
 
 					String[] arrayNuevo = new String[horas.length + 1];
 					for (int i = 0; i < horas.length; i++) {
@@ -432,101 +432,100 @@ public class Metodos {
 		return pelicula.getPrecio();
 	}
 
-	//Cuando podamos restringir las fechas del DatePicker usaremos este metodo para habilitar las fechas resultantes,
-	//por ahora no se usa
+	// Cuando podamos restringir las fechas del DatePicker usaremos este metodo para
+	// habilitar las fechas resultantes,
+	// por ahora no se usa
 	public Date[] fechasPelicula(Cine cine, Pelicula pelicula) {
-		// TODO Auto-generated method stub	
-		
-		Date[] fechasPelicula= new Date[0];
+		// TODO Auto-generated method stub
+
+		Date[] fechasPelicula = new Date[0];
 		for (int nSalas = 0; nSalas < cine.getSalas().length; nSalas++) {
 			Sesion[] sesiones = cine.getSalas()[nSalas].getSesiones();
 			for (int i = 0; i < sesiones.length; i++) {
 				if (sesiones[i].getPelicula().getCdPel().equals(pelicula.getCdPel())) {
-					
-					Date[] arrayTemp= new Date[fechasPelicula.length+1];
-					for (int nFechas=0;nFechas < fechasPelicula.length;nFechas++)
+
+					Date[] arrayTemp = new Date[fechasPelicula.length + 1];
+					for (int nFechas = 0; nFechas < fechasPelicula.length; nFechas++)
 						arrayTemp[nFechas] = fechasPelicula[nFechas];
-					
-					arrayTemp[arrayTemp.length-1]=sesiones[i].getFecha();
-					fechasPelicula=arrayTemp;
+
+					arrayTemp[arrayTemp.length - 1] = sesiones[i].getFecha();
+					fechasPelicula = arrayTemp;
 				}
 
 			}
 		}
 		return fechasPelicula;
 	}
-		
+
 	public float calcularDescuento(float costeTotSinDescuento, float length) {
-		
-		float aDescontar=(float) costeTotSinDescuento*(length/10);
-		costeTotSinDescuento-=aDescontar;
-		
+
+		float aDescontar = (float) costeTotSinDescuento * (length / 10);
+		costeTotSinDescuento -= aDescontar;
+
 		return costeTotSinDescuento;
 
 	}
-	
+
 	public String nombreUsuario(Cliente[] clientes, String dni) {
-		String nombre="";
-		
-		for(int i=0;i < clientes.length;i++) {
-			if(clientes[i].getDni().equals(dni))
-				nombre=clientes[i].getNombre();
+		String nombre = "";
+
+		for (int i = 0; i < clientes.length; i++) {
+			if (clientes[i].getDni().equals(dni))
+				nombre = clientes[i].getNombre();
 		}
-		
+
 		return nombre;
 	}
 
 	// Aqui se devuelve en que sala de que cine se da la sesion
 	public String salaConFechaYPelicula(Sesion sesion, Cine[] cines) {
-		String nombreSalayCine="";
-		
-		for(int nCines=0;nCines < cines.length;nCines++) {
-			for(int nSalas=0;nSalas < cines[nCines].getSalas().length;nSalas++) {
-				
-				for(int nSesiones=0;nSesiones < cines[nCines].getSalas()[nSalas].getSesiones().length ;nSesiones++) {
-					
-					Sesion sesionAcomparar=cines[nCines].getSalas()[nSalas].getSesiones()[nSesiones];
-					
-					if(sesionAcomparar.getIdSesion().equals(sesion.getIdSesion())) {
-						nombreSalayCine=cines[nCines].getNombre_cine()+" - "+cines[nCines].getSalas()[nSalas].getNomSala();
+		String nombreSalayCine = "";
+
+		for (int nCines = 0; nCines < cines.length; nCines++) {
+			for (int nSalas = 0; nSalas < cines[nCines].getSalas().length; nSalas++) {
+
+				for (int nSesiones = 0; nSesiones < cines[nCines].getSalas()[nSalas]
+						.getSesiones().length; nSesiones++) {
+
+					Sesion sesionAcomparar = cines[nCines].getSalas()[nSalas].getSesiones()[nSesiones];
+
+					if (sesionAcomparar.getIdSesion().equals(sesion.getIdSesion())) {
+						nombreSalayCine = cines[nCines].getNombre_cine() + " - "
+								+ cines[nCines].getSalas()[nSalas].getNomSala();
 					}
 				}
 			}
 		}
-		
+
 		return nombreSalayCine;
 	}
 
 	public void imprimirFactura(Entrada[] entradasArray, Cliente[] usuarios, String dni_usuario, String[] cinesYSalas) {
 		// TODO Auto-generated method stub
-		String nombre=nombreUsuario(usuarios, dni_usuario);
-		
+		String nombre = nombreUsuario(usuarios, dni_usuario);
+
 		File file = new File("factura.txt");
-		
+
 		BufferedWriter fichero;
-		
-			try {
-				fichero = new BufferedWriter(new FileWriter(file));
-				fichero.write("Hola "+nombre+", a continuacion te imprimimos la informacion pertinante a la compra:");
-				fichero.write("");
-				fichero.write("Num Entrada\t"+"Pelicula\t"+"");
-			for(int i =0;i<entradasArray.length;i++)
-			{
+
+		try {
+			fichero = new BufferedWriter(new FileWriter(file));
+			fichero.write("Hola " + nombre + ", a continuacion te imprimimos la informacion pertinante a la compra:");
+			fichero.write("");
+			fichero.write("Num Entrada\t" + "Pelicula\t" + "");
+			for (int i = 0; i < entradasArray.length; i++) {
 				fichero.write(entradasArray[i].toString());
 			}
 			fichero.close();
 			JOptionPane.showMessageDialog(null,
-					"La informacion pertinente ha sido almacenada en el fichero factura.txt",
-					"éxito!",
+					"La informacion pertinente ha sido almacenada en el fichero factura.txt", "éxito!",
 					JOptionPane.INFORMATION_MESSAGE);
-			
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		
-		
-		
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 	}
 
 }
