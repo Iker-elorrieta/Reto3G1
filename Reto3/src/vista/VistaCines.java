@@ -48,7 +48,7 @@ public class VistaCines extends JFrame implements ActionListener {
 	private JLabel labelBienvenido;
 	private JLabel jlabelcoste;
 	private JScrollPane scrollPane;
-
+	private String[] cinesYsalas;
 	/**
 	 * Launch the application.
 	 */
@@ -200,14 +200,17 @@ public class VistaCines extends JFrame implements ActionListener {
 					String[] columns = new String[] { "Numero Entrada", "Nombre Pelicula", "Fecha", "Hora", "Sala", "Coste"};
 					DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 					String[][] datosTabla = new String[entradas_compradas.length][6];
+					cinesYsalas=new String[entradas_compradas.length];
 					float costeTotSinDescuento = 0;
 					for (int i = 0; i < entradas_compradas.length; i++) {
+						cinesYsalas[i]=metodos.salaConFechaYPelicula(entradas_compradas[i].getSesion(), cines);
+						
 						costeTotSinDescuento += entradas_compradas[i].getPrecio();
 						datosTabla[i][0] = entradas_compradas[i].getCdEntrada();
 						datosTabla[i][1] = entradas_compradas[i].getSesion().getPelicula().getNombre();
 						datosTabla[i][2] = dt.format(entradas_compradas[i].getFecha());
 						datosTabla[i][3] = entradas_compradas[i].getHora().toString();
-						datosTabla[i][4] = metodos.salaConFechaYPelicula(entradas_compradas[i].getSesion(), cines);
+						datosTabla[i][4] = cinesYsalas[i];
 						datosTabla[i][5] = String.valueOf(entradas_compradas[i].getPrecio()) + "€";
 					}
 
@@ -235,7 +238,7 @@ public class VistaCines extends JFrame implements ActionListener {
 			btnImprimir.setVisible(false);
 			btnCancelar.setVisible(false);
 			jlabelcoste.setVisible(false);
-			login = new VistaLogin(entradas_compradas);
+			login = new VistaLogin(entradas_compradas, cinesYsalas);
 			login.setVisible(true);
 			entradas_compradas = vPeliculas.limpiarEntradas();
 		}

@@ -25,8 +25,9 @@ public class VistaTicket extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 * @param usuarios 
+	 * @param cinesYSalas 
 	 */
-	public VistaTicket(Entrada[] entradasArray, String dni_usuario, Cliente[] usuarios) {
+	public VistaTicket(Entrada[] entradasArray, String dni_usuario, Cliente[] usuarios, String[] cinesYSalas) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 577, 169);
@@ -54,7 +55,7 @@ public class VistaTicket extends JFrame implements ActionListener {
 		btnImprimirFactura = new JButton("Imprimir factura");
 		btnImprimirFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				metodos.imprimirFactura(entradasArray, usuarios, dni_usuario, cinesYSalas);
 			}
 		});
 		btnImprimirFactura.setBounds(381, 54, 130, 23);

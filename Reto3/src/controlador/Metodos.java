@@ -1,5 +1,9 @@
 package controlador;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,6 +15,8 @@ import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 import modelo.Cine;
 import modelo.Cliente;
@@ -464,6 +470,7 @@ public class Metodos {
 		return nombre;
 	}
 
+	// Aqui se devuelve en que sala de que cine se da la sesion
 	public String salaConFechaYPelicula(Sesion sesion, Cine[] cines) {
 		String nombreSalayCine="";
 		
@@ -482,6 +489,37 @@ public class Metodos {
 		}
 		
 		return nombreSalayCine;
+	}
+
+	public void imprimirFactura(Entrada[] entradasArray, Cliente[] usuarios, String dni_usuario, String[] cinesYSalas) {
+		// TODO Auto-generated method stub
+		
+
+		File file = new File("factura.txt");
+		
+		BufferedWriter fichero;
+		
+			try {
+				fichero = new BufferedWriter(new FileWriter(file));
+				fichero.write("");
+				
+			for(int i =0;i<entradasArray.length;i++)
+			{
+				fichero.write(entradasArray[i].toString());
+			}
+			fichero.close();
+			JOptionPane.showMessageDialog(null,
+					"La informacion pertinente ha sido almacenada en el fichero factura.txt",
+					"éxito!",
+					JOptionPane.INFORMATION_MESSAGE);
+			
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		
+		
+		
 	}
 
 }
