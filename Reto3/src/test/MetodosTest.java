@@ -41,8 +41,8 @@ class MetodosTest {
 	@Test
 	void testCuantosCines() {
 		Cine[] cines= metodos.cuantosCines();
-		Cine cine=cines[0];
-		String resul=cine.toString();
+		
+		String resul=cines[0].toString();
 		
 		assertEquals(resul, cines[0].toString());
 	}
@@ -131,8 +131,8 @@ class MetodosTest {
 		@Test
 		void testHorarioSesiones() {
 			Cine[] cines= metodos.cuantosCines();
-			Cine cine=cines[0];
-			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
+			
+			Pelicula[] peliculas = metodos.cargarPeliculas(cines[0]);
 			
 			Calendar cal= Calendar.getInstance();
 			Date fecha = null;
@@ -142,7 +142,7 @@ class MetodosTest {
 			
 			
 			fecha = cal.getTime();
-			String[] horas= metodos.horarioSesiones(peliculas[0], cine, fecha);
+			String[] horas= metodos.horarioSesiones(peliculas[0], cines[0], fecha);
 			String horasStr="";
 			for (int i = 0; i < horas.length; i++) {
 				horasStr+= horas[i]+",";
@@ -157,16 +157,16 @@ class MetodosTest {
 		@Test
 		void testQueSesion() {
 			Cine[] cines= metodos.cuantosCines();
-			Cine cine=cines[0];
-			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
+			
+			Pelicula[] peliculas = metodos.cargarPeliculas(cines[0]);
 			Pelicula pelicula= peliculas[0];	
 			Calendar cal= Calendar.getInstance();
 			cal.set(Calendar.DAY_OF_MONTH, 1);
 			cal.set(Calendar.MONTH, 2);
 			cal.set(Calendar.YEAR, 2023);
 			Date fecha1= (Date) cal.getTime();
-			String sala=cine.getSalas()[0].getNomSala();
-			String hora=cine.getSalas()[0].getSesiones()[0].getHora();
+			String sala=cines[0].getSalas()[0].getNomSala();
+			String hora=cines[0].getSalas()[0].getSesiones()[0].getHora();
 			Sesion sesion = metodos.queSesion(cines[0], sala, fecha1, hora, pelicula);
 			String resul = sesion.toString();
 			assertEquals(resul, sesion.toString());
