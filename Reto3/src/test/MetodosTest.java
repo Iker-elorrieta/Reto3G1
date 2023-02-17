@@ -32,21 +32,19 @@ class MetodosTest {
 	final String contra = "Contraseña33#";
 	*/
 	
-	 final String sConexion = "jdbc:mysql://localhost:3306/cines";
-	 final String user = "root"; 
-	 final String contra = "";
+	final String sConexion = "jdbc:mysql://localhost:3306/cines";
+	final String user = "root"; 
+	final String contra = "";
 	 
-	
 	Metodos metodos=new Metodos();
 	
 	@Test
 	void testCuantosCines() {
 		Cine[] cines= metodos.cuantosCines();
-
-		String resul=cines[0].toString();
+		Cine cine=cines[0];
+		String resul=cine.toString();
 		
 		assertEquals(resul, cines[0].toString());
-		
 	}
 	@Test
 	void testUsuariosArray() {
@@ -121,8 +119,8 @@ class MetodosTest {
 		@Test
 		void testCargarPeliculas() {
 			Cine[] cines= metodos.cuantosCines();
-		
-			String resul=cines[0].toString();
+			Cine cine=cines[0];
+			String resul=cine.toString();
 			assertEquals(resul, cines[0].toString());
 			
 			
@@ -132,7 +130,8 @@ class MetodosTest {
 		@Test
 		void testHorarioSesiones() {
 			Cine[] cines= metodos.cuantosCines();
-			Pelicula[] peliculas = metodos.cargarPeliculas(cines[0]);
+			Cine cine=cines[0];
+			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
 			
 			Calendar cal= Calendar.getInstance();
 			Date fecha = null;
@@ -142,7 +141,7 @@ class MetodosTest {
 			
 			
 			fecha = cal.getTime();
-			String[] horas= metodos.horarioSesiones(peliculas[0], cines[0], fecha);
+			String[] horas= metodos.horarioSesiones(peliculas[0], cine, fecha);
 			String horasStr="";
 			for (int i = 0; i < horas.length; i++) {
 				horasStr+= horas[i]+",";
@@ -153,22 +152,20 @@ class MetodosTest {
 			
 			assertEquals(resul, horasStr);
 			
-		
-			
 		}
 		@Test
 		void testQueSesion() {
 			Cine[] cines= metodos.cuantosCines();
-			
-			Pelicula[] peliculas = metodos.cargarPeliculas(cines[0]);
+			Cine cine=cines[0];
+			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
 			Pelicula pelicula= peliculas[0];	
 			Calendar cal= Calendar.getInstance();
 			cal.set(Calendar.DAY_OF_MONTH, 1);
 			cal.set(Calendar.MONTH, 2);
 			cal.set(Calendar.YEAR, 2023);
 			Date fecha1= (Date) cal.getTime();
-			String sala=cines[0].getSalas()[0].getNomSala();
-			String hora=cines[0].getSalas()[0].getSesiones()[0].getHora();
+			String sala=cine.getSalas()[0].getNomSala();
+			String hora=cine.getSalas()[0].getSesiones()[0].getHora();
 			Sesion sesion = metodos.queSesion(cines[0], sala, fecha1, hora, pelicula);
 			String resul = sesion.toString();
 			assertEquals(resul, sesion.toString());
@@ -195,7 +192,8 @@ class MetodosTest {
 		void testSacarPrecio() {
 			
 			Cine[] cines= metodos.cuantosCines();
-			Pelicula[] peliculas = metodos.cargarPeliculas(cines[0]);
+			Cine cine=cines[0];
+			Pelicula[] peliculas = metodos.cargarPeliculas(cine);
 			Pelicula pelicula= peliculas[0];	
 			float precio = metodos.sacarPrecio(pelicula);
 			
