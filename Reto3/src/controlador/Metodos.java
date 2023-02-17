@@ -89,7 +89,8 @@ public class Metodos {
 				arrayNuevo[cines.length] = cine;
 				cines = arrayNuevo;
 			}
-			comando.clearBatch();
+			registro.close();
+			comando.close();
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -124,7 +125,8 @@ public class Metodos {
 				salas = arrayNuevo;
 				cines.setSalas(salas);
 			}
-			comando.clearBatch();;
+			registro.close();
+			comando.close();
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -170,7 +172,8 @@ public class Metodos {
 				sesiones = arrayNuevo;
 				sala.setSesiones(sesiones);
 			}
-			comando.clearBatch();;
+			registro.close();
+			comando.close();
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -201,7 +204,8 @@ public class Metodos {
 
 				sesion.setPelicula(pelicula);
 			}
-			comando.clearBatch();;
+			registro.close();
+			comando.close();
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -237,7 +241,8 @@ public class Metodos {
 				arrayNuevo[usuario.length] = cliente;
 				usuario = arrayNuevo;
 			}
-			comando.clearBatch();;
+			registro.close();
+			comando.close();
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -294,7 +299,7 @@ public class Metodos {
 			comando.executeUpdate("Insert into clientes values ('" + dni + "', '" +nombre+"', '"+ apell1 + "', '" + apell2 + "', '"
 					+ sexoCB.charAt(0) + "', '" + passw + "');");
 			
-			comando.clearBatch();;
+			comando.close();
 			conexion.close();
 
 		} catch (SQLException e) {

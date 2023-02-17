@@ -16,6 +16,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
@@ -204,6 +205,7 @@ public class VistaCines extends JFrame implements ActionListener {
 					String[][] datosTabla = new String[entradas_compradas.length][6];
 					cinesYsalas=new String[entradas_compradas.length];
 					float costeTotSinDescuento = 0;
+					DecimalFormat dfSharp = new DecimalFormat("0.0");
 					for (int i = 0; i < entradas_compradas.length; i++) {
 						cinesYsalas[i]=metodos.salaConFechaYPelicula(entradas_compradas[i].getSesion(), cines);
 						
@@ -213,7 +215,7 @@ public class VistaCines extends JFrame implements ActionListener {
 						datosTabla[i][2] = dt.format(entradas_compradas[i].getFecha());
 						datosTabla[i][3] = entradas_compradas[i].getHora().toString();
 						datosTabla[i][4] = cinesYsalas[i];
-						datosTabla[i][5] = String.valueOf(entradas_compradas[i].getPrecio()) + "€";
+						datosTabla[i][5] = String.valueOf(dfSharp.format(entradas_compradas[i].getPrecio())) + "€";
 					}
 
 					contentPaneResumen.add(scrollPane);
