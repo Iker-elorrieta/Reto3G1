@@ -49,6 +49,7 @@ public class VistaCines extends JFrame implements ActionListener {
 	private JLabel jlabelcoste;
 	private JScrollPane scrollPane;
 	private String[] cinesYsalas;
+	private float costeTotConDescuento;
 
 	/**
 	 * Launch the application.
@@ -225,7 +226,7 @@ public class VistaCines extends JFrame implements ActionListener {
 					table.setEnabled(false);
 					scrollPane.setViewportView(table);
 
-					float costeTotConDescuento = metodos.calcularDescuento(costeTotSinDescuento,
+					costeTotConDescuento = metodos.calcularDescuento(costeTotSinDescuento,
 							(float) entradas_compradas.length);
 					labelCosteTot.setText(String.valueOf(costeTotConDescuento) + "€");
 					labelCosteTot.setBounds(260, 15, 59, 14);
@@ -244,7 +245,7 @@ public class VistaCines extends JFrame implements ActionListener {
 			btnImprimir.setVisible(false);
 			btnCancelar.setVisible(false);
 			jlabelcoste.setVisible(false);
-			login = new VistaLogin(entradas_compradas, cinesYsalas);
+			login = new VistaLogin(entradas_compradas, cinesYsalas, costeTotConDescuento);
 			login.setVisible(true);
 			entradas_compradas = vPeliculas.limpiarEntradas();
 		}

@@ -16,8 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.JOptionPane;
-
 import modelo.Cine;
 import modelo.Cliente;
 import modelo.Entrada;
@@ -30,15 +28,15 @@ public class Metodos {
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
 
-	/*
+	
 	 final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines"; final String
 	 user = "cliente"; final String contra = "Contraseña33#";
-	 */
-	 
+	
+	 /*
 	final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	final String user = "root";
 	final String contra = "";
-	
+	 */
 	
 	final String codCine = "cod_cine";
 	final String nombreCine = "nombre_cine";
@@ -58,7 +56,9 @@ public class Metodos {
 	final String ApeCliente2 = "apellido_2";
 	final String sexoCliente = "sexo";
 	final String contrasenaCliente = "passw";
-
+	final String tablaCines="cines";
+	final String tablaSalas="salas";
+	final String tablaSesiones="sesiones";
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que
 	// devuelve
 
@@ -69,7 +69,7 @@ public class Metodos {
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
-			ResultSet registro = comando.executeQuery("SELECT * FROM cines;");
+			ResultSet registro = comando.executeQuery("SELECT * FROM "+tablaCines+";");
 
 			while (registro.next() == true) {
 				Cine cine = new Cine();
@@ -103,7 +103,7 @@ public class Metodos {
 		try {
 			Statement comando = conexion.createStatement();
 			ResultSet registro = comando
-					.executeQuery("SELECT * FROM salas where cod_cine='" + cines.getCod_cine() + "';");
+					.executeQuery("SELECT * FROM "+tablaSalas+" where cod_cine='" + cines.getCod_cine() + "';");
 
 			while (registro.next() == true) {
 				Sala sala = new Sala();
@@ -182,8 +182,7 @@ public class Metodos {
 			
 			Statement comando = conexion.createStatement();
 
-			ResultSet registro = comando
-					.executeQuery("select * from peliculas where cod_pelicula='" + cod_pelicula + "';");
+			ResultSet registro = comando.executeQuery("select * from peliculas where cod_pelicula='" + cod_pelicula + "';");
 
 			while (registro.next() == true) {
 
@@ -499,26 +498,26 @@ public class Metodos {
 		return nombreSalayCine;
 	}
 
-	public void imprimirFactura(Entrada[] entradasArray, Cliente[] usuarios, String dni_usuario, String[] cinesYSalas) {
+	public void imprimirFactura(Entrada[] entradasArray, Cliente[] usuarios, String dni_usuario, String[] cinesYSalas, float descontado) {
 		// TODO Auto-generated method stub
 		String nombre = nombreUsuario(usuarios, dni_usuario);
-
+		Calendar cal = Calendar.getInstance();
 		File file = new File("factura.txt");
-
+		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 		BufferedWriter fichero;
 
 		try {
 			fichero = new BufferedWriter(new FileWriter(file));
-			fichero.write("Hola " + nombre + ", a continuacion te imprimimos la informacion pertinante a la compra:");
-			fichero.write("");
-			fichero.write("Num Entrada\t" + "Pelicula\t" + "");
+			fichero.write("Hola " + nombre + ", a continuacion te imprimimos la informacion pertinante a la compra:\n");
+			fichero.write("\n");
+			fichero.write("Num_Entrada\t" + "Pelicula\t" + "Cine - Sala\t" + "Dia\t" + "Hora\t" + "Precio\t" + "Fecha compra\n");
 			for (int i = 0; i < entradasArray.length; i++) {
-				fichero.write(entradasArray[i].toString());
+				fichero.write(entradasArray[i].getCdEntrada()+"\t\t"+entradasArray[i].getSesion().getPelicula().getNombre()+"\t"+cinesYSalas[i]+"\t"+entradasArray[i].getHora()+"\t"+entradasArray[i].getPrecio()+"€\t"+dt.format(cal.getTime())+"\n");
 			}
+			fichero.write("------------------------------------------------------------------------------------------------------\n");
+			fichero.write("Como has comprado "+entradasArray.length+" entradas, te hemos hecho un descuento del "+entradasArray.length+"0%\n");
+			fichero.write("El coste final es: "+descontado+"€");
 			fichero.close();
-			JOptionPane.showMessageDialog(null,
-					"La informacion pertinente ha sido almacenada en el fichero factura.txt", "éxito!",
-					JOptionPane.INFORMATION_MESSAGE);
 
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

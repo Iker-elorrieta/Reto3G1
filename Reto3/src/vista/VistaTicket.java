@@ -8,6 +8,7 @@ import controlador.Metodos;
 import modelo.Cliente;
 import modelo.Entrada;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,8 +27,9 @@ public class VistaTicket extends JFrame implements ActionListener {
 	 * Create the frame.
 	 * @param usuarios 
 	 * @param cinesYSalas 
+	 * @param descontado 
 	 */
-	public VistaTicket(Entrada[] entradasArray, String dni_usuario, Cliente[] usuarios, String[] cinesYSalas) {
+	public VistaTicket(Entrada[] entradasArray, String dni_usuario, Cliente[] usuarios, String[] cinesYSalas, float descontado) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 577, 169);
@@ -55,7 +57,10 @@ public class VistaTicket extends JFrame implements ActionListener {
 		btnImprimirFactura = new JButton("Imprimir factura");
 		btnImprimirFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				metodos.imprimirFactura(entradasArray, usuarios, dni_usuario, cinesYSalas);
+				metodos.imprimirFactura(entradasArray, usuarios, dni_usuario, cinesYSalas, descontado);
+				JOptionPane.showMessageDialog(null,
+						"La informacion pertinente ha sido almacenada en el fichero factura.txt", "éxito!",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnImprimirFactura.setBounds(408, 54, 130, 23);
@@ -69,9 +74,7 @@ public class VistaTicket extends JFrame implements ActionListener {
 		volver.addActionListener(this);
 		volver.setBounds(10, 96, 89, 23);
 		contentPane.add(volver);
-		
-		
-		
+
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

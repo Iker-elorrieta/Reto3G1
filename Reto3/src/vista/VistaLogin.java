@@ -47,19 +47,21 @@ public class VistaLogin extends JFrame implements ActionListener {
 	private JLabel labelIncorrecto;
 	private Entrada[] entradas;
 	private VistaTicket ticket;
-	String[] cinesYSalas;
-
+	private String[] cinesYSalas;
+	private float descontado;
 	/**
 	 * Create the frame.
 	 * 
 	 * @param cinesYsalas
+	 * @param costeTotConDescuento 
 	 * 
 	 * @param users
 	 */
-	public VistaLogin(Entrada[] entradas, String[] cinesYsalas) {
+	public VistaLogin(Entrada[] entradas, String[] cinesYsalas, float costeTotConDescuento) {
 		usuarios = metodos.usuariosArray();
 		this.entradas = entradas;
 		cinesYSalas = cinesYsalas;
+		descontado=costeTotConDescuento;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 684, 426);
 		contentPane = new JPanel();
@@ -194,7 +196,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 			if (metodos.validarUsers(usuarios, dni, pass)) {
 				labelIncorrecto.setVisible(false);
 				JOptionPane.showMessageDialog(null, "Sesion iniciada", "Bienvenido.", JOptionPane.INFORMATION_MESSAGE);
-				ticket = new VistaTicket(entradas, dni, usuarios, cinesYSalas);
+				ticket = new VistaTicket(entradas, dni, usuarios, cinesYSalas, descontado);
 				ticket.setVisible(true);
 				this.dispose();
 			} else {
