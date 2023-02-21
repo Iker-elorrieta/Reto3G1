@@ -103,7 +103,7 @@ public class Metodos {
 		try {
 			Statement comando = conexion.createStatement();
 			ResultSet registro = comando
-					.executeQuery("SELECT * FROM "+tablaSalas+" where cod_cine='" + cines.getCod_cine() + "';");
+					.executeQuery("SELECT * FROM "+tablaSalas+" where "+codCine+"='" + cines.getCod_cine() + "';");
 
 			while (registro.next() == true) {
 				Sala sala = new Sala();
@@ -138,7 +138,7 @@ public class Metodos {
 			Statement comando = conexion.createStatement();
 
 			ResultSet registro = comando.executeQuery(
-					"SELECT * FROM sesiones where cod_sala='" + sala.getCdSala() + "' order by fecha, hora;");
+					"SELECT * FROM sesiones where "+codSala+"='" + sala.getCdSala() + "' order by fecha, hora;");
 
 			while (registro.next() == true) {
 
@@ -182,7 +182,7 @@ public class Metodos {
 			
 			Statement comando = conexion.createStatement();
 
-			ResultSet registro = comando.executeQuery("select * from peliculas where cod_pelicula='" + cod_pelicula + "';");
+			ResultSet registro = comando.executeQuery("select * from peliculas where "+codPelicula+"='" + cod_pelicula + "';");
 
 			while (registro.next() == true) {
 
@@ -512,7 +512,7 @@ public class Metodos {
 			fichero.write("\n");
 			fichero.write("Num_Entrada\t" + "Pelicula\t" + "Cine - Sala\t" + "Dia\t" + "Hora\t" + "Precio\t" + "Fecha compra\n");
 			for (int i = 0; i < entradasArray.length; i++) {
-				fichero.write(entradasArray[i].getCdEntrada()+"\t\t"+entradasArray[i].getSesion().getPelicula().getNombre()+"\t"+cinesYSalas[i]+"\t"+entradasArray[i].getHora()+"\t"+entradasArray[i].getPrecio()+"€\t"+dt.format(cal.getTime())+"\n");
+				fichero.write("\t"+entradasArray[i].getCdEntrada()+"\t\t"+entradasArray[i].getSesion().getPelicula().getNombre()+"\t"+cinesYSalas[i]+"\t"+dt.format(entradasArray[i].getSesion().getFecha())+"\t"+entradasArray[i].getHora()+"\t"+entradasArray[i].getPrecio()+"€\t"+dt.format(cal.getTime())+"\n");
 			}
 			fichero.write("------------------------------------------------------------------------------------------------------\n");
 			fichero.write("Como has comprado "+entradasArray.length+" entradas, te hemos hecho un descuento del "+entradasArray.length+"0%\n");
