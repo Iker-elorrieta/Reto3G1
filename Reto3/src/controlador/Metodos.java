@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,15 +28,15 @@ public class Metodos {
 
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
-	/*
+	
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra = "Contraseña33#";
-	 */
-	
+	 
+	 /*
 	  final String sConexion = "jdbc:mysql://localhost:3306/cines"; final String
 	  user = "root"; final String contra = "";
-	 
+	 */
 
 	final String codCine = "cod_cine";
 	final String nombreCine = "nombre_cine";
@@ -515,7 +516,7 @@ public class Metodos {
 			fichero = new BufferedWriter(new FileWriter(file));
 			fichero.write("Hola " + nombre + ", a continuacion te imprimimos la informacion pertinante a la compra:\n");
 			fichero.write("\n");
-			fichero.write("Num_Entrada\t" + "Pelicula\t" + "Cine - Sala\t" + "Dia\t" + "Hora\t" + "Precio\t"
+			fichero.write("Num_Entrada\t" + "Pelicula\t" + "Cine - Sala\t\t\t\t\t" + "Dia\t\t\t" + "Hora\t" + "Precio\t"
 					+ "Fecha compra\n");
 			for (int i = 0; i < entradasArray.length; i++) {
 				fichero.write("\t" + entradasArray[i].getCdEntrada() + "\t\t"
@@ -541,20 +542,25 @@ public class Metodos {
 		// TODO Auto-generated method stub
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
-			Statement comando = conexion.createStatement();
-			comando.executeUpdate("insert into " + tablaTickets + " (" + costeTotalConDescuento + ", " + dniCliente
+			PreparedStatement st = conexion.prepareStatement("insert into " + tablaTickets + " (" + costeTotalConDescuento + ", " + dniCliente
 					+ ") values ('" + descontado + "', '" + dni_usuario + "');");
-
-			ResultSet registro = comando.executeQuery("select MAX(" + codigoTicket + ") from ticket;");
+			st.executeUpdate();
+			conexion.close();
+			
+			conexion = DriverManager.getConnection(sConexion, user, contra);
+			Statement comando = conexion.createStatement();
+			
+			ResultSet registro = comando.executeQuery("select MAX(" + codigoTicket + ") as cod_ticket from ticket;");
+			int codTicket=registro.getInt(codigoTicket);
+			
 			for (int i = 0; i < entradasArray.length; i++) {
 				comando.executeUpdate("insert into " + tablaEntradas + " (" + fechaSesion + ", " + horaSesion + ", "
 						+ costePelicula + ", " + codSesion + ", " + codigoTicket + ") values ('"
 						+ entradasArray[i].getFecha() + "', '" + entradasArray[i].getHora() + "', '"
 						+ entradasArray[i].getPrecio() + "', '" + entradasArray[i].getSesion().getIdSesion() + "', '"
-						+ registro.getInt(codigoTicket) + "');");
+						+ codTicket + "');");
 			}
-			registro.close();
-			comando.close();
+			
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
