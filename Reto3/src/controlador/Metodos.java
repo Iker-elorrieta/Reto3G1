@@ -542,31 +542,28 @@ public class Metodos {
 		// TODO Auto-generated method stub
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
-			PreparedStatement st = conexion
-					.prepareStatement("insert into " + tablaTickets + " (" + costeTotalConDescuento + ", " + dniCliente
+			Statement comando = conexion.createStatement();
+			PreparedStatement st = conexion.prepareStatement("insert into " + tablaTickets + " (" + costeTotalConDescuento + ", " + dniCliente
 							+ ") values ('" + descontado + "', '" + dni_usuario + "');");
 			st.executeUpdate();
-			conexion.close();
-
-			conexion = DriverManager.getConnection(sConexion, user, contra);
-			Statement comando = conexion.createStatement();
+			
 			DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+			
 			ResultSet registro = comando.executeQuery("select MAX(" + codigoTicket + ") as cod_ticket from ticket;");
 			if (registro.next()) {
-				Calendar cal = Calendar.getInstance();
+				
+				int codTicket=registro.getInt(codigoTicket);
 				for (int i = 0; i < entradasArray.length; i++) {
-					String fecha=dt.format(entradasArray[i].getFecha());
-					cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(fecha.split("-")[2]));
-					cal.set(Calendar.MONTH, Integer.valueOf(fecha.split("-")[1]));
-					cal.set(Calendar.YEAR, Integer.valueOf(fecha.split("-")[0]));
 					
 					comando.executeUpdate("insert into " + tablaEntradas + " (" + fechaSesion + ", " + horaSesion + ", "
 							+ costePelicula + ", " + codSesion + ", " + codigoTicket + ") values ('"
-							+ cal.getTime() + "', '" + entradasArray[i].getHora() + "', '"
+							+ dt.format(entradasArray[i].getFecha()) + "', '" + entradasArray[i].getHora() + "', '"
 							+ entradasArray[i].getPrecio() + "', '" + entradasArray[i].getSesion().getIdSesion()
-							+ "', '" + registro.getInt(codigoTicket) + "');");
+							+ "', '" + codTicket + "');");
+					
 				}
 			}
+			
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
