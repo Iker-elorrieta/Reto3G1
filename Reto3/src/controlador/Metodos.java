@@ -28,15 +28,15 @@ public class Metodos {
 
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
-	/*
+
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra = "Contraseña33#";
+
+	/*
+	 * final String sConexion = "jdbc:mysql://localhost:3306/cines"; final String
+	 * user = "root"; final String contra = "";
 	 */
-	 
-	  final String sConexion = "jdbc:mysql://localhost:3306/cines"; final String
-	  user = "root"; final String contra = "";
-	 
 
 	final String codCine = "cod_cine";
 	final String nombreCine = "nombre_cine";
@@ -542,25 +542,31 @@ public class Metodos {
 		// TODO Auto-generated method stub
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
-			PreparedStatement st = conexion.prepareStatement("insert into " + tablaTickets + " (" + costeTotalConDescuento + ", " + dniCliente
-					+ ") values ('" + descontado + "', '" + dni_usuario + "');");
+			PreparedStatement st = conexion
+					.prepareStatement("insert into " + tablaTickets + " (" + costeTotalConDescuento + ", " + dniCliente
+							+ ") values ('" + descontado + "', '" + dni_usuario + "');");
 			st.executeUpdate();
 			conexion.close();
-			
+
 			conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
-			
+			DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 			ResultSet registro = comando.executeQuery("select MAX(" + codigoTicket + ") as cod_ticket from ticket;");
-			int codTicket=registro.getInt(codigoTicket);
-			
-			for (int i = 0; i < entradasArray.length; i++) {
-				comando.executeUpdate("insert into " + tablaEntradas + " (" + fechaSesion + ", " + horaSesion + ", "
-						+ costePelicula + ", " + codSesion + ", " + codigoTicket + ") values ('"
-						+ entradasArray[i].getFecha() + "', '" + entradasArray[i].getHora() + "', '"
-						+ entradasArray[i].getPrecio() + "', '" + entradasArray[i].getSesion().getIdSesion() + "', '"
-						+ codTicket + "');");
+			if (registro.next()) {
+				Calendar cal = Calendar.getInstance();
+				for (int i = 0; i < entradasArray.length; i++) {
+					String fecha=dt.format(entradasArray[i].getFecha());
+					cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(fecha.split("-")[2]));
+					cal.set(Calendar.MONTH, Integer.valueOf(fecha.split("-")[1]));
+					cal.set(Calendar.YEAR, Integer.valueOf(fecha.split("-")[0]));
+					
+					comando.executeUpdate("insert into " + tablaEntradas + " (" + fechaSesion + ", " + horaSesion + ", "
+							+ costePelicula + ", " + codSesion + ", " + codigoTicket + ") values ('"
+							+ cal.getTime() + "', '" + entradasArray[i].getHora() + "', '"
+							+ entradasArray[i].getPrecio() + "', '" + entradasArray[i].getSesion().getIdSesion()
+							+ "', '" + registro.getInt(codigoTicket) + "');");
+				}
 			}
-			
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
