@@ -12,6 +12,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 import org.junit.jupiter.api.Test;
 
@@ -254,5 +258,44 @@ class MetodosTest {
 		Sesion sesion = cines[0].getSalas()[0].getSesiones()[0];
 		String cineYsala = metodos.salaConFechaYPelicula(sesion, cines);
 		assertEquals(cineYsala, metodos.salaConFechaYPelicula(sesion, cines));
+	}
+	
+	@Test
+	void testImprimirFactura() {
+		Cine[] cines = metodos.cuantosCines();
+		Sesion sesion = cines[0].getSalas()[0].getSesiones()[0];
+		Entrada entrada = metodos.nuevaEntrada(sesion, 1);
+		Entrada[] entradas= {entrada};
+		Cliente[] clientes = metodos.usuariosArray();
+		String dni = "79009471D";
+		String[] salayCine= {"Cines Elorrieta - Sala 1"};
+		float total =(float) 32.00;
+		metodos.imprimirFactura(entradas, clientes, dni, salayCine, total);
+		File file = new File("factura.txt");
+		BufferedReader fichero = null;
+		try {
+			fichero = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();}
+		assertEquals(fichero, "Hola gaizka, a continuacion te imprimimos la informacion pertinante a la compra:\r\n"
+				+ "\r\n"
+				+ "Num_Entrada	Pelicula	Cine - Sala					Dia			Hora	Precio	Fecha compra\r\n"
+				+ "	1		Ted	Cines Elorrieta - Sala 1	2023-03-01	16:00	4.7€	2023-02-21\r\n"
+				+ "------------------------------------------------------------------------------------------------------\r\n"
+				+ "Como has comprado 1 entradas, te hemos hecho un descuento del 10%\r\n"
+				+ "El coste final es: 32.0€");
+	}
+	@Test
+	void testCompraRealizada() {
+		Cine[] cines = metodos.cuantosCines();
+		Sesion sesion = cines[0].getSalas()[0].getSesiones()[0];
+		Entrada entrada = metodos.nuevaEntrada(sesion, 1);
+		Entrada[] entradas= {entrada};
+		
+		String dni = "79009471D";
+		
+		float total =(float) 32.00;
+		metodos.compraRealizada(entradas, dni, total);
 	}
 }
