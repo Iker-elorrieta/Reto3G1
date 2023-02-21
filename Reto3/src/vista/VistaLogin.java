@@ -195,7 +195,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 			String pass = String.valueOf(jPassw.getPassword());
 			if (metodos.validarUsers(usuarios, dni, pass)) {
 				labelIncorrecto.setVisible(false);
-				JOptionPane.showMessageDialog(null, "Sesion iniciada", "Bienvenido.", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Sesion iniciada, tu compra ha sido registrada.", "Bienvenido.", JOptionPane.INFORMATION_MESSAGE);
 				ticket = new VistaTicket(entradas, dni, usuarios, cinesYSalas, descontado);
 				ticket.setVisible(true);
 				this.dispose();

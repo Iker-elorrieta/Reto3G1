@@ -1,9 +1,9 @@
 Hola clemen, a continuacion te imprimimos la informacion pertinante a la compra:
 
-Num_Entrada	Pelicula	Cine - Sala	Dia	Hora	Precio	Fecha compra
-	1		Wonder	Cines Elorrieta - Sala 1	18:00	4.3€	2023-02-17
-	2		El Renacido	Cines Yelmo - Sala 4	20:00	3.8€	2023-02-17
-	3		Black Panther	Cinesa - Sala 3	20:00	6.8€	2023-02-17
+Num_Entrada	Pelicula		Cine - Sala					Dia		Hora	Precio	Fecha compra
+	1		Wonder			Cines Elorrieta - Sala 1			18:00	4.3€	2023-02-17
+	2		El Renacido		Cines Yelmo - Sala 4				20:00	3.8€	2023-02-17
+	3		Black Panther	Cinesa - Sala 3						20:00	6.8€	2023-02-17
 ------------------------------------------------------------------------------------------------------
 Como has comprado 3 entradas, te hemos hecho un descuento del 30%
 El coste final es: 10.43€
