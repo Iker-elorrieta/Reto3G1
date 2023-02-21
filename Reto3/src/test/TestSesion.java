@@ -24,10 +24,10 @@ class TestSesion {
 	  Sesion sesion1 = new Sesion();
 	  Sesion sesion2 = new Sesion();
 	
-		 String resul = "CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:56@";
+		 String resul = "CE-01-0001#AC001#Terminator#120#Accion#5.0@#2023-01-20#09:11@";
 		
 	@Test
-	void testToString() {	pelicula.setCdPel("Ac001");
+	void testToString() {	pelicula.setCdPel("AC001");
 			pelicula.setNombre("Terminator");
 			pelicula.setGenero("Accion");
 			pelicula.setDuracion(120);
@@ -36,13 +36,13 @@ class TestSesion {
 			cal.set(Calendar.DAY_OF_MONTH, 20);
 			cal.set(Calendar.MONTH, 0);
 			cal.set(Calendar.YEAR, 2023);
-			cal.set(Calendar.HOUR, 9);
-			cal.set(Calendar.MINUTE, 56);
+		
 			fecha = cal.getTime();
 		
-		sesion1.setIdSesion("CES01001");
+		sesion1.setIdSesion("CE-01-0001");
 		sesion1.setPelicula(pelicula);
 		sesion1.setFecha(fecha);
+		sesion1.setHora("09:11");
 		
 		
 		assertEquals(resul,sesion1.toString());

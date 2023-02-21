@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import modelo.Pelicula;
 
 class TestPelicula {
-String resul="A1#Pepe#120.0#Comedia#5.0@";
+String resul="A1#Pepe#120#Comedia#5.0@";
 		Pelicula pelicula1 =new Pelicula();
 		Pelicula pelicula2= new Pelicula();
 	@Test

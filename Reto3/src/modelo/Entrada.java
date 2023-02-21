@@ -1,19 +1,22 @@
 package modelo;
 
-
-import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 public class Entrada {
+	
+	
+	private String cdEntrada;
+	private Sesion sesion;
+	private float precio;
+	private Date fecha;
+	private String hora;
+	
 	@Override
 	public String toString() {
-		return cdEntrada + "#" + Arrays.toString(sesiones) + "#" + precio
+		return cdEntrada + "#" + sesion.toString() + "#" + precio
 				+ "@";
 	}
-	String cdEntrada;
-	Sesion[] sesiones;
-	float precio;
-	
 	public String getCdEntrada() {
 		return cdEntrada;
 	}
@@ -21,11 +24,11 @@ public class Entrada {
 		this.cdEntrada = cdEntrada;
 	}
 	
-	public Sesion[] getSesiones() {
-		return sesiones;
+	public Sesion getSesion() {
+		return sesion;
 	}
-	public void setSesiones(Sesion[] sesiones) {
-		this.sesiones = sesiones;
+	public void setSesion(Sesion sesion) {
+		this.sesion = sesion;
 	}
 	
 	public float getPrecio() {
@@ -34,6 +37,20 @@ public class Entrada {
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
+	
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(java.util.Date date) {
+		this.fecha = date;
+	}
+	public String getHora() {
+		return hora;
+	}
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -23,12 +23,12 @@ class TestEntrada {
 	  Sesion[] sesiones = {sesion};
 		Entrada entrada1 = new Entrada();
 		Entrada entrada2 = new Entrada();
-		 String resul = "CETCK001#[CES01001#Ac001#Terminator#120.0#Accion#5.0@#20/01/2023#09:56@]#23.0@";
+		 String resul = "CETCK001#CE-01-0001#AC001#Terminator#120#Accion#5.0@#2023-01-20#09:11@#23.0@";
 		
 	@Test
 	void testToString() {	
 			Pelicula pelicula =new Pelicula();
-			pelicula.setCdPel("Ac001");
+			pelicula.setCdPel("AC001");
 			pelicula.setNombre("Terminator");
 			pelicula.setGenero("Accion");
 			pelicula.setDuracion(120);
@@ -38,21 +38,23 @@ class TestEntrada {
 			cal.set(Calendar.DAY_OF_MONTH, 20);
 			cal.set(Calendar.MONTH, 0);
 			cal.set(Calendar.YEAR, 2023);
-			cal.set(Calendar.HOUR, 9);
-			cal.set(Calendar.MINUTE, 56);
+			
+			
 			fecha = cal.getTime();
 			
 		
 		
-			sesion.setIdSesion("CES01001");
+			sesion.setIdSesion("CE-01-0001");
 			sesion.setPelicula(pelicula);
 			sesion.setFecha(fecha);
-			
+			sesion.setHora("09:11");
 			
 		
 		entrada1.setCdEntrada("CETCK001");
-		entrada1.setSesiones(sesiones);
+		entrada1.setSesion(sesiones[0]);
 		entrada1.setPrecio(23);
+		entrada1.setFecha(fecha);
+		entrada1.setHora("09:00");
 	
 		assertEquals(resul,entrada1.toString());
 		
@@ -65,9 +67,10 @@ class TestEntrada {
 	
 	
 		entrada2.setCdEntrada(entrada1.getCdEntrada());
-		entrada2.setSesiones(entrada1.getSesiones());
+		entrada2.setSesion(entrada1.getSesion());
 		entrada2.setPrecio(entrada1.getPrecio());
-		
+		entrada2.setFecha(entrada1.getFecha());
+		entrada2.setHora(entrada1.getHora());
 		
 		
 	}
