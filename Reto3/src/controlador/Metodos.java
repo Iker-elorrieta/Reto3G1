@@ -23,10 +23,6 @@ import modelo.Entrada;
 import modelo.Pelicula;
 import modelo.Sala;
 import modelo.Sesion;
-
-import java.security.MessageDigest;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 public class Metodos {
 
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
