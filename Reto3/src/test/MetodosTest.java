@@ -74,16 +74,16 @@ class MetodosTest {
 
 	@Test
 	void testValidarDNI() {
-		Cliente[] clientes = metodos.usuariosArray();
+		
 		String text = "79009471D";
 
-		boolean resul = metodos.validarDni(text, clientes);
+		boolean resul = metodos.validarDni(text);
 		assertEquals(true, resul);
 		text = "22757228S";
-		resul = metodos.validarDni(text, clientes);
+		resul = metodos.validarDni(text);
 		assertEquals(false, resul);
 		text = "2275228S";
-		resul = metodos.validarDni(text, clientes);
+		resul = metodos.validarDni(text);
 		assertEquals(false, resul);
 
 	}
