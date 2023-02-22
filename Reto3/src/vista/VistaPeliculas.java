@@ -136,9 +136,10 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		        //System.out.println(c.get(Calendar.DAY_OF_MONTH));   
 		    	fecha = prueba.getDate();
 		    	String[] horas = new String[0];
+		    	
 				if (fecha != null)
 					horas = metodos.horarioSesiones(pelicula, cine, fecha);
-				
+
 				if (horas.length != 0) {
 					horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
 					horaCB.setVisible(true);
@@ -159,7 +160,6 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		});
 		prueba.getMonthChooser().getComboBox().setEnabled(false);
 		prueba.getYearChooser().getSpinner().setEnabled(false);
-		//prueba.getDayChooser().
 		prueba.setLocation(212, 5);
 		prueba.setSize(219, 168);
 		tabSesiones.add(prueba);
