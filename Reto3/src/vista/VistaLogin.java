@@ -212,13 +212,19 @@ public class VistaLogin extends JFrame implements ActionListener {
 			
 			if (metodos.validarDni(dni_reg.getText())) {
 				for (int i = 0; i < usuarios.length; i++) {
-					if (!dni_reg.getText().equals(usuarios[i].getDni()))
-						dni_reg.setBackground(Color.GREEN);
+					if (dni_reg.getText().equals(usuarios[i].getDni())) {
+						JOptionPane.showMessageDialog(null, "Este usuario ya existe en la base de datos.", "Error",
+								JOptionPane.INFORMATION_MESSAGE);
+						dni_reg.setBackground(Color.RED);
+					}
 				}
+				if(pass_reg.getBackground() != Color.RED) {
+					dni_reg.setBackground(Color.GREEN);
+				}
+				
 			} else {
 				dni_reg.setBackground(Color.RED);
 			}
-				
 
 			if (metodos.esVacio(nombre_reg.getText()))
 				nombre_reg.setBackground(Color.RED);
