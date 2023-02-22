@@ -575,6 +575,7 @@ public class Metodos {
 		}
 	}
 	
+
 	public byte[] cifra(String sinCifrar) throws Exception {
 		final byte[] bytes = sinCifrar.getBytes("UTF-8");
 		final Cipher aes = obtieneCipher(true);
