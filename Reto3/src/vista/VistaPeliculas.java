@@ -65,6 +65,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	 * @param entradas_compradas 
 	 */
 	public VistaPeliculas(Cine cineEscojido, Entrada[] entradas_compradas) {
+		
+		//cargamos los datos enviados de vistaCines y los metemos en variables locales para manipularlas más facilmente
 		cine = cineEscojido;
 		entradas = metodos.siguienteEntrada(entradas_compradas);
 		entradas_compradas=entradas;
@@ -126,14 +128,13 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		labelGeneroPelicula.setBounds(115, 223, 100, 42);
 		tabSesiones.add(labelGeneroPelicula);
 
+		//aqui se manda el cine para sacarnos sus peliculas y se introducen en forma de botones
 		peliculas = metodos.cargarPeliculas(cine);
 		botonesPelis(peliculas);
 		prueba = new JCalendar();
 		prueba.addPropertyChangeListener("calendar", new PropertyChangeListener() {
 		    @Override
 		    public void propertyChange(PropertyChangeEvent e) {
-		        //final Calendar c = (Calendar) e.getNewValue();   
-		        //System.out.println(c.get(Calendar.DAY_OF_MONTH));   
 		    	fecha = prueba.getDate();
 		    	String[] horas = new String[0];
 		    	
