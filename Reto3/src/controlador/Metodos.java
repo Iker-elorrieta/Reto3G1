@@ -313,7 +313,7 @@ public class Metodos {
 
 		return usuario;
 	}
-
+//Aqui se mira si un campo es vacio
 	public boolean esVacio(String texto) {
 		boolean estaVacio = false;
 
@@ -322,7 +322,7 @@ public class Metodos {
 
 		return estaVacio;
 	}
-
+//Aqui se argar tdas las sesiones con sus peliculas en cada cine divididas por salas
 	public Pelicula[] cargarPeliculas(Cine cine) {
 		// TODO Auto-generated method stub
 
@@ -359,7 +359,7 @@ public class Metodos {
 
 		return peliculas;
 	}
-
+//Aqui se sacan las sesiones disponibles para una pelicula de un cine en una fecha concreta
 	public String[] horarioSesiones(Pelicula pelicula, Cine cine, Date fecha) {
 		String[] horas = new String[0];
 
@@ -388,7 +388,7 @@ public class Metodos {
 
 		return horas;
 	}
-
+//Aqui se amplia una posicion el rango del arrayEntradas cuando se añade una nueva entrada
 	public Entrada[] siguienteEntrada(Entrada[] entradas_compradas) {
 		// TODO Auto-generated method stub
 		Entrada[] nuevoArray = new Entrada[entradas_compradas.length + 1];
@@ -401,7 +401,7 @@ public class Metodos {
 
 		return entradas_compradas;
 	}
-
+//Aqui se saca la sesion concreta en una fecha, hora, sala, cine , pelicula determinados.
 	public Sesion queSesion(Cine cine, String nombre_sala, Date fecha, String hora, Pelicula pelicula) {
 		// TODO Auto-generated method stub
 		Sesion sesionF = new Sesion();
@@ -420,7 +420,7 @@ public class Metodos {
 
 		return sesionF;
 	}
-
+//Aqui se introduce una sesion y se sacan sus datos para generar una entrada que se devuelve
 	public Entrada nuevaEntrada(Sesion sesion, int num_entrada) {
 		// TODO Auto-generated method stub
 
@@ -433,7 +433,7 @@ public class Metodos {
 
 		return entrada;
 	}
-
+	//Aqui se saca el precio de una pelicula
 	public float sacarPrecio(Pelicula pelicula) {
 		// TODO Auto-generated method stub
 		return pelicula.getPrecio();
@@ -463,7 +463,7 @@ public class Metodos {
 		}
 		return fechasPelicula;
 	}
-
+//Aqui calcula el descuento en funcion de las peliculas compradas
 	public float calcularDescuento(float costeTotSinDescuento, float length) {
 
 		float aDescontar = (float) costeTotSinDescuento * (length / 10);
@@ -472,7 +472,7 @@ public class Metodos {
 		return costeTotSinDescuento;
 
 	}
-
+//Aqui saca el nombre del usuario en funcion del dni introducido
 	public String nombreUsuario(Cliente[] clientes, String dni) {
 		String nombre = "";
 
@@ -506,7 +506,7 @@ public class Metodos {
 
 		return nombreSalayCine;
 	}
-
+//Aqui se imprime la fatura con el nombre de usuario, dni,Sala/cine, el precio descontado y las sesiones compradas
 	public void imprimirFactura(Entrada[] entradasArray, Cliente[] usuarios, String dni_usuario, String[] cinesYSalas,
 			float descontado) {
 		// TODO Auto-generated method stub
@@ -541,7 +541,7 @@ public class Metodos {
 		}
 
 	}
-
+//Aqui se guarda en la BD la compra realizada primero el ticket y posteriormente las entradas
 	public void compraRealizada(Entrada[] entradasArray, String dni_usuario, float descontado) {
 		// TODO Auto-generated method stub
 		try {
