@@ -58,6 +58,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 	 * @param users
 	 */
 	public VistaLogin(Entrada[] entradas, String[] cinesYsalas, float costeTotConDescuento) {
+		//se carga el array con los usuarios de la BD y se pasan los datos de resumen a variables locales
 		usuarios = metodos.usuariosArray();
 		this.entradas = entradas;
 		cinesYSalas = cinesYsalas;
@@ -187,9 +188,11 @@ public class VistaLogin extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == atras) {
+			//Al pulsar volver se va a la vista cine y se limpian los arrays de entradas y peliculas, asi, si se pulsa finalizar se cierra el programa
 			this.dispose();
 			VistaCines.entradas_compradas = null;
 		} else if (e.getSource() == validarBtn) {
+			//si se pulsa el boton de iniciar sesion, se verifican los campos, si es incorrecto se muestra en rojo
 			labelIncorrecto.setVisible(false);
 			String dni = jUser.getText();
 			String pass = String.valueOf(jPassw.getPassword());
@@ -204,14 +207,18 @@ public class VistaLogin extends JFrame implements ActionListener {
 				labelIncorrecto.setVisible(true);
 			}
 		} else if (e.getSource() == registrarseBtn) {
-
-			if (metodos.validarDni(dni_reg.getText(), usuarios)) {
+			//Aqui se verifican los campos de la persona que se quiere registrar
+			//Si cumple los requisitos al pulsar validar se mostrara el campo en verde
+			
+			if (metodos.validarDni(dni_reg.getText())) {
 				for (int i = 0; i < usuarios.length; i++) {
 					if (!dni_reg.getText().equals(usuarios[i].getDni()))
 						dni_reg.setBackground(Color.GREEN);
 				}
-			} else
+			} else {
 				dni_reg.setBackground(Color.RED);
+			}
+				
 
 			if (metodos.esVacio(nombre_reg.getText()))
 				nombre_reg.setBackground(Color.RED);

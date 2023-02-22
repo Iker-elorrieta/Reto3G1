@@ -265,7 +265,7 @@ public class Metodos {
 	}
 
 	// Aqui se valida el dni cuando se registra un nuevo usuario.
-	public boolean validarDni(String text, Cliente[] usuarios) {
+	public boolean validarDni(String text) {
 		// TODO Auto-generated method stub
 		boolean correcto = true;
 
