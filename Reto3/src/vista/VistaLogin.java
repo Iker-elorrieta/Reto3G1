@@ -182,7 +182,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 		contentPane.add(atras);
 
 	}
-
+//Aqui se revisa el contenido de los labels y se les cambia el color en consecuencia ademas de informarse con un mensaje
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -256,7 +256,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 		}
 
 	}
-
+//Aqui se limpian los campos
 	public void limpiarCamposReg() {
 		dni_reg.setText("");
 		nombre_reg.setText("");
