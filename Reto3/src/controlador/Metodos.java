@@ -388,6 +388,7 @@ public class Metodos {
 
 		return horas;
 	}
+	
 //Aqui se amplia una posicion el rango del arrayEntradas cuando se añade una nueva entrada
 	public Entrada[] siguienteEntrada(Entrada[] entradas_compradas) {
 		// TODO Auto-generated method stub
