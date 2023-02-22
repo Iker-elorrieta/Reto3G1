@@ -7,15 +7,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.swing.JOptionPane;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
@@ -272,30 +278,59 @@ class MetodosTest {
 		float total =(float) 32.00;
 		metodos.imprimirFactura(entradas, clientes, dni, salayCine, total);
 		File file = new File("factura.txt");
-		BufferedReader fichero = null;
+		BufferedReader fichero ;
+		String contenidoTxt="";		
+	
 		try {
 			fichero = new BufferedReader(new FileReader(file));
+			String linea;
+			
+			while((linea = fichero.readLine())!=null)
+			{
+			contenidoTxt+= linea +"\n";
+			}
+			
+			fichero.close();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();}
-		assertEquals(fichero, "Hola gaizka, a continuacion te imprimimos la informacion pertinante a la compra:\r\n"
-				+ "\r\n"
-				+ "Num_Entrada	Pelicula	Cine - Sala					Dia			Hora	Precio	Fecha compra\r\n"
-				+ "	1		Ted	Cines Elorrieta - Sala 1	2023-03-01	16:00	4.7€	2023-02-21\r\n"
-				+ "------------------------------------------------------------------------------------------------------\r\n"
-				+ "Como has comprado 1 entradas, te hemos hecho un descuento del 10%\r\n"
-				+ "El coste final es: 32.0€");
-	}
+			e1.printStackTrace();}catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		assertEquals(contenidoTxt, "Hola gaizka, a continuacion te imprimimos la informacion pertinante a la compra:\n"
+				+ "\n"
+				+ "Num_Entrada\tPelicula\tCine - Sala\t\t\t\t\tDia\t\t\tHora\tPrecio\tFecha compra\n"
+				+ "\t1\t\tTed\tCines Elorrieta - Sala 1\t2023-03-01\t16:00\t4.7€\t2023-02-22\n"
+				+"------------------------------------------------------------------------------------------------------\n"
+				+ "Como has comprado 1 entradas, te hemos hecho un descuento del 10%\n"
+				+ "El coste final es: 32.0€\n");
+		}
 	@Test
 	void testCompraRealizada() {
 		Cine[] cines = metodos.cuantosCines();
 		Sesion sesion = cines[0].getSalas()[0].getSesiones()[0];
 		Entrada entrada = metodos.nuevaEntrada(sesion, 1);
 		Entrada[] entradas= {entrada};
-		
+		String texto="";
+		String tickets = null;
 		String dni = "79009471D";
 		
 		float total =(float) 32.00;
 		metodos.compraRealizada(entradas, dni, total);
+		try {
+			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
+			Statement comando = conexion.createStatement();
+						ResultSet registro = comando.executeQuery("select * From ticket where coste_total=32.00 and dni='79009471D';");
+						while (registro.next()) {
+							texto+= registro.getString(1)+" , "+registro.getString(2)+" , "+registro.getString(3)+"\n";
+						}
+						tickets = texto;
+			registro.close();
+			conexion.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals(tickets,texto);
 	}
 }
