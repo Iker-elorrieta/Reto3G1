@@ -3,20 +3,16 @@ package vista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import java.util.Properties;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
+import com.toedter.calendar.JCalendar;
 
 import controlador.Metodos;
 import modelo.Cine;
-import modelo.DateLabelFormatter;
 import modelo.Entrada;
 import modelo.Pelicula;
 import modelo.Sesion;
@@ -29,6 +25,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class VistaPeliculas extends JFrame implements ActionListener {
 
@@ -56,6 +54,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private JLabel labelHorario;
 	private JButton aceptarHora;
 	private Entrada[] entradas;
+	private JCalendar prueba;
+	private Date fecha;
 	/**
 	 * Launch the application.
 	 */
@@ -98,7 +98,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {""}));
 		horaCB.setSelectedIndex(0);
 		horaCB.setMaximumRowCount(50);
-		horaCB.setBounds(415, 92, 271, 29);
+		horaCB.setBounds(461, 89, 271, 29);
 		tabSesiones.add(horaCB);
 		horaCB.setVisible(false);
 		
@@ -109,7 +109,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabSesiones.add(labelNombrePelicula);
 
 		labelDuracion = new JLabel("");
-		labelDuracion.setBounds(515, 62, 135, 29);
+		labelDuracion.setBounds(561, 59, 135, 29);
 		tabSesiones.add(labelDuracion);
 
 		lblNewLabel = new JLabel("Nombre Pelicula:");
@@ -128,16 +128,14 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 
 		peliculas = metodos.cargarPeliculas(cine);
 		botonesPelis(peliculas);
-		
-		UtilDateModel model = new UtilDateModel();
-		Properties p = new Properties();
-		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		tabSesiones.setLayout(null);
-		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		datePicker.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Date fecha = (Date) datePicker.getModel().getValue();
-				String[] horas = new String[0];
+		prueba = new JCalendar();
+		prueba.addPropertyChangeListener("calendar", new PropertyChangeListener() {
+		    @Override
+		    public void propertyChange(PropertyChangeEvent e) {
+		        //final Calendar c = (Calendar) e.getNewValue();   
+		        //System.out.println(c.get(Calendar.DAY_OF_MONTH));   
+		    	fecha = prueba.getDate();
+		    	String[] horas = new String[0];
 				if (fecha != null)
 					horas = metodos.horarioSesiones(pelicula, cine, fecha);
 				
@@ -150,7 +148,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 						horaCB.addItem(horas[horasN]);
 					}
 				} else {
-					datePicker.getModel().setValue(null);
+					horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
 					JOptionPane.showMessageDialog(null,
 						"Parece que no hay sesion para esa pelicula el dia que has seleccionado.\n"
 						+ "¿Porqué no pruebas a buscar sesion en otro dia?",
@@ -159,8 +157,14 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 				}
 			}
 		});
-		datePicker.setBounds(170, 11, 202, 23);
-		tabSesiones.add(datePicker);
+		prueba.getMonthChooser().getComboBox().setEnabled(false);
+		prueba.getYearChooser().getSpinner().setEnabled(false);
+		//prueba.getDayChooser().
+		prueba.setLocation(212, 5);
+		prueba.setSize(219, 168);
+		tabSesiones.add(prueba);
+		
+		tabSesiones.setLayout(null);
 		
 		JLabel lblNewLabel_2 = new JLabel("Coste:");
 		lblNewLabel_2.setBounds(83, 283, 48, 14);
@@ -172,12 +176,12 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		tabSesiones.add(labelCoste);
 		
 		labelHorario = new JLabel("Horario:");
-		labelHorario.setBounds(417, 67, 89, 14);
+		labelHorario.setBounds(463, 64, 89, 14);
 		labelHorario.setVisible(false);
 		tabSesiones.add(labelHorario);
 		
 		aceptarHora = new JButton("Seleccionar Hora");
-		aceptarHora.setBounds(415, 135, 135, 23);
+		aceptarHora.setBounds(461, 132, 135, 23);
 		aceptarHora.setVisible(false);
 		aceptarHora.addActionListener(this);
 		tabSesiones.add(aceptarHora);
@@ -197,8 +201,11 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 					tabbedPane.setEnabledAt(0, false);
 					tabbedPane.setEnabledAt(1, true);
 					tabbedPane.setSelectedIndex(1);
-					labelNombrePelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getNombre());
-					labelDuracion.setText("Duracion: "+peliculas[Integer.valueOf(btnpeli.getToolTipText())].getDuracion() + " minutos");
+					Date[] fechaMaxfechaMin=metodos.fechasPelicula(cine, pelicula);
+					prueba.setDate(fechaMaxfechaMin[0]);
+					prueba.setSelectableDateRange(fechaMaxfechaMin[0], fechaMaxfechaMin[fechaMaxfechaMin.length-1]);
+					labelNombrePelicula.setText(pelicula.getNombre());
+					labelDuracion.setText("Duracion: "+pelicula.getDuracion() + " minutos");
 					labelGeneroPelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getGenero());
 					labelCoste.setText(metodos.sacarPrecio(peliculas[Integer.valueOf(btnpeli.getToolTipText())])+"€");
 				}
@@ -225,7 +232,6 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 			if (!String.valueOf(horaCB.getSelectedItem()).equals("-------------------------")) {
 			String[] horaSala = String.valueOf(horaCB.getSelectedItem()).split(" - ");
 			String hora = horaSala[0];
-			Date fecha = (Date) datePicker.getModel().getValue();
 			String sala = horaSala[1];
 			Sesion sesion=metodos.queSesion(cine, sala, fecha, hora, pelicula);
 			entradas[entradas.length-1]=metodos.nuevaEntrada(sesion, entradas.length);
