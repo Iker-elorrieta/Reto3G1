@@ -66,6 +66,7 @@ public class Metodos {
 	final String tablaTickets = "ticket";
 	final String costeTotalConDescuento = "coste_total";
 	final String codigoTicket = "cod_ticket";
+	
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que
 	// devuelve
 
@@ -442,7 +443,7 @@ public class Metodos {
 
 	// Cuando podamos restringir las fechas del DatePicker usaremos este metodo para
 	// habilitar las fechas resultantes,
-	// por ahora no se usa
+
 	public Date[] fechasPelicula(Cine cine, Pelicula pelicula) {
 		// TODO Auto-generated method stub
 
@@ -464,6 +465,7 @@ public class Metodos {
 		}
 		return fechasPelicula;
 	}
+	
 //Aqui calcula el descuento en funcion de las peliculas compradas
 	public float calcularDescuento(float costeTotSinDescuento, float length) {
 
@@ -473,6 +475,7 @@ public class Metodos {
 		return costeTotSinDescuento;
 
 	}
+	
 //Aqui saca el nombre del usuario en funcion del dni introducido
 	public String nombreUsuario(Cliente[] clientes, String dni) {
 		String nombre = "";
@@ -507,7 +510,8 @@ public class Metodos {
 
 		return nombreSalayCine;
 	}
-//Aqui se imprime la fatura con el nombre de usuario, dni,Sala/cine, el precio descontado y las sesiones compradas
+	
+//Aqui se imprime la fatura con el nombre de usuario, dni, Sala/cine, el precio descontado, las sesiones compradas y dias/horas que se da la/s sesion/es
 	public void imprimirFactura(Entrada[] entradasArray, Cliente[] usuarios, String dni_usuario, String[] cinesYSalas,
 			float descontado) {
 		// TODO Auto-generated method stub

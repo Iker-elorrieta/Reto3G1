@@ -72,7 +72,6 @@ public class VistaCines extends JFrame implements ActionListener {
 	 */
 	public VistaCines() {
 
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 726, 503);
 		contentPane = new JPanel();
@@ -136,7 +135,8 @@ public class VistaCines extends JFrame implements ActionListener {
 		labelCosteTot.setBounds(260, 15, 59, 14);
 		contentPaneResumen.add(labelCosteTot);
 	}
-
+	
+	//Aqui se hacen los botones segun los cines que haya dinamicamente
 	public void botonesCine(int cuantosCines) {
 		int y1 = 40;
 
@@ -160,6 +160,9 @@ public class VistaCines extends JFrame implements ActionListener {
 		}
 	}
 
+	//esta es una funcion que entra en uso cuando se pulsa un boton de cine,
+	//manda un numero almacenado en su tooltip acorde con su posicion en la base de datos
+	//despues, abre la ventana de peliculas que estan relacionadas con ese cine ordenadas segun su fecha, las mas cercanas siendo las primeras
 	public void aPelis(Cine cine) {
 		if (vPeliculas != null) {
 			if (vPeliculas.obtenerEntradas()[vPeliculas.obtenerEntradas().length - 1] != null)
@@ -170,6 +173,7 @@ public class VistaCines extends JFrame implements ActionListener {
 		vPeliculas.setVisible(true);
 	}
 
+	//aqui se cargan los datos de la base de datos para que no este abriendo conexiones todo el rato, junto con una espera de 3 segundos
 	public void actuador() {
 		botonesCine(cines.length);
 		panelCines.updateUI();
@@ -183,9 +187,14 @@ public class VistaCines extends JFrame implements ActionListener {
 		panelCines.setVisible(true);
 	}
 
+	//aqui esta un actionListener para que cuando de a un boton que no tenga efecto propio, segun que boton sea haga varias cosas
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
+		//cuando pulsa el boton finalizar se mira si hay peliculas en el array o se a abierto la ventana de seleccionar peliculas
+		//si esta vacio se finaliza la aplicacion, si hay entradas se va a login, asi mismo, si se vuelve de login y no se selecciona alguna pelicula
+		//se cierra la aplicacion
 		if (e.getSource() == btnFinalizar) {
 
 			try {
@@ -197,6 +206,9 @@ public class VistaCines extends JFrame implements ActionListener {
 				if (entradas_compradas[0] == null) {
 					this.dispose();
 				} else {
+					//aqui esta el resumen en forma de tabla con las peliculas que se han seleccionado, con sus dias, horas, cines, salas, y costes.
+					//segun la cantidad de peliculas que se seleccionen se hara un mayor descuento en el coste total
+					
 					panelCines.setVisible(false);
 					contentPaneResumen.setVisible(true);
 					btnImprimir.setVisible(true);
@@ -237,9 +249,11 @@ public class VistaCines extends JFrame implements ActionListener {
 				this.dispose();
 			}
 		} else if (e.getSource() == btnCancelar) {
+			//aqui, si estamos en la ventana de resumen y pulsamos el boton volver, nos devuelve a cines
 			panelCines.setVisible(true);
 			contentPaneResumen.setVisible(false);
 		} else if (e.getSource() == btnImprimir) {
+			//desde aqui nos manda a login
 			panelCines.setVisible(true);
 			contentPaneResumen.setVisible(false);
 			btnImprimir.setVisible(false);
