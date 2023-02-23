@@ -298,6 +298,7 @@ class MetodosTest {
 		String comparador=contenidoTxt;
 		assertEquals(contenidoTxt, comparador);
 		}
+	
 	@Test
 	void testCompraRealizada() {
 		Cine[] cines = metodos.cuantosCines();
