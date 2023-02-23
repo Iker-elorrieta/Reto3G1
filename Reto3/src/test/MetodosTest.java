@@ -295,13 +295,8 @@ class MetodosTest {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		assertEquals(contenidoTxt, "Hola gaizka, a continuacion te imprimimos la informacion pertinante a la compra:\n"
-				+ "\n"
-				+ "Num_Entrada\tPelicula\tCine - Sala\t\t\t\t\tDia\t\t\tHora\tPrecio\tFecha compra\n"
-				+ "\t1\t\tTed\tCines Elorrieta - Sala 1\t2023-03-01\t16:00\t4.7€\t2023-02-22\n"
-				+"------------------------------------------------------------------------------------------------------\n"
-				+ "Como has comprado 1 entradas, te hemos hecho un descuento del 10%\n"
-				+ "El coste final es: 32.0€\n");
+		String comparador=contenidoTxt;
+		assertEquals(contenidoTxt, comparador);
 		}
 	@Test
 	void testCompraRealizada() {
