@@ -32,15 +32,15 @@ import modelo.Sesion;
 
 class MetodosTest {
 
-	/*
+	
 	  final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines"; final String
 	  user = "cliente"; final String contra = "Contraseña33#";
-	*/
 	
+	/*
 	final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	final String user = "root";
 	final String contra = "";
-	 
+	*/
 	Metodos metodos = new Metodos();
 
 	@Test
@@ -275,7 +275,10 @@ class MetodosTest {
 		String[] salayCine= {"Cines Elorrieta - Sala 1"};
 		float total =(float) 32.00;
 		metodos.imprimirFactura(entradas, clientes, dni, salayCine, total);
-		File file = new File("factura.txt");
+		Calendar cal = Calendar.getInstance();
+		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat dthm = new SimpleDateFormat("hh-mm");
+		File file = new File("factura "+dt.format(cal.getTime())+" "+dthm.format(cal.getTime())+".txt");
 		BufferedReader fichero;
 		String contenidoTxt="";
 	

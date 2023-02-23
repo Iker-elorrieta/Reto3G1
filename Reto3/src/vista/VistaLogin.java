@@ -217,7 +217,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 						dni_reg.setBackground(Color.RED);
 					}
 				}
-				if(pass_reg.getBackground() != Color.RED) {
+				if(dni_reg.getBackground() != Color.RED) {
 					dni_reg.setBackground(Color.GREEN);
 				}
 				

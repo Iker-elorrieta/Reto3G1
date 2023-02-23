@@ -1,9 +1,7 @@
 package controlador;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
@@ -522,25 +520,15 @@ public class Metodos {
 		// TODO Auto-generated method stub
 		String nombre = nombreUsuario(usuarios, dni_usuario);
 		Calendar cal = Calendar.getInstance();
-		File file = new File("factura.txt");
 		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat dthm = new SimpleDateFormat("hh-mm");
+		File file = new File("factura "+dt.format(cal.getTime())+" "+dthm.format(cal.getTime())+".txt");
 		BufferedWriter ficheroEscribir;
-		BufferedReader ficheroLeer;
-		String contenidoTxt = "";
 
 		try {
-			ficheroLeer = new BufferedReader(new FileReader(file));
-			String linea;
-
-			while ((linea = ficheroLeer.readLine()) != null) {
-				contenidoTxt += linea + "\n";
-			}
-
+			
 			ficheroEscribir = new BufferedWriter(new FileWriter(file));
-			if (!contenidoTxt.equals("")) {
-				ficheroEscribir.write(contenidoTxt);
-				ficheroEscribir.write("\n----------------------NUEVA FACTURA----------------------------\n\n");
-			}
+			
 			ficheroEscribir.write(
 					"Hola " + nombre + ", a continuacion te imprimimos la informacion pertinante a la compra:\n");
 			ficheroEscribir.write("\n");
@@ -556,7 +544,8 @@ public class Metodos {
 					"------------------------------------------------------------------------------------------------------\n");
 			ficheroEscribir.write("Como has comprado " + entradasArray.length
 					+ " entradas, te hemos hecho un descuento del " + entradasArray.length + "0%\n");
-			ficheroEscribir.write("El coste final es: " + descontado + "€");
+			String descontadoStr =String.valueOf(descontado).substring(0, 3);
+			ficheroEscribir.write("El coste final es: " + descontadoStr + "€");
 			ficheroEscribir.close();
 
 		} catch (IOException e1) {
@@ -590,10 +579,10 @@ public class Metodos {
 							+ dt.format(entradasArray[i].getFecha()) + "', '" + entradasArray[i].getHora() + "', '"
 							+ entradasArray[i].getPrecio() + "', '" + entradasArray[i].getSesion().getIdSesion()
 							+ "', '" + codTicket + "');");
-
+					
 				}
 			}
-
+			
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
