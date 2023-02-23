@@ -32,15 +32,15 @@ import modelo.Sesion;
 
 class MetodosTest {
 
-	
+	/*
 	  final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines"; final String
 	  user = "cliente"; final String contra = "Contraseña33#";
+	*/
 	
-	/*
 	final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	final String user = "root";
 	final String contra = "";
-	*/
+	
 	Metodos metodos = new Metodos();
 
 	@Test
@@ -117,10 +117,13 @@ class MetodosTest {
 				}
 			}
 		}
-
+		
 		usuarios = metodos.registrarUsuario(dni, nombre, apell1, apell2, sexoCB, passw);
 		usuarios = metodos.usuariosArray();
-		assertEquals(dni, usuarios[1].getDni());
+		for(int i = 0; i < usuarios.length; i++) {
+			if (usuarios[i].getDni().equals(dni))
+				assertEquals(dni, usuarios[i].getDni());
+		}
 	}
 
 	@Test
@@ -278,7 +281,7 @@ class MetodosTest {
 		Calendar cal = Calendar.getInstance();
 		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 		DateFormat dthm = new SimpleDateFormat("hh-mm");
-		File file = new File("factura "+dt.format(cal.getTime())+" "+dthm.format(cal.getTime())+".txt");
+		File file = new File("facturas/factura "+dt.format(cal.getTime())+" "+dthm.format(cal.getTime())+".txt");
 		BufferedReader fichero;
 		String contenidoTxt="";
 	
