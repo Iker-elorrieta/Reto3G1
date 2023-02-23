@@ -210,6 +210,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 					tabbedPane.setSelectedIndex(1);
 					Date[] fechaMaxfechaMin=metodos.fechasPelicula(cine, pelicula);
 					prueba.setSelectableDateRange(fechaMaxfechaMin[0], fechaMaxfechaMin[fechaMaxfechaMin.length-1]);
+					prueba.setDate(fechaMaxfechaMin[fechaMaxfechaMin.length-1]);
 					labelNombrePelicula.setText(pelicula.getNombre());
 					labelDuracion.setText("Duracion: "+pelicula.getDuracion() + " minutos");
 					labelGeneroPelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getGenero());
