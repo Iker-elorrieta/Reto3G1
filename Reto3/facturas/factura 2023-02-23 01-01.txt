@@ -1,0 +1,7 @@
+Hola gaizka, a continuacion te imprimimos la informacion pertinante a la compra:
+
+Num_Entrada	Pelicula	Cine - Sala					Dia			Hora	Precio	Fecha compra
+	1		Borat	Cines Elorrieta - Sala 1	2023-03-01	16:00	2.9€	2023-02-23
+------------------------------------------------------------------------------------------------------
+Como has comprado 1 entradas, te hemos hecho un descuento del 10%
+El coste final es: 32.€
