@@ -257,7 +257,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 						String.valueOf(pass_reg.getPassword()));
 				limpiarCamposReg();
 				tabbedPane.setSelectedIndex(0);
-				
+				labelIncorrecto.setVisible(false);
 				dni_reg.setBackground(jUser.getBackground());
 				nombre_reg.setBackground(jUser.getBackground());
 				apell1_reg.setBackground(jUser.getBackground());
