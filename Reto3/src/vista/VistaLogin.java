@@ -190,7 +190,6 @@ public class VistaLogin extends JFrame implements ActionListener {
 		if (e.getSource() == atras) {
 			//Al pulsar volver se va a la vista cine y se limpian los arrays de entradas y peliculas, asi, si se pulsa finalizar se cierra el programa
 			this.dispose();
-			VistaCines.entradas_compradas = null;
 		} else if (e.getSource() == validarBtn) {
 			//si se pulsa el boton de iniciar sesion, se verifican los campos, si es incorrecto se muestra en rojo
 			labelIncorrecto.setVisible(false);
@@ -258,7 +257,14 @@ public class VistaLogin extends JFrame implements ActionListener {
 						String.valueOf(pass_reg.getPassword()));
 				limpiarCamposReg();
 				tabbedPane.setSelectedIndex(0);
-
+				
+				dni_reg.setBackground(jUser.getBackground());
+				nombre_reg.setBackground(jUser.getBackground());
+				apell1_reg.setBackground(jUser.getBackground());
+				apell2_reg.setBackground(jUser.getBackground());
+				pass_reg.setBackground(jUser.getBackground());
+				passval_reg.setBackground(jUser.getBackground());
+				
 				JOptionPane.showMessageDialog(null, "Prueba a hacer login.", "Registrado correctamente",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {

@@ -269,7 +269,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	}
 	
 	public Entrada[] limpiarEntradas() {
-		entradas=new Entrada[1];
+		entradas=new Entrada[0];
 		return entradas;
 	}
 }

@@ -276,8 +276,8 @@ class MetodosTest {
 		float total =(float) 32.00;
 		metodos.imprimirFactura(entradas, clientes, dni, salayCine, total);
 		File file = new File("factura.txt");
-		BufferedReader fichero ;
-		String contenidoTxt="";		
+		BufferedReader fichero;
+		String contenidoTxt="";
 	
 		try {
 			fichero = new BufferedReader(new FileReader(file));

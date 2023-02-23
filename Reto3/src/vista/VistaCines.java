@@ -203,8 +203,9 @@ public class VistaCines extends JFrame implements ActionListener {
 				if (vPeliculas.obtenerEntradas()[vPeliculas.obtenerEntradas().length - 1] != null)
 					entradas_compradas = vPeliculas.obtenerEntradas();
 
-				if (entradas_compradas[0] == null) {
+				if (entradas_compradas[0] == null || entradas_compradas == null) {
 					this.dispose();
+					
 				} else {
 					//aqui esta el resumen en forma de tabla con las peliculas que se han seleccionado, con sus dias, horas, cines, salas, y costes.
 					//segun la cantidad de peliculas que se seleccionen se hara un mayor descuento en el coste total
@@ -262,6 +263,7 @@ public class VistaCines extends JFrame implements ActionListener {
 			login = new VistaLogin(entradas_compradas, cinesYsalas, costeTotConDescuento);
 			login.setVisible(true);
 			entradas_compradas = vPeliculas.limpiarEntradas();
+			vPeliculas=null;
 		}
 
 	}

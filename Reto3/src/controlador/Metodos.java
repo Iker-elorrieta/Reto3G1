@@ -1,7 +1,9 @@
 package controlador;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
@@ -27,15 +29,15 @@ public class Metodos {
 
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
-/*
+
 	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
 	final String user = "cliente";
 	final String contra = "Contraseña33#";
-*/
-	
+
+/*	
 	  final String sConexion = "jdbc:mysql://localhost:3306/cines"; final String
 	  user = "root"; final String contra = "";
-	 
+*/	 
 
 	final String codCine = "cod_cine";
 	final String nombreCine = "nombre_cine";
@@ -515,26 +517,43 @@ public class Metodos {
 		Calendar cal = Calendar.getInstance();
 		File file = new File("factura.txt");
 		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-		BufferedWriter fichero;
-
-		try {
-			fichero = new BufferedWriter(new FileWriter(file));
-			fichero.write("Hola " + nombre + ", a continuacion te imprimimos la informacion pertinante a la compra:\n");
-			fichero.write("\n");
-			fichero.write("Num_Entrada\t" + "Pelicula\t" + "Cine - Sala\t\t\t\t\t" + "Dia\t\t\t" + "Hora\t" + "Precio\t"
+		BufferedWriter ficheroEscribir;
+		BufferedReader ficheroLeer;
+		String contenidoTxt="";
+			
+		
+			try {
+				ficheroLeer = new BufferedReader(new FileReader(file));
+				String linea;
+				
+				while((linea = ficheroLeer.readLine())!=null)
+				{
+				contenidoTxt+= linea +"\n";
+				}
+			
+				
+				
+			ficheroEscribir = new BufferedWriter(new FileWriter(file));
+			if (!contenidoTxt.equals("")) {
+				ficheroEscribir.write(contenidoTxt);
+				ficheroEscribir.write("\n----------------------NUEVA FACTURA----------------------------\n\n");
+			}
+			ficheroEscribir.write("Hola " + nombre + ", a continuacion te imprimimos la informacion pertinante a la compra:\n");
+			ficheroEscribir.write("\n");
+			ficheroEscribir.write("Num_Entrada\t" + "Pelicula\t" + "Cine - Sala\t\t\t\t\t" + "Dia\t\t\t" + "Hora\t" + "Precio\t"
 					+ "Fecha compra\n");
 			for (int i = 0; i < entradasArray.length; i++) {
-				fichero.write("\t" + entradasArray[i].getCdEntrada() + "\t\t"
+				ficheroEscribir.write("\t" + entradasArray[i].getCdEntrada() + "\t\t"
 						+ entradasArray[i].getSesion().getPelicula().getNombre() + "\t" + cinesYSalas[i] + "\t"
 						+ dt.format(entradasArray[i].getSesion().getFecha()) + "\t" + entradasArray[i].getHora() + "\t"
 						+ entradasArray[i].getPrecio() + "€\t" + dt.format(cal.getTime()) + "\n");
 			}
-			fichero.write(
+			ficheroEscribir.write(
 					"------------------------------------------------------------------------------------------------------\n");
-			fichero.write("Como has comprado " + entradasArray.length + " entradas, te hemos hecho un descuento del "
+			ficheroEscribir.write("Como has comprado " + entradasArray.length + " entradas, te hemos hecho un descuento del "
 					+ entradasArray.length + "0%\n");
-			fichero.write("El coste final es: " + descontado + "€");
-			fichero.close();
+			ficheroEscribir.write("El coste final es: " + descontado + "€");
+			ficheroEscribir.close();
 
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
