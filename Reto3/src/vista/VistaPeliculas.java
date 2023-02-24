@@ -54,7 +54,7 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private JLabel labelHorario;
 	private JButton aceptarHora;
 	private Entrada[] entradas;
-	private JCalendar prueba;
+	private JCalendar calendario;
 	private Date fecha;
 	/**
 	 * Launch the application.
@@ -132,11 +132,11 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		//al seleccionar una fecha se hara visible un comboBox con la hora y la sala si hay ese dia, de lo contrario nos lo hara saber
 		peliculas = metodos.cargarPeliculas(cine);
 		botonesPelis(peliculas);
-		prueba = new JCalendar();
-		prueba.addPropertyChangeListener("calendar", new PropertyChangeListener() {
+		calendario = new JCalendar();
+		calendario.addPropertyChangeListener("calendar", new PropertyChangeListener() {
 		    @Override
 		    public void propertyChange(PropertyChangeEvent e) {
-		    	fecha = prueba.getDate();
+		    	fecha = calendario.getDate();
 		    	String[] horas = new String[0];
 		    	
 				if (fecha != null)
@@ -163,11 +163,11 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 				}
 			}
 		});
-		prueba.getMonthChooser().getComboBox().setEnabled(false);
-		prueba.getYearChooser().getSpinner().setEnabled(false);
-		prueba.setLocation(212, 5);
-		prueba.setSize(219, 168);
-		tabSesiones.add(prueba);
+		calendario.getMonthChooser().getComboBox().setEnabled(false);
+		calendario.getYearChooser().getSpinner().setEnabled(false);
+		calendario.setLocation(212, 5);
+		calendario.setSize(219, 168);
+		tabSesiones.add(calendario);
 		
 		tabSesiones.setLayout(null);
 		
@@ -209,8 +209,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 					tabbedPane.setEnabledAt(1, true);
 					tabbedPane.setSelectedIndex(1);
 					Date[] fechaMaxfechaMin=metodos.fechasPelicula(cine, pelicula);
-					prueba.setSelectableDateRange(fechaMaxfechaMin[0], fechaMaxfechaMin[fechaMaxfechaMin.length-1]);
-					prueba.setDate(fechaMaxfechaMin[fechaMaxfechaMin.length-1]);
+					calendario.setSelectableDateRange(fechaMaxfechaMin[0], fechaMaxfechaMin[fechaMaxfechaMin.length-1]);
+					calendario.setDate(fechaMaxfechaMin[fechaMaxfechaMin.length-1]);
 					labelNombrePelicula.setText(pelicula.getNombre());
 					labelDuracion.setText("Duracion: "+pelicula.getDuracion() + " minutos");
 					labelGeneroPelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getGenero());
