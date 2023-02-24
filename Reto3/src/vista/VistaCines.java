@@ -240,12 +240,7 @@ public class VistaCines extends JFrame implements ActionListener {
 
 					costeTotConDescuento = metodos.calcularDescuento(costeTotSinDescuento,
 							(float) entradas_compradas.length);
-					if(entradas_compradas.length != 1)
-						labelCosteTot.setText(String.valueOf(dfSharp.format(costeTotConDescuento)) + "€");
-					else {
-						costeTotConDescuento=costeTotSinDescuento;
-						labelCosteTot.setText(String.valueOf(dfSharp.format(costeTotConDescuento)) + "€");
-					}
+					labelCosteTot.setText(String.valueOf(dfSharp.format(costeTotConDescuento)) + "€");
 					labelCosteTot.setBounds(260, 15, 59, 14);
 					contentPaneResumen.add(labelCosteTot);
 					contentPane.updateUI();
