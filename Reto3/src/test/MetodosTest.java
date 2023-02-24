@@ -41,6 +41,7 @@ class MetodosTest {
 	final String user = "root";
 	final String contra = "";
 	
+	  
 	Metodos metodos = new Metodos();
 
 	@Test
@@ -126,13 +127,13 @@ class MetodosTest {
 		}
 	}
 
+	
 	@Test
 	void testCargarPeliculas() {
 		Cine[] cines = metodos.cuantosCines();
 		Cine cine = cines[0];
-		String resul = cine.toString();
-		assertEquals(resul, cines[0].toString());
-
+		Pelicula[] peliculas= metodos.cargarPeliculas(cine);
+		assertEquals(peliculas[0].toString(), metodos.cargarPeliculas(cine)[0].toString());
 	}
 
 	// En este test Tenemos en String, dada una pelicula y su fecha que nos saque la

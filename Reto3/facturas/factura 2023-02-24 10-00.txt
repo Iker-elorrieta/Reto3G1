@@ -1,0 +1,9 @@
+Hola clemen, a continuacion te imprimimos la informacion pertinante a la compra:
+
+Num_Entrada	Pelicula	Cine - Sala					Dia			Hora	Precio	Fecha compra
+	1		300	Cinesa - Sala 4	2023-03-03	18:00	3.9€	2023-02-24
+	2		Sharknado	Cinesa - Sala 5	2023-03-09	20:00	2.7€	2023-02-24
+	3		Oblivion	Cines Elorrieta - Sala 3	2023-03-05	18:00	3.8€	2023-02-24
+------------------------------------------------------------------------------------------------------
+Como has comprado 3 entradas, te hemos hecho un descuento del 30%
+El coste final es: 7.2€
