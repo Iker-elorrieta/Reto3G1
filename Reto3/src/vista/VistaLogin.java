@@ -210,6 +210,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 			//Si cumple los requisitos al pulsar validar se mostrara el campo en verde
 			
 			if (metodos.validarDni(dni_reg.getText())) {
+				
 				for (int i = 0; i < usuarios.length; i++) {
 					if (dni_reg.getText().equals(usuarios[i].getDni())) {
 						JOptionPane.showMessageDialog(null, "Este usuario ya existe en la base de datos.", "Error",

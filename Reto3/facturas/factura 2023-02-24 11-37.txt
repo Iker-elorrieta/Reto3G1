@@ -1,0 +1,8 @@
+Hola clemen, a continuacion te imprimimos la informacion pertinante a la compra:
+
+Num_Entrada	Pelicula	Cine - Sala					Dia			Hora	Precio	Fecha compra
+	1		Murder Mystery	Cines Elorrieta - Sala 1	2023-03-18	20:00	5.6€	2023-02-24
+	2		Uncharted	Cines Yelmo - Sala 1	2023-03-16	16:00	6.1€	2023-02-24
+------------------------------------------------------------------------------------------------------
+Como has comprado 2 entradas, te hemos hecho un descuento del 20%
+El coste final es: 9.3€
