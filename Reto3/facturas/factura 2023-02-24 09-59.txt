@@ -1,0 +1,8 @@
+Hola clemen, a continuacion te imprimimos la informacion pertinante a la compra:
+
+Num_Entrada	Pelicula	Cine - Sala					Dia			Hora	Precio	Fecha compra
+	1		Oblivion	Cines Elorrieta - Sala 3	2023-03-03	20:00	3.8€	2023-02-24
+	2		Fast & Furious 9	Cines Yelmo - Sala 3	2023-03-17	20:00	4.2€	2023-02-24
+------------------------------------------------------------------------------------------------------
+Como has comprado 2 entradas, te hemos hecho un descuento del 20%
+El coste final es: 6.4€

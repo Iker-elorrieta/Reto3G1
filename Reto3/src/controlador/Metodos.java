@@ -28,16 +28,18 @@ public class Metodos {
 
 	// declaro la base de datos remota junto al usuario y contraseña de mysql que he
 	// creado allí.
-	/*
-	final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines";
-	final String user = "cliente";
-	final String contra = "Contraseña33#";
-	 */
-	 
-	  final String sConexion = "jdbc:mysql://localhost:3306/cines"; final String
-	  user = "root"; final String contra = "";
-	 
 
+	
+	 final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines"; 
+	 final String user = "cliente";
+	 final String contra = "Contraseña33#";
+	
+	/*
+	final String sConexion = "jdbc:mysql://localhost:3306/cines";
+	final String user = "root";
+	final String contra = "";
+	  */ 
+	 
 	final String codCine = "cod_cine";
 	final String nombreCine = "nombre_cine";
 	final String codSala = "cod_sala";
@@ -63,6 +65,7 @@ public class Metodos {
 	final String tablaTickets = "ticket";
 	final String costeTotalConDescuento = "coste_total";
 	final String codigoTicket = "cod_ticket";
+
 	// Aqui lee los datos de la tabla cines de la BD y la mete en una array que
 	// devuelve
 
@@ -256,6 +259,7 @@ public class Metodos {
 		boolean correcto = false;
 
 		for (int i = 0; i < usuario.length; i++) {
+
 			if (usuario[i].getDni().equals(user) && usuario[i].getContrasena().equals(passw)) {
 				correcto = true;
 			}
@@ -264,7 +268,7 @@ public class Metodos {
 	}
 
 	// Aqui se valida el dni cuando se registra un nuevo usuario.
-	public boolean validarDni(String text, Cliente[] usuarios) {
+	public boolean validarDni(String text) {
 		// TODO Auto-generated method stub
 		boolean correcto = true;
 
@@ -310,6 +314,7 @@ public class Metodos {
 		return usuario;
 	}
 
+//Aqui se mira si un campo es vacio
 	public boolean esVacio(String texto) {
 		boolean estaVacio = false;
 
@@ -319,6 +324,7 @@ public class Metodos {
 		return estaVacio;
 	}
 
+//Aqui se argar tdas las sesiones con sus peliculas en cada cine divididas por salas
 	public Pelicula[] cargarPeliculas(Cine cine) {
 		// TODO Auto-generated method stub
 
@@ -356,6 +362,7 @@ public class Metodos {
 		return peliculas;
 	}
 
+//Aqui se sacan las sesiones disponibles para una pelicula de un cine en una fecha concreta
 	public String[] horarioSesiones(Pelicula pelicula, Cine cine, Date fecha) {
 		String[] horas = new String[0];
 
@@ -385,6 +392,7 @@ public class Metodos {
 		return horas;
 	}
 
+//Aqui se amplia una posicion el rango del arrayEntradas cuando se añade una nueva entrada
 	public Entrada[] siguienteEntrada(Entrada[] entradas_compradas) {
 		// TODO Auto-generated method stub
 		Entrada[] nuevoArray = new Entrada[entradas_compradas.length + 1];
@@ -398,6 +406,7 @@ public class Metodos {
 		return entradas_compradas;
 	}
 
+//Aqui se saca la sesion concreta en una fecha, hora, sala, cine , pelicula determinados.
 	public Sesion queSesion(Cine cine, String nombre_sala, Date fecha, String hora, Pelicula pelicula) {
 		// TODO Auto-generated method stub
 		Sesion sesionF = new Sesion();
@@ -417,6 +426,7 @@ public class Metodos {
 		return sesionF;
 	}
 
+//Aqui se introduce una sesion y se sacan sus datos para generar una entrada que se devuelve
 	public Entrada nuevaEntrada(Sesion sesion, int num_entrada) {
 		// TODO Auto-generated method stub
 
@@ -430,6 +440,7 @@ public class Metodos {
 		return entrada;
 	}
 
+	// Aqui se saca el precio de una pelicula
 	public float sacarPrecio(Pelicula pelicula) {
 		// TODO Auto-generated method stub
 		return pelicula.getPrecio();
@@ -437,7 +448,7 @@ public class Metodos {
 
 	// Cuando podamos restringir las fechas del DatePicker usaremos este metodo para
 	// habilitar las fechas resultantes,
-	// por ahora no se usa
+
 	public Date[] fechasPelicula(Cine cine, Pelicula pelicula) {
 		// TODO Auto-generated method stub
 
@@ -460,6 +471,7 @@ public class Metodos {
 		return fechasPelicula;
 	}
 
+//Aqui calcula el descuento en funcion de las peliculas compradas
 	public float calcularDescuento(float costeTotSinDescuento, float length) {
 
 		float aDescontar = (float) costeTotSinDescuento * (length / 10);
@@ -469,6 +481,7 @@ public class Metodos {
 
 	}
 
+//Aqui saca el nombre del usuario en funcion del dni introducido
 	public String nombreUsuario(Cliente[] clientes, String dni) {
 		String nombre = "";
 
@@ -503,33 +516,39 @@ public class Metodos {
 		return nombreSalayCine;
 	}
 
+//Aqui se imprime la fatura con el nombre de usuario, dni, Sala/cine, el precio descontado, las sesiones compradas y dias/horas que se da la/s sesion/es
 	public void imprimirFactura(Entrada[] entradasArray, Cliente[] usuarios, String dni_usuario, String[] cinesYSalas,
 			float descontado) {
 		// TODO Auto-generated method stub
 		String nombre = nombreUsuario(usuarios, dni_usuario);
 		Calendar cal = Calendar.getInstance();
-		File file = new File("factura.txt");
 		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-		BufferedWriter fichero;
+		DateFormat dthm = new SimpleDateFormat("hh-mm");
+		File file = new File("facturas/factura "+dt.format(cal.getTime())+" "+dthm.format(cal.getTime())+".txt");
+		BufferedWriter ficheroEscribir;
 
 		try {
-			fichero = new BufferedWriter(new FileWriter(file));
-			fichero.write("Hola " + nombre + ", a continuacion te imprimimos la informacion pertinante a la compra:\n");
-			fichero.write("\n");
-			fichero.write("Num_Entrada\t" + "Pelicula\t" + "Cine - Sala\t\t\t\t\t" + "Dia\t\t\t" + "Hora\t" + "Precio\t"
-					+ "Fecha compra\n");
+			
+			ficheroEscribir = new BufferedWriter(new FileWriter(file));
+			
+			ficheroEscribir.write(
+					"Hola " + nombre + ", a continuacion te imprimimos la informacion pertinante a la compra:\n");
+			ficheroEscribir.write("\n");
+			ficheroEscribir.write("Num_Entrada\t" + "Pelicula\t" + "Cine - Sala\t\t\t\t\t" + "Dia\t\t\t" + "Hora\t"
+					+ "Precio\t" + "Fecha compra\n");
 			for (int i = 0; i < entradasArray.length; i++) {
-				fichero.write("\t" + entradasArray[i].getCdEntrada() + "\t\t"
+				ficheroEscribir.write("\t" + entradasArray[i].getCdEntrada() + "\t\t"
 						+ entradasArray[i].getSesion().getPelicula().getNombre() + "\t" + cinesYSalas[i] + "\t"
 						+ dt.format(entradasArray[i].getSesion().getFecha()) + "\t" + entradasArray[i].getHora() + "\t"
 						+ entradasArray[i].getPrecio() + "€\t" + dt.format(cal.getTime()) + "\n");
 			}
-			fichero.write(
+			ficheroEscribir.write(
 					"------------------------------------------------------------------------------------------------------\n");
-			fichero.write("Como has comprado " + entradasArray.length + " entradas, te hemos hecho un descuento del "
-					+ entradasArray.length + "0%\n");
-			fichero.write("El coste final es: " + descontado + "€");
-			fichero.close();
+			ficheroEscribir.write("Como has comprado " + entradasArray.length
+					+ " entradas, te hemos hecho un descuento del " + entradasArray.length + "0%\n");
+			String descontadoStr =String.valueOf(descontado).substring(0, 3);
+			ficheroEscribir.write("El coste final es: " + descontadoStr + "€");
+			ficheroEscribir.close();
 
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -538,27 +557,32 @@ public class Metodos {
 
 	}
 
+//Aqui se guarda en la BD la compra realizada primero el ticket y posteriormente las entradas
 	public void compraRealizada(Entrada[] entradasArray, String dni_usuario, float descontado) {
 		// TODO Auto-generated method stub
 		try {
 			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
-			PreparedStatement st = conexion.prepareStatement("insert into " + tablaTickets + " (" + costeTotalConDescuento + ", " + dniCliente
-					+ ") values ('" + descontado + "', '" + dni_usuario + "');");
-			st.executeUpdate();
-			conexion.close();
-			
-			conexion = DriverManager.getConnection(sConexion, user, contra);
 			Statement comando = conexion.createStatement();
-			
+			PreparedStatement st = conexion
+					.prepareStatement("insert into " + tablaTickets + " (" + costeTotalConDescuento + ", " + dniCliente
+							+ ") values ('" + descontado + "', '" + dni_usuario + "');");
+			st.executeUpdate();
+
+			DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+
 			ResultSet registro = comando.executeQuery("select MAX(" + codigoTicket + ") as cod_ticket from ticket;");
-			int codTicket=registro.getInt(codigoTicket);
-			
-			for (int i = 0; i < entradasArray.length; i++) {
-				comando.executeUpdate("insert into " + tablaEntradas + " (" + fechaSesion + ", " + horaSesion + ", "
-						+ costePelicula + ", " + codSesion + ", " + codigoTicket + ") values ('"
-						+ entradasArray[i].getFecha() + "', '" + entradasArray[i].getHora() + "', '"
-						+ entradasArray[i].getPrecio() + "', '" + entradasArray[i].getSesion().getIdSesion() + "', '"
-						+ codTicket + "');");
+			if (registro.next()) {
+
+				int codTicket = registro.getInt(codigoTicket);
+				for (int i = 0; i < entradasArray.length; i++) {
+
+					comando.executeUpdate("insert into " + tablaEntradas + " (" + fechaSesion + ", " + horaSesion + ", "
+							+ costePelicula + ", " + codSesion + ", " + codigoTicket + ") values ('"
+							+ dt.format(entradasArray[i].getFecha()) + "', '" + entradasArray[i].getHora() + "', '"
+							+ entradasArray[i].getPrecio() + "', '" + entradasArray[i].getSesion().getIdSesion()
+							+ "', '" + codTicket + "');");
+					
+				}
 			}
 			
 			conexion.close();
@@ -567,4 +591,5 @@ public class Metodos {
 			e.printStackTrace();
 		}
 	}
+
 }

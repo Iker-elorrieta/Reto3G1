@@ -29,8 +29,10 @@ public class VistaTicket extends JFrame implements ActionListener {
 	 * @param cinesYSalas 
 	 * @param descontado 
 	 */
+	
+	
 	public VistaTicket(Entrada[] entradasArray, String dni_usuario, Cliente[] usuarios, String[] cinesYSalas, float descontado) {
-		
+		//con este metodo abrimos un ticket nuevo e introducimos las entradas compradas
 		metodos.compraRealizada(entradasArray, dni_usuario, descontado);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,10 +54,11 @@ public class VistaTicket extends JFrame implements ActionListener {
 		
 		labelNombreUser.setText(metodos.nombreUsuario(usuarios, dni_usuario));
 		
-		JLabel lblNewLabel_1 = new JLabel(", Tu compra ha sido registrada.");
+		JLabel lblNewLabel_1 = new JLabel(", tu compra ha sido registrada.");
 		lblNewLabel_1.setBounds(130, 24, 212, 14);
 		contentPane.add(lblNewLabel_1);
 		
+		//al pulsar este boton nos imprime en factura.txt todos los datos relacionados con la compra
 		btnImprimirFactura = new JButton("Imprimir factura");
 		btnImprimirFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -81,6 +84,7 @@ public class VistaTicket extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		//al pulsar el boton Inicio nos devuelve a la vista Cines
 		this.dispose();
 	}
 }

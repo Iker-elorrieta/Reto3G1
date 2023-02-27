@@ -58,6 +58,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 	 * @param users
 	 */
 	public VistaLogin(Entrada[] entradas, String[] cinesYsalas, float costeTotConDescuento) {
+		//se carga el array con los usuarios de la BD y se pasan los datos de resumen a variables locales
 		usuarios = metodos.usuariosArray();
 		this.entradas = entradas;
 		cinesYSalas = cinesYsalas;
@@ -182,14 +183,15 @@ public class VistaLogin extends JFrame implements ActionListener {
 		contentPane.add(atras);
 
 	}
-
+//Aqui se revisa el contenido de los labels y se les cambia el color en consecuencia ademas de informarse con un mensaje
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == atras) {
+			//Al pulsar volver se va a la vista cine y se limpian los arrays de entradas y peliculas, asi, si se pulsa finalizar se cierra el programa
 			this.dispose();
-			VistaCines.entradas_compradas = null;
 		} else if (e.getSource() == validarBtn) {
+			//si se pulsa el boton de iniciar sesion, se verifican los campos, si es incorrecto se muestra en rojo
 			labelIncorrecto.setVisible(false);
 			String dni = jUser.getText();
 			String pass = String.valueOf(jPassw.getPassword());
@@ -204,14 +206,25 @@ public class VistaLogin extends JFrame implements ActionListener {
 				labelIncorrecto.setVisible(true);
 			}
 		} else if (e.getSource() == registrarseBtn) {
-
-			if (metodos.validarDni(dni_reg.getText(), usuarios)) {
+			//Aqui se verifican los campos de la persona que se quiere registrar
+			//Si cumple los requisitos al pulsar validar se mostrara el campo en verde
+			
+			if (metodos.validarDni(dni_reg.getText())) {
+				
 				for (int i = 0; i < usuarios.length; i++) {
-					if (!dni_reg.getText().equals(usuarios[i].getDni()))
-						dni_reg.setBackground(Color.GREEN);
+					if (dni_reg.getText().equals(usuarios[i].getDni())) {
+						JOptionPane.showMessageDialog(null, "Este usuario ya existe en la base de datos.", "Error",
+								JOptionPane.INFORMATION_MESSAGE);
+						dni_reg.setBackground(Color.RED);
+					}
 				}
-			} else
+				if(dni_reg.getBackground() != Color.RED) {
+					dni_reg.setBackground(Color.GREEN);
+				}
+				
+			} else {
 				dni_reg.setBackground(Color.RED);
+			}
 
 			if (metodos.esVacio(nombre_reg.getText()))
 				nombre_reg.setBackground(Color.RED);
@@ -245,7 +258,14 @@ public class VistaLogin extends JFrame implements ActionListener {
 						String.valueOf(pass_reg.getPassword()));
 				limpiarCamposReg();
 				tabbedPane.setSelectedIndex(0);
-
+				labelIncorrecto.setVisible(false);
+				dni_reg.setBackground(jUser.getBackground());
+				nombre_reg.setBackground(jUser.getBackground());
+				apell1_reg.setBackground(jUser.getBackground());
+				apell2_reg.setBackground(jUser.getBackground());
+				pass_reg.setBackground(jUser.getBackground());
+				passval_reg.setBackground(jUser.getBackground());
+				
 				JOptionPane.showMessageDialog(null, "Prueba a hacer login.", "Registrado correctamente",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
@@ -256,7 +276,7 @@ public class VistaLogin extends JFrame implements ActionListener {
 		}
 
 	}
-
+//Aqui se limpian los campos
 	public void limpiarCamposReg() {
 		dni_reg.setText("");
 		nombre_reg.setText("");

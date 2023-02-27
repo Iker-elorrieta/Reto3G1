@@ -3,20 +3,16 @@ package vista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import java.util.Properties;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
+import com.toedter.calendar.JCalendar;
 
 import controlador.Metodos;
 import modelo.Cine;
-import modelo.DateLabelFormatter;
 import modelo.Entrada;
 import modelo.Pelicula;
 import modelo.Sesion;
@@ -29,6 +25,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class VistaPeliculas extends JFrame implements ActionListener {
 
@@ -56,6 +54,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	private JLabel labelHorario;
 	private JButton aceptarHora;
 	private Entrada[] entradas;
+	private JCalendar calendario;
+	private Date fecha;
 	/**
 	 * Launch the application.
 	 */
@@ -65,6 +65,8 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	 * @param entradas_compradas 
 	 */
 	public VistaPeliculas(Cine cineEscojido, Entrada[] entradas_compradas) {
+		
+		//cargamos los datos enviados de vistaCines y los metemos en variables locales para manipularlas más facilmente
 		cine = cineEscojido;
 		entradas = metodos.siguienteEntrada(entradas_compradas);
 		entradas_compradas=entradas;
@@ -98,18 +100,18 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {""}));
 		horaCB.setSelectedIndex(0);
 		horaCB.setMaximumRowCount(50);
-		horaCB.setBounds(415, 92, 271, 29);
+		horaCB.setBounds(461, 89, 271, 29);
 		tabSesiones.add(horaCB);
 		horaCB.setVisible(false);
 		
-		labelNombrePelicula = new JLabel("AAAAAA");
+		labelNombrePelicula = new JLabel("");
 		labelNombrePelicula.setHorizontalAlignment(SwingConstants.LEFT);
 		labelNombrePelicula.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		labelNombrePelicula.setBounds(136, 184, 180, 42);
 		tabSesiones.add(labelNombrePelicula);
 
 		labelDuracion = new JLabel("");
-		labelDuracion.setBounds(515, 62, 135, 29);
+		labelDuracion.setBounds(561, 59, 135, 29);
 		tabSesiones.add(labelDuracion);
 
 		lblNewLabel = new JLabel("Nombre Pelicula:");
@@ -120,27 +122,26 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		lblNewLabel_1.setBounds(78, 238, 68, 14);
 		tabSesiones.add(lblNewLabel_1);
 
-		labelGeneroPelicula = new JLabel("AAAAAA");
+		labelGeneroPelicula = new JLabel("");
 		labelGeneroPelicula.setHorizontalAlignment(SwingConstants.CENTER);
 		labelGeneroPelicula.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		labelGeneroPelicula.setBounds(115, 223, 100, 42);
 		tabSesiones.add(labelGeneroPelicula);
 
+		//aqui se manda el cine para sacarnos sus peliculas y se introducen en forma de botones
+		//al seleccionar una fecha se hara visible un comboBox con la hora y la sala si hay ese dia, de lo contrario nos lo hara saber
 		peliculas = metodos.cargarPeliculas(cine);
 		botonesPelis(peliculas);
-		
-		UtilDateModel model = new UtilDateModel();
-		Properties p = new Properties();
-		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		tabSesiones.setLayout(null);
-		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		datePicker.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Date fecha = (Date) datePicker.getModel().getValue();
-				String[] horas = new String[0];
+		calendario = new JCalendar();
+		calendario.addPropertyChangeListener("calendar", new PropertyChangeListener() {
+		    @Override
+		    public void propertyChange(PropertyChangeEvent e) {
+		    	fecha = calendario.getDate();
+		    	String[] horas = new String[0];
+		    	
 				if (fecha != null)
 					horas = metodos.horarioSesiones(pelicula, cine, fecha);
-				
+
 				if (horas.length != 0) {
 					horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
 					horaCB.setVisible(true);
@@ -150,7 +151,10 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 						horaCB.addItem(horas[horasN]);
 					}
 				} else {
-					datePicker.getModel().setValue(null);
+					horaCB.setModel(new DefaultComboBoxModel<String>(new String[] {"-------------------------"}));
+					horaCB.setVisible(false);
+					aceptarHora.setVisible(false);
+					labelHorario.setVisible(false);
 					JOptionPane.showMessageDialog(null,
 						"Parece que no hay sesion para esa pelicula el dia que has seleccionado.\n"
 						+ "¿Porqué no pruebas a buscar sesion en otro dia?",
@@ -159,31 +163,38 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 				}
 			}
 		});
-		datePicker.setBounds(170, 11, 202, 23);
-		tabSesiones.add(datePicker);
+		calendario.getMonthChooser().getComboBox().setEnabled(false);
+		calendario.getYearChooser().getSpinner().setEnabled(false);
+		calendario.setLocation(212, 5);
+		calendario.setSize(219, 168);
+		tabSesiones.add(calendario);
+		
+		tabSesiones.setLayout(null);
 		
 		JLabel lblNewLabel_2 = new JLabel("Coste:");
 		lblNewLabel_2.setBounds(83, 283, 48, 14);
 		tabSesiones.add(lblNewLabel_2);
 		
-		labelCoste = new JLabel("AAAAAA");
+		labelCoste = new JLabel("");
 		labelCoste.setHorizontalAlignment(SwingConstants.LEFT);
 		labelCoste.setBounds(141, 283, 74, 14);
 		tabSesiones.add(labelCoste);
 		
 		labelHorario = new JLabel("Horario:");
-		labelHorario.setBounds(417, 67, 89, 14);
+		labelHorario.setBounds(463, 64, 89, 14);
 		labelHorario.setVisible(false);
 		tabSesiones.add(labelHorario);
 		
 		aceptarHora = new JButton("Seleccionar Hora");
-		aceptarHora.setBounds(415, 135, 135, 23);
+		aceptarHora.setBounds(461, 132, 135, 23);
 		aceptarHora.setVisible(false);
 		aceptarHora.addActionListener(this);
 		tabSesiones.add(aceptarHora);
 		
 	}
-
+	
+	//Aqui se generan los botones de peliculas de forma dinamica segun el cine que se mande
+	//cuando se pulsa una, se manda el rango de dias en las que hay sesiones
 	public void botonesPelis(Pelicula[] peliculas) {
 		int y1 = 40;
 
@@ -197,8 +208,11 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 					tabbedPane.setEnabledAt(0, false);
 					tabbedPane.setEnabledAt(1, true);
 					tabbedPane.setSelectedIndex(1);
-					labelNombrePelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getNombre());
-					labelDuracion.setText("Duracion: "+peliculas[Integer.valueOf(btnpeli.getToolTipText())].getDuracion() + " minutos");
+					Date[] fechaMaxfechaMin=metodos.fechasPelicula(cine, pelicula);
+					calendario.setSelectableDateRange(fechaMaxfechaMin[0], fechaMaxfechaMin[fechaMaxfechaMin.length-1]);
+					calendario.setDate(fechaMaxfechaMin[fechaMaxfechaMin.length-1]);
+					labelNombrePelicula.setText(pelicula.getNombre());
+					labelDuracion.setText("Duracion: "+pelicula.getDuracion() + " minutos");
 					labelGeneroPelicula.setText(peliculas[Integer.valueOf(btnpeli.getToolTipText())].getGenero());
 					labelCoste.setText(metodos.sacarPrecio(peliculas[Integer.valueOf(btnpeli.getToolTipText())])+"€");
 				}
@@ -219,13 +233,16 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
+		//si pulsamos atras nos manda de vuelta a VistaCines
 		if (e.getSource()==atras)
 			this.dispose();
 		else if(e.getSource()==aceptarHora) {
+			//Si pulsamos aceptar Hora nos crea una entrada con los valores seleccionados
+			
 			if (!String.valueOf(horaCB.getSelectedItem()).equals("-------------------------")) {
 			String[] horaSala = String.valueOf(horaCB.getSelectedItem()).split(" - ");
 			String hora = horaSala[0];
-			Date fecha = (Date) datePicker.getModel().getValue();
 			String sala = horaSala[1];
 			Sesion sesion=metodos.queSesion(cine, sala, fecha, hora, pelicula);
 			entradas[entradas.length-1]=metodos.nuevaEntrada(sesion, entradas.length);
@@ -246,12 +263,13 @@ public class VistaPeliculas extends JFrame implements ActionListener {
 		}
 	}
 	
+	//Aqui tenemos dos funciones que llaman las otras clases para recibir el array de las entradas o para limpiarlas.
 	public Entrada[] obtenerEntradas() {
 		return entradas;
 	}
 	
 	public Entrada[] limpiarEntradas() {
-		entradas=new Entrada[1];
+		entradas=new Entrada[0];
 		return entradas;
 	}
 }

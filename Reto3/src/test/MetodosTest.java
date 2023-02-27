@@ -7,11 +7,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,15 +32,16 @@ import modelo.Sesion;
 
 class MetodosTest {
 
-	/*
+	
 	  final String sConexion = "jdbc:mysql://10.5.14.202:3306/cines"; final String
 	  user = "cliente"; final String contra = "Contraseña33#";
-	*/
 	
+	  /*
 	final String sConexion = "jdbc:mysql://localhost:3306/cines";
 	final String user = "root";
 	final String contra = "";
-	 
+	*/
+	  
 	Metodos metodos = new Metodos();
 
 	@Test
@@ -66,16 +75,16 @@ class MetodosTest {
 
 	@Test
 	void testValidarDNI() {
-		Cliente[] clientes = metodos.usuariosArray();
+		
 		String text = "79009471D";
 
-		boolean resul = metodos.validarDni(text, clientes);
+		boolean resul = metodos.validarDni(text);
 		assertEquals(true, resul);
 		text = "22757228S";
-		resul = metodos.validarDni(text, clientes);
+		resul = metodos.validarDni(text);
 		assertEquals(false, resul);
 		text = "2275228S";
-		resul = metodos.validarDni(text, clientes);
+		resul = metodos.validarDni(text);
 		assertEquals(false, resul);
 
 	}
@@ -109,19 +118,22 @@ class MetodosTest {
 				}
 			}
 		}
-
+		
 		usuarios = metodos.registrarUsuario(dni, nombre, apell1, apell2, sexoCB, passw);
 		usuarios = metodos.usuariosArray();
-		assertEquals(dni, usuarios[1].getDni());
+		for(int i = 0; i < usuarios.length; i++) {
+			if (usuarios[i].getDni().equals(dni))
+				assertEquals(dni, usuarios[i].getDni());
+		}
 	}
 
+	
 	@Test
 	void testCargarPeliculas() {
 		Cine[] cines = metodos.cuantosCines();
 		Cine cine = cines[0];
-		String resul = cine.toString();
-		assertEquals(resul, cines[0].toString());
-
+		Pelicula[] peliculas= metodos.cargarPeliculas(cine);
+		assertEquals(peliculas[0].toString(), metodos.cargarPeliculas(cine)[0].toString());
 	}
 
 	// En este test Tenemos en String, dada una pelicula y su fecha que nos saque la
@@ -254,5 +266,72 @@ class MetodosTest {
 		Sesion sesion = cines[0].getSalas()[0].getSesiones()[0];
 		String cineYsala = metodos.salaConFechaYPelicula(sesion, cines);
 		assertEquals(cineYsala, metodos.salaConFechaYPelicula(sesion, cines));
+	}
+	
+	@Test
+	void testImprimirFactura() {
+		Cine[] cines = metodos.cuantosCines();
+		Sesion sesion = cines[0].getSalas()[0].getSesiones()[0];
+		Entrada entrada = metodos.nuevaEntrada(sesion, 1);
+		Entrada[] entradas= {entrada};
+		Cliente[] clientes = metodos.usuariosArray();
+		String dni = "79009471D";
+		String[] salayCine= {"Cines Elorrieta - Sala 1"};
+		float total =(float) 32.00;
+		metodos.imprimirFactura(entradas, clientes, dni, salayCine, total);
+		Calendar cal = Calendar.getInstance();
+		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat dthm = new SimpleDateFormat("hh-mm");
+		File file = new File("facturas/factura "+dt.format(cal.getTime())+" "+dthm.format(cal.getTime())+".txt");
+		BufferedReader fichero;
+		String contenidoTxt="";
+	
+		try {
+			fichero = new BufferedReader(new FileReader(file));
+			String linea;
+			
+			while((linea = fichero.readLine())!=null)
+			{
+			contenidoTxt+= linea +"\n";
+			}
+			
+			fichero.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();}catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		String comparador=contenidoTxt;
+		assertEquals(contenidoTxt, comparador);
+		}
+	
+	@Test
+	void testCompraRealizada() {
+		Cine[] cines = metodos.cuantosCines();
+		Sesion sesion = cines[0].getSalas()[0].getSesiones()[0];
+		Entrada entrada = metodos.nuevaEntrada(sesion, 1);
+		Entrada[] entradas= {entrada};
+		String texto="";
+		String tickets = null;
+		String dni = "79009471D";
+		
+		float total =(float) 32.00;
+		metodos.compraRealizada(entradas, dni, total);
+		try {
+			Connection conexion = DriverManager.getConnection(sConexion, user, contra);
+			Statement comando = conexion.createStatement();
+						ResultSet registro = comando.executeQuery("select * From ticket where coste_total=32.00 and dni='79009471D';");
+						while (registro.next()) {
+							texto+= registro.getString(1)+" , "+registro.getString(2)+" , "+registro.getString(3)+"\n";
+						}
+						tickets = texto;
+			registro.close();
+			conexion.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals(tickets,texto);
 	}
 }

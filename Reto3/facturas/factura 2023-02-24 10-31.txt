@@ -1,0 +1,8 @@
+Hola clemen, a continuacion te imprimimos la informacion pertinante a la compra:
+
+Num_Entrada	Pelicula	Cine - Sala					Dia			Hora	Precio	Fecha compra
+	1		Oblivion	Cines Elorrieta - Sala 5	2023-03-11	18:00	3.8€	2023-02-24
+	2		Uncharted	Cinesa - Sala 3	2023-03-23	16:00	6.1€	2023-02-24
+------------------------------------------------------------------------------------------------------
+Como has comprado 2 entradas, te hemos hecho un descuento del 20%
+El coste final es: 7.9€

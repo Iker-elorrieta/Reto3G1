@@ -1,8 +1,7 @@
 Hola clemen, a continuacion te imprimimos la informacion pertinante a la compra:
 
 Num_Entrada	Pelicula	Cine - Sala					Dia			Hora	Precio	Fecha compra
-	1		Sharknado	Cinesa - Sala 1				2023-03-01	18:00	2.7€	2023-02-21
-	2		Oblivion	Cines Elorrieta - Sala 1	2023-03-02	18:00	3.8€	2023-02-21
+	1		El Renacido	Cines Elorrieta - Sala 2	2023-03-26	18:00	3.8€	2023-02-24
 ------------------------------------------------------------------------------------------------------
-Como has comprado 2 entradas, te hemos hecho un descuento del 20%
-El coste final es: 5.2€
+Como has comprado 1 entradas, te hemos hecho un descuento del 10%
+El coste final es: 3.4€
